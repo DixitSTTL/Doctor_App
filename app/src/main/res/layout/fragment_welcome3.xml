@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.nike.doctorapp.utils.EnumGender" />
+
+        <variable
+            name="generalClickListener"
+            type="com.nike.doctorapp.businesslogic.interfaces.GeneralClickListener" />
+
+        <variable
+            name="mViewmodel"
+            type="com.nike.doctorapp.businesslogic.viewmodels.fragment.FragViewModelWel3" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.fragment.FragmentWelcome3">
+
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="15dp"
+            android:elevation="3dp"
+            android:src="@drawable/ic_main_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/gilroy_medium"
+            android:text="A little about yourself"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/imageView3"
+            app:layout_constraintStart_toStartOf="@+id/imageView3"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/gilroy_medium"
+            android:gravity="center"
+            android:text="Ed laoreet eros laoreet."
+            android:textColor="@color/grayscale2"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/imageView3"
+            app:layout_constraintStart_toStartOf="@+id/imageView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:backgroundTint="@color/main_color"
+            android:onClick="@{generalClickListener::onClick}"
+            android:text="Continue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:layout_constraintVertical_bias="0.25">
+
+
+            <LinearLayout
+                android:id="@+id/llmale"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:onClick="@{generalClickListener::onClick}"
+                android:orientation="horizontal"
+                android:paddingVertical="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/llFemale"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/main_10"
+                    android:padding="15dp"
+                    android:backgroundTint="@{mViewmodel.observeGender==EnumGender.MALE? @color/main_color :@color/grayscale4}"
+                    android:src="@drawable/ic_male"
+                    android:tint="@{mViewmodel.observeGender==EnumGender.MALE? @color/white :@color/black}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:fontFamily="@font/gilroy_semibold"
+                    android:text="Male"
+                    android:textSize="18sp"
+                    android:textColor="@{mViewmodel.observeGender==EnumGender.MALE? @color/main_color :@color/black}" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llFemale"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:onClick="@{generalClickListener::onClick}"
+                android:orientation="horizontal"
+                android:paddingVertical="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/llmale"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/main_10"
+                    android:padding="15dp"
+                    android:backgroundTint="@{mViewmodel.observeGender==EnumGender.FEMALE? @color/main_color :@color/grayscale4}"
+
+                    android:src="@drawable/ic_female"
+                    android:tint="@{mViewmodel.observeGender==EnumGender.FEMALE? @color/white :@color/black}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:fontFamily="@font/gilroy_semibold"
+                    android:text="Female"
+                    android:textSize="18sp"
+                    android:textColor="@{mViewmodel.observeGender==EnumGender.FEMALE? @color/main_color :@color/black}" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
