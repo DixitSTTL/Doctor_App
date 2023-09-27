@@ -1,33 +1,52 @@
 package com.nike.doctorapp.view.fragment;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.nike.doctorapp.R;
 import com.nike.doctorapp.businesslogic.interfaces.GeneralClickListener;
 import com.nike.doctorapp.businesslogic.viewmodels.fragment.FragViewModelWel3;
 import com.nike.doctorapp.databinding.FragmentWelcome3Binding;
+import com.nike.doctorapp.model.DateModel;
 import com.nike.doctorapp.utils.EnumGender;
-import com.nike.doctorapp.utils.EnumUser;
+import com.nike.doctorapp.view.BaseFragment;
 
-public class FragmentWelcome3 extends Fragment {
+import java.util.Calendar;
+
+public class FragmentWelcome3 extends BaseFragment {
 
     FragViewModelWel3 mViewmodel;
     FragmentWelcome3Binding mBinding;
+    GeneralClickListener generalClickListener = new GeneralClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (view == mBinding.llmale) {
+                mViewmodel.observeGender.set(EnumGender.MALE);
+            } else if (view == mBinding.llFemale) {
+                mViewmodel.observeGender.set(EnumGender.FEMALE);
+            } else if (view == mBinding.ccBirthday) {
+
+
+                showDatePicker();
+
+            }
+        }
+    };
+
+
     public FragmentWelcome3() {
         // Required empty public constructor
     }
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,7 +59,7 @@ public class FragmentWelcome3 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(getLayoutInflater(),R.layout.fragment_welcome3, container, false);
+        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_welcome3, container, false);
         mViewmodel = new ViewModelProvider(getActivity()).get(FragViewModelWel3.class);
         // Inflate the layout for this fragment
         return mBinding.getRoot();
@@ -52,16 +71,34 @@ public class FragmentWelcome3 extends Fragment {
         mBinding.setMViewmodel(mViewmodel);
         mBinding.setGeneralClickListener(generalClickListener);
     }
-    GeneralClickListener generalClickListener = new GeneralClickListener() {
-        @Override
-        public void onClick(View view) {
-            if (view == mBinding.llmale) {
-                mViewmodel.observeGender.set(EnumGender.MALE);
-            } else if (view == mBinding.llFemale) {
-                mViewmodel.observeGender.set(EnumGender.FEMALE);
-            } else {
 
-            }
-        }
-    };
+    private void showDatePicker() {
+
+        final Calendar c = Calendar.getInstance();
+
+        // on below line we are getting
+        // our day, month and year.
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                // on below line we are passing context.
+                mContext,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+
+                        DateModel model = new DateModel(String.valueOf(dayOfMonth), String.valueOf(monthOfYear + 1), String.valueOf(year));
+                        mViewmodel.observeDate.set(model);
+
+                    }
+                },
+
+                year, month, day);
+
+        datePickerDialog.show();
+
+    }
 }

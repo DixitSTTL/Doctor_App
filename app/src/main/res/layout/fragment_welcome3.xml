@@ -83,25 +83,38 @@
             app:layout_constraintTop_toBottomOf="@+id/textView4"
             app:layout_constraintVertical_bias="0.25">
 
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:fontFamily="@font/gilroy_semibold"
+                android:text="Your gender"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
             <LinearLayout
                 android:id="@+id/llmale"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:onClick="@{generalClickListener::onClick}"
                 android:orientation="horizontal"
                 android:paddingVertical="20sp"
                 app:layout_constraintEnd_toStartOf="@+id/llFemale"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/textView5">
 
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:background="@drawable/main_10"
-                    android:padding="15dp"
                     android:backgroundTint="@{mViewmodel.observeGender==EnumGender.MALE? @color/main_color :@color/grayscale4}"
+                    android:padding="15dp"
                     android:src="@drawable/ic_male"
                     android:tint="@{mViewmodel.observeGender==EnumGender.MALE? @color/white :@color/black}" />
 
@@ -111,8 +124,8 @@
                     android:layout_marginLeft="30dp"
                     android:fontFamily="@font/gilroy_semibold"
                     android:text="Male"
-                    android:textSize="18sp"
-                    android:textColor="@{mViewmodel.observeGender==EnumGender.MALE? @color/main_color :@color/black}" />
+                    android:textColor="@{mViewmodel.observeGender==EnumGender.MALE? @color/main_color :@color/black}"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -126,14 +139,14 @@
                 android:paddingVertical="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/llmale"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="@+id/llmale">
 
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:background="@drawable/main_10"
-                    android:padding="15dp"
                     android:backgroundTint="@{mViewmodel.observeGender==EnumGender.FEMALE? @color/main_color :@color/grayscale4}"
+                    android:padding="15dp"
 
                     android:src="@drawable/ic_female"
                     android:tint="@{mViewmodel.observeGender==EnumGender.FEMALE? @color/white :@color/black}" />
@@ -144,9 +157,92 @@
                     android:layout_marginLeft="30dp"
                     android:fontFamily="@font/gilroy_semibold"
                     android:text="Female"
-                    android:textSize="18sp"
-                    android:textColor="@{mViewmodel.observeGender==EnumGender.FEMALE? @color/main_color :@color/black}" />
+                    android:textColor="@{mViewmodel.observeGender==EnumGender.FEMALE? @color/main_color :@color/black}"
+                    android:textSize="18sp" />
             </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:fontFamily="@font/gilroy_semibold"
+                android:text="Your birthday"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/llmale" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ccBirthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="12dp"
+                android:onClick="@{generalClickListener::onClick}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+                <TextView
+                    android:id="@+id/textView7"
+                    style="@style/birthdayUpper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Day"
+                    app:layout_constraintStart_toStartOf="@+id/textView8"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    style="@style/birthdayUpper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Month"
+                    app:layout_constraintStart_toStartOf="@+id/textView9"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    style="@style/birthdayUpper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Year"
+                    app:layout_constraintStart_toStartOf="@+id/textView10"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/textView8"
+                    style="@style/birthdayLower"
+                    android:layout_width="100dp"
+                    android:text="@{mViewmodel.observeDate.day}"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    style="@style/birthdayLower"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@{mViewmodel.observeDate.month}"
+
+                    app:layout_constraintStart_toEndOf="@+id/textView8"
+                    app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    style="@style/birthdayLower"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@{mViewmodel.observeDate.year}"
+                    app:layout_constraintStart_toEndOf="@+id/textView9"
+                    app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

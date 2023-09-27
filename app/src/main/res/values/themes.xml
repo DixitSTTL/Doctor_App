@@ -10,6 +10,21 @@
 
     </style>
 
+    <style name="birthdayUpper" >
+        <item name="android:textColor">@color/grayscale2</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/gilroy_medium</item>
+    </style>
+    <style name="birthdayLower" >
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:background">@drawable/bor_black_8</item>
+
+        <item name="android:fontFamily">@font/gilroy_medium</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
 
     <style name="splashTheme" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/white</item>
