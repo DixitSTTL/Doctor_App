@@ -6,7 +6,7 @@
     <data>
         <variable
             name="generalClickListener"
-            type="com.nike.doctorapp.businesslogic.interfaces.GeneralClickListener" />
+            type="com.app.doctorapp.businesslogic.interfaces.GeneralClickListener" />
 
     </data>
 
@@ -91,7 +91,7 @@
 
         <Button
             android:id="@+id/button"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:backgroundTint="@color/main_color"

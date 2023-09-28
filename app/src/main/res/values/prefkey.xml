@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="user_name">user_name</string>
+    <string name="user_email">user_email</string>
+    <string name="user_mobile">user_mobile</string>
+    <string name="user_password">user_password</string>
+    <string name="user_gender">user_gender</string>
+    <string name="user_type">user_type</string>
+    <string name="user_birthdate">user_birthdate</string>
+
+
+</resources>

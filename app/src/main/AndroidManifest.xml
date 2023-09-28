@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:allowBackup="true"
         android:name=".MyApplication"
+        android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_logo_main"
@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorApp"
         tools:targetApi="31">
+
         <activity
             android:name=".view.activity.SplashActivity"
             android:exported="true"
@@ -26,15 +27,11 @@
         <activity
             android:name=".view.activity.MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activity.WelcomeActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

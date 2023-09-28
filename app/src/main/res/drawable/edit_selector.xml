@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/bor_black_8" android:state_focused="true"  />
+    <item android:drawable="@drawable/edit_bg_8" android:state_focused="false"/>
+</selector>

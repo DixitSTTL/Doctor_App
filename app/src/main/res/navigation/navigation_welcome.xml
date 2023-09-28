@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragmentWelcome1"
-        android:name="com.nike.doctorapp.view.fragment.FragmentWelcome1"
+        android:name="com.app.doctorapp.view.fragment.FragmentWelcome1"
         android:label="fragment_welcome1"
         tools:layout="@layout/fragment_welcome1" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentWelcome2"
-        android:name="com.nike.doctorapp.view.fragment.FragmentWelcome2"
+        android:name="com.app.doctorapp.view.fragment.FragmentWelcome2"
         android:label="fragment_welcome2"
         tools:layout="@layout/fragment_welcome2" >
         <action
@@ -25,7 +25,35 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentWelcome3"
-        android:name="com.nike.doctorapp.view.fragment.FragmentWelcome3"
+        android:name="com.app.doctorapp.view.fragment.FragmentWelcome3"
         android:label="fragment_welcome3"
-        tools:layout="@layout/fragment_welcome3" />
+        tools:layout="@layout/fragment_welcome3" >
+        <action
+            android:id="@+id/action_fragmentWelcome3_to_fragmentSignIn"
+            app:destination="@id/fragmentSignIn" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentSignIn"
+        android:name="com.app.doctorapp.view.fragment.FragmentSignIn"
+        android:label="FragmentSignIn" >
+        <action
+            android:id="@+id/action_fragmentSignIn_to_fragmentSignUp"
+            app:destination="@id/fragmentSignUp"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentSignUp"
+        android:name="com.app.doctorapp.view.fragment.FragmentSignUp"
+        android:label="FragmentSignUp" >
+        <action
+            android:id="@+id/action_fragmentSignUp_to_fragmentSignIn"
+            app:destination="@id/fragmentSignIn" />
+        <action
+            android:id="@+id/action_fragmentSignUp_to_fragmentOTP"
+            app:destination="@id/fragmentOTP" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentOTP"
+        android:name="com.app.doctorapp.view.fragment.FragmentOTP"
+        android:label="FragmentOTP" />
 </navigation>

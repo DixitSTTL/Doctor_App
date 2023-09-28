@@ -5,15 +5,15 @@
 
     <data>
 
-        <import type="com.nike.doctorapp.utils.EnumGender" />
+        <import type="com.app.doctorapp.utils.EnumGender" />
 
         <variable
             name="generalClickListener"
-            type="com.nike.doctorapp.businesslogic.interfaces.GeneralClickListener" />
+            type="com.app.doctorapp.businesslogic.interfaces.GeneralClickListener" />
 
         <variable
             name="mViewmodel"
-            type="com.nike.doctorapp.businesslogic.viewmodels.fragment.FragViewModelWel3" />
+            type="com.app.doctorapp.businesslogic.viewmodels.fragment.FragViewModelWel3" />
 
     </data>
 
@@ -65,7 +65,7 @@
 
         <Button
             android:id="@+id/button"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:backgroundTint="@color/main_color"

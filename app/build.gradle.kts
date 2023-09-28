@@ -1,15 +1,15 @@
 plugins {
     id("com.android.application")
     id("com.google.dagger.hilt.android")
-
+    id("com.google.gms.google-services")
 }
 
 android {
-    namespace = "com.nike.doctorapp"
+    namespace = "com.app.doctorapp"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.nike.doctorapp"
+        applicationId = "com.app.doctorapp"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -27,14 +27,6 @@ android {
             )
         }
 
-        debug {
-            isMinifyEnabled = false
-            applicationIdSuffix=".debug"
-
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-            )
-        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -95,4 +87,10 @@ dependencies {
     //navigation
     implementation("androidx.navigation:navigation-ui:2.7.3")
     implementation("androidx.navigation:navigation-fragment:2.7.3")
+
+    //auth
+    implementation ("com.google.firebase:firebase-auth:22.1.2")
+
+    //fire store
+    implementation ("com.google.firebase:firebase-firestore:24.8.1")
 }
