@@ -12,6 +12,7 @@ import com.app.doctorapp.utils.EnumGender;
 import com.app.doctorapp.utils.EnumUser;
 import com.app.doctorapp.utils.preference.UtilsSharedPreferences;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import javax.inject.Inject;
 
@@ -28,9 +29,11 @@ public class BaseViewModel extends ViewModel {
     protected Context context;
     @Inject
     protected FirebaseAuth mAuth;
+
+    @Inject
+    protected FirebaseFirestore db;
     @Inject
     protected UtilsSharedPreferences preferences;
-
     @Inject
     protected SchedulerProvider mSchedulers;
 

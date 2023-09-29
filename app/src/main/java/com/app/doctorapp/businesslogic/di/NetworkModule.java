@@ -8,6 +8,7 @@ import com.app.doctorapp.businesslogic.rx.AppSchedulerProvider;
 import com.app.doctorapp.businesslogic.rx.SchedulerProvider;
 import com.app.doctorapp.utils.preference.UtilsSharedPreferences;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import javax.inject.Singleton;
 
@@ -41,7 +42,12 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    FirebaseAuth providesFirebase() {
+    FirebaseAuth providesFireAuth() {
         return  FirebaseAuth.getInstance();
+    }
+    @Provides
+    @Singleton
+    FirebaseFirestore providesFireStore() {
+        return  FirebaseFirestore.getInstance();
     }
 }

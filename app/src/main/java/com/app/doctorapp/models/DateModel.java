@@ -1,4 +1,4 @@
-package com.app.doctorapp.model;
+package com.app.doctorapp.models;
 
 public class DateModel {
     String day;

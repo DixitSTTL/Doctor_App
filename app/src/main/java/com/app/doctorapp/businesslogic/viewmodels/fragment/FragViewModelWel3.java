@@ -3,9 +3,8 @@ package com.app.doctorapp.businesslogic.viewmodels.fragment;
 import androidx.databinding.ObservableField;
 
 import com.app.doctorapp.MyApplication;
-import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.viewmodels.BaseViewModel;
-import com.app.doctorapp.model.DateModel;
+import com.app.doctorapp.models.DateModel;
 
 import java.util.Calendar;
 

@@ -93,4 +93,8 @@ dependencies {
 
     //fire store
     implementation ("com.google.firebase:firebase-firestore:24.8.1")
+
+    //glide
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
 }

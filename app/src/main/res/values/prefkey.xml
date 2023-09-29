@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="user_login">user_login</string>
+
     <string name="user_name">user_name</string>
     <string name="user_email">user_email</string>
     <string name="user_mobile">user_mobile</string>
@@ -8,6 +10,12 @@
     <string name="user_gender">user_gender</string>
     <string name="user_type">user_type</string>
     <string name="user_birthdate">user_birthdate</string>
+    <string name="user_join_date">user_join_date</string>
+
+
+    <string name="user_category">user_category</string>
+    <string name="user_Rating">user_Rating</string>
+    <string name="user_review_count">user_review_count</string>
 
 
 </resources>

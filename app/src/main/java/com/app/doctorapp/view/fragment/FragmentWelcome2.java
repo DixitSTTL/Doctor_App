@@ -1,5 +1,8 @@
 package com.app.doctorapp.view.fragment;
 
+import static com.app.doctorapp.utils.ConstantData.USER_DOCTOR;
+import static com.app.doctorapp.utils.ConstantData.USER_PATIENT;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +54,7 @@ public class FragmentWelcome2 extends BaseFragment {
 
         mBinding.setMViewmodel(mViewmodel);
         mBinding.setGeneralClickListener(generalClickListener);
-        preferences.setString(R.string.user_type, "PATIENT");
+        preferences.setString(R.string.user_type, USER_PATIENT);
 
     }
 
@@ -61,11 +64,11 @@ public class FragmentWelcome2 extends BaseFragment {
 
             if (view == mBinding.llDoctor) {
                 mViewmodel.observeUser.set(EnumUser.DOCTOR);
-                preferences.setString(R.string.user_type, "DOCTOR");
+                preferences.setString(R.string.user_type, USER_DOCTOR);
 
             } else if (view == mBinding.llPatient) {
                 mViewmodel.observeUser.set(EnumUser.PATIENT);
-                preferences.setString(R.string.user_type, "PATIENT");
+                preferences.setString(R.string.user_type, USER_PATIENT);
 
             } else {
 

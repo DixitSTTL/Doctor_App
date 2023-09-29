@@ -35,8 +35,18 @@ public class BaseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mActivity = (BaseActivity) getActivity();
-//        mActivityMain = (MainActivity) getActivity();
-        mActivityWelcome = (WelcomeActivity) getActivity();
+        try {
+            mActivityMain = (MainActivity) getActivity();
+
+        } catch (Exception e) {
+
+        }
+        try {
+            mActivityWelcome = (WelcomeActivity) getActivity();
+
+        } catch (Exception e) {
+
+        }
         mContext = BaseFragment.this.getContext();
     }
 

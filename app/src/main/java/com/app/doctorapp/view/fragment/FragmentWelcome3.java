@@ -16,7 +16,7 @@ import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.interfaces.GeneralClickListener;
 import com.app.doctorapp.businesslogic.viewmodels.fragment.FragViewModelWel3;
 import com.app.doctorapp.databinding.FragmentWelcome3Binding;
-import com.app.doctorapp.model.DateModel;
+import com.app.doctorapp.models.DateModel;
 import com.app.doctorapp.utils.EnumGender;
 import com.app.doctorapp.view.BaseFragment;
 

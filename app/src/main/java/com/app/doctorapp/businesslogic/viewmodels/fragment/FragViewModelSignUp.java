@@ -4,6 +4,8 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
 
 import com.app.doctorapp.MyApplication;
 import com.app.doctorapp.R;
@@ -25,6 +27,7 @@ public class FragViewModelSignUp extends BaseViewModel {
     @Inject
     MyApplication myApplication;
 
+    public ObservableBoolean observeCheck = new ObservableBoolean(false);
 
     @Inject
     public FragViewModelSignUp(MyApplication myApplication) {
@@ -73,6 +76,7 @@ public class FragViewModelSignUp extends BaseViewModel {
     }
 
     private boolean validation() {
+
         if (TextUtils.isEmpty(observeName.get())) {
             Toast.makeText(myApplication, "Please enter name", Toast.LENGTH_SHORT).show();
             return false;
@@ -90,6 +94,10 @@ public class FragViewModelSignUp extends BaseViewModel {
             return false;
         } else if (observePass.get().length() < 6) {
             Toast.makeText(myApplication, "Please enter password", Toast.LENGTH_SHORT).show();
+
+            return false;
+        } else if (!observeCheck.get()) {
+            Toast.makeText(myApplication, "Please accept terms and privacy policies", Toast.LENGTH_SHORT).show();
 
             return false;
         }
