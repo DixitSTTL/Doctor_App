@@ -18,6 +18,7 @@ import com.app.doctorapp.businesslogic.interfaces.GeneralClickListener;
 import com.app.doctorapp.businesslogic.interfaces.GeneralItemClickListener;
 import com.app.doctorapp.businesslogic.viewmodels.fragment.FragViewModelHome;
 import com.app.doctorapp.databinding.FragmentHomeBinding;
+import com.app.doctorapp.models.UserDoctorModel;
 import com.app.doctorapp.view.BaseFragment;
 
 public class FragmentHome extends BaseFragment {
@@ -63,12 +64,15 @@ public class FragmentHome extends BaseFragment {
         @Override
         public void onClick(View view) {
 
+
         }
     };
 
     GeneralItemClickListener generalItemClickListener = new GeneralItemClickListener() {
         @Override
         public void onItemClick(View view, int position, Object item) {
+
+            mActivityMain.navigateDoctorDetails(mViewModel.observeDoctorList.get(position).getId());
 
         }
     };

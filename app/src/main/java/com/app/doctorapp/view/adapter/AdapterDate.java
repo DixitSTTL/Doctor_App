@@ -9,33 +9,31 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.interfaces.GeneralItemClickListener;
-import com.app.doctorapp.databinding.HolderDoctorBinding;
-import com.app.doctorapp.models.UserDoctorModel;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.app.doctorapp.databinding.HolderDateBinding;
+import com.app.doctorapp.models.DateModel;
 
 import java.util.List;
 
-public class AdapterDoctors extends RecyclerView.Adapter<AdapterDoctors.ViewHolder> {
+public class AdapterDate extends RecyclerView.Adapter<AdapterDate.ViewHolder> {
 
-    List<QueryDocumentSnapshot> itemList;
+    List<DateModel> itemList;
     GeneralItemClickListener listener;
 
-    public AdapterDoctors(List<QueryDocumentSnapshot> itemList, GeneralItemClickListener listener) {
+    public AdapterDate(List<DateModel> itemList, GeneralItemClickListener listener) {
         this.itemList = itemList;
         this.listener = listener;
     }
 
     @NonNull
     @Override
-    public AdapterDoctors.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        HolderDoctorBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.holder_doctor, parent, false);
+    public AdapterDate.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        HolderDateBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.holder_date, parent, false);
 
         return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterDoctors.ViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull AdapterDate.ViewHolder holder, int position) {
         holder.onBind();
     }
 
@@ -45,16 +43,15 @@ public class AdapterDoctors extends RecyclerView.Adapter<AdapterDoctors.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        HolderDoctorBinding binding;
+        HolderDateBinding binding;
 
-        public ViewHolder(@NonNull HolderDoctorBinding itemView) {
+        public ViewHolder(@NonNull HolderDateBinding itemView) {
             super(itemView.getRoot());
             binding = itemView;
         }
 
         public void onBind() {
-            UserDoctorModel userDoctorModel = itemList.get(getAdapterPosition()).toObject(UserDoctorModel.class);
-            binding.setModel(userDoctorModel);
+            binding.setModel(itemList.get(getAdapterPosition()));
             binding.setGeneralItemListener(listener);
             binding.setCurrentPosition(getAdapterPosition());
         }

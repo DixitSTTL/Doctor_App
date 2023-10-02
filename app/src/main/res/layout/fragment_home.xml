@@ -34,7 +34,7 @@
             app:subtitle="Warsaw, Poland"
             app:subtitleTextAppearance="@style/custom_toolbar_sub_title"
             app:subtitleTextColor="@color/grayscale2"
-            app:title="Wellcome Back, Mark!"
+            app:title="Welcome Back, Mark!"
             app:titleTextAppearance="@style/custom_toolbar_title"
             app:titleTextColor="@color/black" />
 
@@ -154,6 +154,7 @@
                     style="@style/page_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     android:text="Categories" />
 
                 <androidx.recyclerview.widget.RecyclerView

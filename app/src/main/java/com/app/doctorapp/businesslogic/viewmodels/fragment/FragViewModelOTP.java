@@ -1,6 +1,7 @@
 package com.app.doctorapp.businesslogic.viewmodels.fragment;
 
 import static android.content.ContentValues.TAG;
+import static com.app.doctorapp.utils.ConstantData.DOCTOR_DETAILS;
 import static com.app.doctorapp.utils.ConstantData.USER_DOCTOR;
 import static com.app.doctorapp.utils.ConstantData.USER_LOGIN;
 
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import com.app.doctorapp.MyApplication;
 import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.viewmodels.BaseViewModel;
+import com.app.doctorapp.models.DoctorDetailsModel;
 import com.app.doctorapp.models.UserDoctorModel;
 import com.app.doctorapp.models.UserPatientModel;
 import com.app.doctorapp.view.activity.MainActivity;
@@ -106,6 +108,8 @@ public class FragViewModelOTP extends BaseViewModel {
                     "Cardiologyst",
                     new Date());
             obj = model;
+            uploadDoctorDetails(uid);
+
         } else {
             UserPatientModel model = new UserPatientModel(
                     preferences.getString(R.string.user_name),
@@ -139,6 +143,34 @@ public class FragViewModelOTP extends BaseViewModel {
                 });
 
 
+    }
+
+    private void uploadDoctorDetails(String uid) {
+        DoctorDetailsModel model = new DoctorDetailsModel(
+                new Random().nextInt(20) + 80,
+                new Random().nextInt(15) + 2,
+                new Random().nextInt(200) + 100,
+                "Pellentesque placerat arcu in risus facilisis, sed laoreet eros laoreet...",
+                "3891 Ranchview Dr. Richardson,\n" +
+                        "San Francisco 62639"
+        );
+
+        db.collection(DOCTOR_DETAILS)
+                .document(uid)
+                .set(model)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        Log.w(TAG, "Error writing document", e);
+                    }
+                });
     }
 
 

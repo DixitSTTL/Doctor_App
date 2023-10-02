@@ -9,7 +9,11 @@
     <fragment
         android:id="@+id/fragmentHome"
         android:name="com.app.doctorapp.view.fragment.FragmentHome"
-        android:label="FragmentHome" />
+        android:label="FragmentHome" >
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentDoctorInfo"
+            app:destination="@id/fragmentDoctorInfo" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentReceipt"
         android:name="com.app.doctorapp.view.fragment.FragmentReceipt"
@@ -25,5 +29,9 @@
         android:name="com.app.doctorapp.view.fragment.FragmentProfile"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/fragmentDoctorInfo"
+        android:name="com.app.doctorapp.view.fragment.FragmentDoctorInfo"
+        android:label="FragmentDoctorInfo" />
 
 </navigation>

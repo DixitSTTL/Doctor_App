@@ -15,6 +15,8 @@ import com.app.doctorapp.models.CategoryModel;
 import com.app.doctorapp.models.UserDoctorModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.AggregateField;
+import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -28,7 +30,7 @@ public class FragViewModelHome extends BaseViewModel {
     MyApplication myApplication;
 
     public ObservableArrayList<CategoryModel> observeCategoryList = new ObservableArrayList<CategoryModel>();
-    public ObservableArrayList<UserDoctorModel> observeDoctorList = new ObservableArrayList<UserDoctorModel>();
+    public ObservableArrayList<QueryDocumentSnapshot> observeDoctorList = new ObservableArrayList<QueryDocumentSnapshot>();
 
 
     @Inject
@@ -74,9 +76,7 @@ public class FragViewModelHome extends BaseViewModel {
 
                         observeDoctorList.clear();
                         for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                            UserDoctorModel data = document.toObject(UserDoctorModel.class);
-                            observeDoctorList.add(data);
-
+                            observeDoctorList.add(document);
                         }
 
                     }
