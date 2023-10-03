@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -10,11 +10,14 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_logo_main"
         android:label="@string/app_name"
-        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_logo_main_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorApp"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBCePt75pMc6f84FXXxTUtwklglb9JUksQ" />
 
         <activity
             android:name=".view.activity.SplashActivity"
@@ -29,11 +32,11 @@
         <activity
             android:name=".view.activity.MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.WelcomeActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

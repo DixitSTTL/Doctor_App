@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.DoctorApp" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -101,17 +101,22 @@
         <item name="android:backgroundTint">@color/grayscale4</item>
         <item name="android:fontFamily">@font/gilroy_semibold</item>
         <item name="android:gravity">center</item>
-        <item name="android:paddingVertical">12sp</item>
+        <item name="android:paddingVertical" tools:targetApi="o">12sp</item>
     </style>
 
     <style name="splashTheme" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="android:windowSplashScreenBackground" tools:ignore="NewApi">@color/white</item>
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_logo_main_round</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:windowTranslucentStatus">true</item> <!--Transparent StatusBar-->
-        <item name="android:windowTranslucentNavigation">true</item> <!--Transparent Navigation-->
+        <item name="android:windowSplashScreenAnimatedIcon" tools:ignore="NewApi">@mipmap/ic_logo_main_round</item>
+<!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+<!--        <item name="android:windowTranslucentStatus">true</item> &lt;!&ndash;Transparent StatusBar&ndash;&gt;-->
+<!--        <item name="android:windowTranslucentNavigation">true</item> &lt;!&ndash;Transparent Navigation&ndash;&gt;-->
         <item name="windowSplashScreenAnimationDuration">1000</item> <!--Transparent Navigation-->
-        <item name="postSplashScreenTheme">@style/Theme.DoctorApp
-        </item> <!--Transparent Navigation-->
+        <item name="postSplashScreenTheme">@style/Theme.DoctorApp</item> <!--Transparent Navigation-->
     </style>
+
+
+
+
 </resources>

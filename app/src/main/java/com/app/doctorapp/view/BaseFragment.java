@@ -28,6 +28,7 @@ public class BaseFragment extends Fragment {
     protected MainActivity mActivityMain;
     protected WelcomeActivity mActivityWelcome;
     protected Context mContext;
+    protected boolean reLoaded = false;
 
 
     @Override

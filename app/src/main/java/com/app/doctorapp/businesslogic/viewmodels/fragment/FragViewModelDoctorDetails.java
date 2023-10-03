@@ -9,6 +9,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableInt;
 
 import com.app.doctorapp.MyApplication;
 import com.app.doctorapp.businesslogic.viewmodels.BaseViewModel;
@@ -34,6 +35,9 @@ public class FragViewModelDoctorDetails extends BaseViewModel {
     public ObservableField<UserDoctorModel> observeMainDetail = new ObservableField<>();
     public ObservableField<DoctorDetailsModel> observeSecondaryDetail = new ObservableField<>();
     public ObservableArrayList<DateModel> observeDateList = new ObservableArrayList<>();
+    public ObservableArrayList<String> observeTimeSlot = new ObservableArrayList<>();
+    public ObservableInt observeSelectedDate = new ObservableInt(-1);
+    public ObservableInt observeSelectedTime = new ObservableInt(-1);
 
 
     @Inject
@@ -83,10 +87,12 @@ public class FragViewModelDoctorDetails extends BaseViewModel {
                 });
 
 
+
     }
 
     private void loadCurrentDate() {
         observeDateList.clear();
+        observeTimeSlot.clear();
         Calendar calendar = Calendar.getInstance();
         for (int i = 0; i < 6; i++) {
             calendar.add(Calendar.HOUR, 24);
@@ -95,6 +101,12 @@ public class FragViewModelDoctorDetails extends BaseViewModel {
                     changeFormat(calendar),
                     String.valueOf(calendar.get(Calendar.YEAR))));
         }
+
+        observeTimeSlot.add("9:00");
+        observeTimeSlot.add("11:00");
+        observeTimeSlot.add("13:00");
+        observeTimeSlot.add("15:00");
+        observeTimeSlot.add("17:00");
 
     }
 

@@ -43,6 +43,10 @@ public class FragmentHome extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        if (mViewModel!= null){
+            reLoaded = true;
+            return mBinding.getRoot();
+        }
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_home, container, false);
         mViewModel = new ViewModelProvider(mActivityMain).get(FragViewModelHome.class);
         // Inflate the layout for this fragment
@@ -52,6 +56,9 @@ public class FragmentHome extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (reLoaded){
+            return;
+        }
         initToolbar();
         mBinding.setMViewmodel(mViewModel);
         mBinding.setGeneralListener(generalClickListener);
@@ -71,7 +78,6 @@ public class FragmentHome extends BaseFragment {
     GeneralItemClickListener generalItemClickListener = new GeneralItemClickListener() {
         @Override
         public void onItemClick(View view, int position, Object item) {
-
             mActivityMain.navigateDoctorDetails(mViewModel.observeDoctorList.get(position).getId());
 
         }
@@ -79,6 +85,7 @@ public class FragmentHome extends BaseFragment {
 
     private void initToolbar() {
         mActivityMain.setSupportActionBar(mBinding.toolbar);
+        mBinding.toolbar.setTitle("Welcome Back, "+preferences.getString(R.string.user_name)+"!");
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

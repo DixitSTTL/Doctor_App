@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("com.google.dagger.hilt.android")
     id("com.google.gms.google-services")
+
 }
 
 android {
@@ -60,7 +61,8 @@ dependencies {
         }
     }
 
-
+    //map
+    implementation("com.google.android.gms:play-services-maps:18.1.0")
 
     //livedata
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.6.1")

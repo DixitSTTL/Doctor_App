@@ -1,6 +1,7 @@
 package com.app.doctorapp.businesslogic.viewmodels.fragment;
 
 import static com.app.doctorapp.utils.ConstantData.USER_DOCTOR;
+import static com.app.doctorapp.utils.ConstantData.USER_LOGIN;
 import static com.app.doctorapp.utils.ConstantData.USER_PATIENT;
 
 import android.content.Intent;
@@ -81,9 +82,12 @@ public class FragViewModelSignIn extends BaseViewModel {
 
 
                         } else {
+                            preferences.setString(R.string.user_login, USER_LOGIN);
+
                             UserDoctorModel model = value.toObject(UserDoctorModel.class);
                             preferences.setString(R.string.user_email, observeEmail.get());
                             preferences.setString(R.string.user_password, observePass.get());
+                            preferences.setString(R.string.user_name, model.getUser_name());
                             preferences.setString(R.string.user_mobile, model.getUser_mobile());
                             preferences.setString(R.string.user_gender, model.getUser_gender());
                             preferences.setString(R.string.user_type, model.getUser_type());

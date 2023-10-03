@@ -57,6 +57,10 @@ public class MainActivity extends BaseActivity implements NavController.OnDestin
         navController.navigate(R.id.action_fragmentHome_to_fragmentDoctorInfo, bundle);
     }
 
+    public void navigatePrePayment() {
+        navController.navigate(R.id.action_fragmentDoctorInfo_to_fragmentPrePayment);
+    }
+
 
     public void navigateToNotification() {
 //        navController.navigate(R.id.action_fragmentWelcome1_to_fragmentWelcome2);

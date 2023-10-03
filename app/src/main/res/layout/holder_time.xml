@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="selected"
+            type="boolean" />
+        <variable
+            name="currentPosition"
+            type="int" />
+
+        <variable
+            name="time"
+            type="String" />
+
+        <variable
+            name="generalItemListener"
+            type="com.app.doctorapp.businesslogic.interfaces.GeneralItemClickListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/timeCC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="10sp"
+        android:backgroundTint="@{selected? @color/main_color :@color/white}"
+        android:background="@drawable/white_bg_8"
+        android:onClick="@{(v)->generalItemListener.onItemClick(v,currentPosition,time)}"
+        android:paddingVertical="10sp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gilroy_medium"
+            android:text="@{time}"
+            android:textSize="16sp"
+            android:textColor="@{selected? @color/white :@color/black}"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="23:00" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
