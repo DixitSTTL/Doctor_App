@@ -5,11 +5,11 @@ import android.content.Context;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.ViewModel;
 
-
 import com.app.doctorapp.MyApplication;
 import com.app.doctorapp.businesslogic.rx.SchedulerProvider;
 import com.app.doctorapp.utils.EnumGender;
 import com.app.doctorapp.utils.EnumUser;
+import com.app.doctorapp.utils.EnumVisibility;
 import com.app.doctorapp.utils.preference.UtilsSharedPreferences;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -45,6 +45,8 @@ public class BaseViewModel extends ViewModel {
     public ObservableField<String> observeEmail = new ObservableField<>();
     public ObservableField<String> observeMobile = new ObservableField<>();
     public ObservableField<String> observePass = new ObservableField<>();
+    public ObservableField<EnumVisibility> observeVisibility = new ObservableField<EnumVisibility>();
+
     @Inject
     public BaseViewModel() {
     }

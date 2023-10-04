@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/gilroy_semibold"
             android:text="@{model.day}"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="@{selected? @color/white :@color/black}"
 
             app:layout_constraintBottom_toTopOf="@+id/textView18"
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10sp"
             android:layout_marginTop="6dp"
-            android:fontFamily="@font/gilroy_semibold"
+            android:fontFamily="@font/gilroy_medium"
             android:text="@{model.month}"
             android:textSize="14sp"
             android:textColor="@{selected? @color/white :@color/grayscale2}"

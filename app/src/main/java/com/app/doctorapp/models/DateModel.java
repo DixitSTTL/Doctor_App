@@ -1,6 +1,11 @@
 package com.app.doctorapp.models;
 
-public class DateModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class DateModel implements Parcelable {
     String day;
     String month;
     String year;
@@ -33,5 +38,15 @@ public class DateModel {
 
     public void setYear(String year) {
         this.year = year;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+
     }
 }

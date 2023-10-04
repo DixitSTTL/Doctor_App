@@ -87,7 +87,6 @@ public class FragViewModelDoctorDetails extends BaseViewModel {
                 });
 
 
-
     }
 
     private void loadCurrentDate() {

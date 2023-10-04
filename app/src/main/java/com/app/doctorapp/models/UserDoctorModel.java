@@ -1,8 +1,13 @@
 package com.app.doctorapp.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.util.Date;
 
-public class UserDoctorModel {
+public class UserDoctorModel implements Parcelable {
 
     String user_name;
     String user_email;
@@ -32,6 +37,31 @@ public class UserDoctorModel {
         this.user_category = user_category;
         this.user_join_date = user_join_date;
     }
+
+    protected UserDoctorModel(Parcel in) {
+        user_name = in.readString();
+        user_email = in.readString();
+        user_birthdate = in.readString();
+        user_gender = in.readString();
+        user_type = in.readString();
+        user_mobile = in.readString();
+        user_image = in.readString();
+        user_Rating = in.readFloat();
+        user_review_count = in.readInt();
+        user_category = in.readString();
+    }
+
+    public static final Creator<UserDoctorModel> CREATOR = new Creator<UserDoctorModel>() {
+        @Override
+        public UserDoctorModel createFromParcel(Parcel in) {
+            return new UserDoctorModel(in);
+        }
+
+        @Override
+        public UserDoctorModel[] newArray(int size) {
+            return new UserDoctorModel[size];
+        }
+    };
 
     public String getUser_name() {
         return user_name;
@@ -119,5 +149,24 @@ public class UserDoctorModel {
 
     public void setUser_join_date(Date user_join_date) {
         this.user_join_date = user_join_date;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(user_name);
+        dest.writeString(user_email);
+        dest.writeString(user_birthdate);
+        dest.writeString(user_gender);
+        dest.writeString(user_type);
+        dest.writeString(user_mobile);
+        dest.writeString(user_image);
+        dest.writeFloat(user_Rating);
+        dest.writeInt(user_review_count);
+        dest.writeString(user_category);
     }
 }

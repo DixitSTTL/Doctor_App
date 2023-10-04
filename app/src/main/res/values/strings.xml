@@ -1,8 +1,53 @@
 <resources>
-    <string name="app_name">Doctor App</string>
+    <string name="app_name">Self Care</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="navigationDrawerOpen">open</string>
     <string name="navigationDrawerClose">close</string>
+    <string name="Patients">Patients</string>
+    <string name="Experiences">Experiences</string>
+    <string name="Ratings">Ratings</string>
+    <string name="Schedule">Schedule</string>
+    <string name="time">Time</string>
+    <string name="make_appointment">Make appointment</string>
+    <string name="about_a_doctor">About a Doctor</string>
+    <string name="Location">Location</string>
+    <string name="Recent">Recent</string>
+    <string name="Categories">Categories</string>
+    <string name="popular_doctors">Popular Doctors</string>
+    <string name="see_all">see all</string>
+    <string name="your_code">Your Code</string>
+    <string name="code_send_to_yor_email">Code send to yor Email</string>
+    <string name="resend_code">Resend Code?</string>
+    <string name="Verify">Verify</string>
+    <string name="thank_you">Thank you!</string>
+    <string name="Date">Date</string>
+    <string name="Cost">Cost:</string>
+    <string name="go_to_payment">Go to payment</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="password">Password</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="email">email</string>
+    <string name="full_name">Full Name</string>
+    <string name="mobile">Mobile</string>
+    <string name="already_have_account">Already have account?</string>
+    <string name="dont_have_an_account">Don’t have an account?</string>
+    <string name="manage_your_health">Manage your health and\nhappy future</string>
+    <string name="cancel_reservation">Cancel reservation</string>
+    <string name="get_started">Get started</string>
+    <string name="lets_get_acquainted">Let’s get acquainted</string>
+    <string name="im_a_patient">I’m a Patient</string>
+    <string name="im_a_doctor">I’m a Doctor</string>
+    <string name="Continue">Continue</string>
+    <string name="a_little_about">A little about yourself</string>
+    <string name="your_gender">Your gender</string>
+    <string name="your_birthday">Your birthday</string>
+    <string name="Male">Male</string>
+    <string name="Female">Female</string>
+    <string name="Day">Day</string>
+    <string name="Month">Month</string>
+    <string name="Year">Year</string>
+    <string name="your_visit_has_been_successfully">Your visit has been successfully reserved, please pay for it to get an appointment with the selected doctor</string>
 </resources>

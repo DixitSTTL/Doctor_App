@@ -48,7 +48,6 @@ public class FragmentSignUp extends BaseFragment {
             } else {
 
                 mViewmodel.setOtp(mActivityWelcome);
-//                mActivityWelcome.navigateOTP();
 
             }
 

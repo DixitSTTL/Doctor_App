@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:fontFamily="@font/gilroy_medium"
-            android:text="Let's get acquainted"
+            android:text="@string/lets_get_acquainted"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/imageView3"
@@ -70,7 +70,7 @@
             android:layout_marginBottom="32dp"
             android:backgroundTint="@color/main_color"
             android:onClick="@{generalClickListener::onClick}"
-            android:text="Continue"
+            android:text="@string/Continue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -109,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:fontFamily="@font/gilroy_semibold"
-                    android:text="I’m a Patient"
+                    android:text="@string/im_a_patient"
                     android:textColor="@{mViewmodel.observeUser==EnumUser.PATIENT? @color/main_color :@color/black}"
 
                     android:textSize="18sp" />
@@ -141,7 +141,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:fontFamily="@font/gilroy_semibold"
-                    android:text="I’m a Doctor"
+                    android:text="@string/im_a_doctor"
                     android:textColor="@{mViewmodel.observeUser==EnumUser.DOCTOR? @color/main_color :@color/black}"
 
                     android:textSize="18sp" />

@@ -10,6 +10,7 @@ import androidx.databinding.ObservableField;
 import com.app.doctorapp.MyApplication;
 import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.viewmodels.BaseViewModel;
+import com.app.doctorapp.utils.EnumVisibility;
 import com.app.doctorapp.view.activity.WelcomeActivity;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -38,12 +39,15 @@ public class FragViewModelSignUp extends BaseViewModel {
     public void setOtp(WelcomeActivity mActivityWelcome) {
 
         if (validation()) {
+            observeVisibility.set(EnumVisibility.LOADING);
 
             PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
                 @Override
                 public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                     super.onCodeSent(s, forceResendingToken);
+                    observeVisibility.set(EnumVisibility.VISIBLE);
+
                     mActivityWelcome.navigateOTP(s);
 
                     setLocalData();
@@ -78,26 +82,27 @@ public class FragViewModelSignUp extends BaseViewModel {
     private boolean validation() {
 
         if (TextUtils.isEmpty(observeName.get())) {
-            Toast.makeText(myApplication, "Please enter name", Toast.LENGTH_SHORT).show();
+            observerSnackBarString.set("Please enter name");
+
             return false;
         } else if (TextUtils.isEmpty(observeMobile.get())) {
-            Toast.makeText(myApplication, "Please enter mobile number", Toast.LENGTH_SHORT).show();
+            observerSnackBarString.set("Please enter mobile number");
 
             return false;
         } else if (observeMobile.get().length() != 10) {
-            Toast.makeText(myApplication, "Please enter proper mobile number", Toast.LENGTH_SHORT).show();
+            observerSnackBarString.set("Please enter proper mobile number");
 
             return false;
         } else if (TextUtils.isEmpty(observeEmail.get())) {
-            Toast.makeText(myApplication, "Please enter email address", Toast.LENGTH_SHORT).show();
+            observerSnackBarString.set("Please enter email address");
 
             return false;
         } else if (observePass.get().length() < 6) {
-            Toast.makeText(myApplication, "Please enter password", Toast.LENGTH_SHORT).show();
+            observerSnackBarString.set("Please enter password");
 
             return false;
         } else if (!observeCheck.get()) {
-            Toast.makeText(myApplication, "Please accept terms and privacy policies", Toast.LENGTH_SHORT).show();
+            observerSnackBarString.set("Please accept terms and privacy policies");
 
             return false;
         }

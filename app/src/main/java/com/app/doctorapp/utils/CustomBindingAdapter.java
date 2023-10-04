@@ -1,9 +1,12 @@
 package com.app.doctorapp.utils;
 
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableField;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,6 +48,18 @@ public class CustomBindingAdapter {
 
     }
 
+
+    @BindingAdapter(value = {"showSnackBarString"}, requireAll = false)
+    public static void showSnackBar(View viewLayout, ObservableField<String> snackMessageString) {
+        String message = "";
+        if (snackMessageString != null && !TextUtils.isEmpty(snackMessageString.get())) {
+            message = snackMessageString.get().trim();
+            snackMessageString.set("");
+        }
+        if (!TextUtils.isEmpty(message)) {
+            Utils.showSnackBar(viewLayout, message);
+        }
+    }
 
 
 }

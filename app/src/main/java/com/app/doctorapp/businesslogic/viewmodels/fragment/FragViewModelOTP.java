@@ -17,6 +17,7 @@ import com.app.doctorapp.businesslogic.viewmodels.BaseViewModel;
 import com.app.doctorapp.models.DoctorDetailsModel;
 import com.app.doctorapp.models.UserDoctorModel;
 import com.app.doctorapp.models.UserPatientModel;
+import com.app.doctorapp.utils.EnumVisibility;
 import com.app.doctorapp.view.activity.MainActivity;
 import com.app.doctorapp.view.activity.WelcomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +26,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Date;
 import java.util.Random;
@@ -45,10 +47,14 @@ public class FragViewModelOTP extends BaseViewModel {
 
     public void verify(WelcomeActivity mActivityWelcome, String finalOTP, String smsCode) {
 
+        observeVisibility.set(EnumVisibility.LOADING);
+
         mAuth.signInWithCredential(PhoneAuthProvider.getCredential(smsCode, finalOTP))
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        observeVisibility.set(EnumVisibility.VISIBLE);
+
                         if (task.isSuccessful()) {
                             // if the code is correct and the task is successful
                             // we are sending our user to new activity.
@@ -66,12 +72,14 @@ public class FragViewModelOTP extends BaseViewModel {
     }
 
     private void createUser() {
+        observeVisibility.set(EnumVisibility.LOADING);
 
         mAuth.createUserWithEmailAndPassword(preferences.getString(R.string.user_email), preferences.getString(R.string.user_password)) //signup function
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
+                        observeVisibility.set(EnumVisibility.VISIBLE);
 
                     }
 
@@ -79,12 +87,15 @@ public class FragViewModelOTP extends BaseViewModel {
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
+                        observeVisibility.set(EnumVisibility.VISIBLE);
+
                         uploadUserDetails(authResult.getUser().getUid());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        observeVisibility.set(EnumVisibility.VISIBLE);
 
                     }
                 });
@@ -141,6 +152,18 @@ public class FragViewModelOTP extends BaseViewModel {
                         Log.w(TAG, "Error writing document", e);
                     }
                 });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     }

@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ObservableField;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -14,6 +15,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.app.doctorapp.R;
 import com.app.doctorapp.databinding.ActivityMainBinding;
+import com.app.doctorapp.models.DateModel;
+import com.app.doctorapp.models.DoctorDetailsModel;
+import com.app.doctorapp.models.UserDoctorModel;
 import com.app.doctorapp.view.BaseActivity;
 import com.google.android.material.appbar.MaterialToolbar;
 
@@ -57,8 +61,14 @@ public class MainActivity extends BaseActivity implements NavController.OnDestin
         navController.navigate(R.id.action_fragmentHome_to_fragmentDoctorInfo, bundle);
     }
 
-    public void navigatePrePayment() {
-        navController.navigate(R.id.action_fragmentDoctorInfo_to_fragmentPrePayment);
+    public void navigatePrePayment(ObservableField<UserDoctorModel> observeMainDetail, ObservableField<DoctorDetailsModel> observeSecondaryDetail, DateModel observeSelectedDate, String observeSelectedTime, String UID) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("observeMainDetail", observeMainDetail.get());
+        bundle.putParcelable("observeSecondaryDetail", observeSecondaryDetail.get());
+        bundle.putParcelable("observeSelectedDate", observeSelectedDate);
+        bundle.putString("observeSelectedTime", observeSelectedTime);
+        bundle.putString("UID", UID);
+        navController.navigate(R.id.action_fragmentDoctorInfo_to_fragmentPrePayment, bundle);
     }
 
 

@@ -30,7 +30,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class FragViewModelPrePayment extends BaseViewModel {
     @Inject
     MyApplication myApplication;
-
+    public ObservableField<UserDoctorModel> observeMainDetail = new ObservableField<>();
+    public ObservableField<DoctorDetailsModel> observeSecondaryDetail = new ObservableField<>();
     @Inject
     public FragViewModelPrePayment(MyApplication myApplication) {
         this.myApplication = myApplication;

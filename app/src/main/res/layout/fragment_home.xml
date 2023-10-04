@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="62dp"
             app:menu="@menu/bottom_menu"
-            app:subtitle="Warsaw, Poland"
+            app:subtitle="Gujarat,India"
             app:subtitleTextAppearance="@style/custom_toolbar_sub_title"
             app:subtitleTextColor="@color/grayscale2"
             app:title="Welcome Back, Mark!"
@@ -132,14 +132,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
                         android:layout_weight="1"
-                        android:text="Recent" />
+                        android:text="@string/Recent" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
                         android:fontFamily="@font/gilroy_regular"
-                        android:text="see all"
+                        android:text="@string/see_all"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -155,7 +155,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:text="Categories" />
+                    android:text="@string/Categories" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     setAdapterCategory="@{mViewmodel.observeCategoryList}"
@@ -177,14 +177,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
                         android:layout_weight="1"
-                        android:text="Popular Doctors" />
+                        android:text="@string/popular_doctors" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
                         android:fontFamily="@font/gilroy_regular"
-                        android:text="see all"
+                        android:text="@string/see_all"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
                 </LinearLayout>

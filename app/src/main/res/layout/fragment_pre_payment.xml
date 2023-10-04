@@ -6,8 +6,19 @@
     <data>
 
         <variable
-            name="model"
+            name="userDoctorModel"
             type="com.app.doctorapp.models.UserDoctorModel" />
+        <variable
+            name="doctorDetailsModel"
+            type="com.app.doctorapp.models.DoctorDetailsModel" />
+
+        <variable
+            name="dateModel"
+            type="com.app.doctorapp.models.DateModel" />
+
+        <variable
+            name="timeSlot"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,7 +59,7 @@
                 android:layout_marginLeft="6dp"
                 android:elevation="3dp"
                 android:fontFamily="@font/gilroy_medium"
-                android:text="Self Care"
+                android:text="@string/app_name"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView3"
@@ -89,7 +100,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gilroy_medium"
-                        android:text="Thank you!"
+                        android:text="@string/thank_you"
                         android:textColor="@color/white"
                         android:textSize="26sp" />
 
@@ -105,7 +116,7 @@
                         android:layout_marginTop="15dp"
                         android:fontFamily="@font/gilroy_light"
                         android:gravity="center"
-                        android:text="Your visit has been successfully reserved, please pay for it to get an appointment with the selected doctor"
+                        android:text="@string/your_visit_has_been_successfully"
                         android:textColor="@color/white"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -115,14 +126,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
                     <ImageView
                         android:id="@+id/imageView5"
-                        setGlideImage="@{model.user_image}"
+                        setGlideImage="@{userDoctorModel.user_image}"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -134,8 +145,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
                         android:layout_marginRight="4dp"
-                        android:fontFamily="@font/gilroy_semibold"
-                        android:text="@{model.user_name}"
+                        android:fontFamily="@font/gilroy_medium"
+                        android:text="@{userDoctorModel.user_name}"
                         android:textColor="@color/black"
                         android:textSize="18sp"
 
@@ -150,7 +161,7 @@
                         android:layout_marginLeft="6dp"
                         android:layout_marginTop="3dp"
                         android:fontFamily="@font/gilroy_medium"
-                        android:text="@{model.user_category}"
+                        android:text="@{userDoctorModel.user_category}"
                         android:textColor="@color/grayscale2"
 
                         android:textSize="12sp"
@@ -164,7 +175,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="4dp"
                         android:fontFamily="@font/gilroy_regular"
-                        android:text="@{`(`+String.valueOf(model.user_review_count)+` reviews)`}"
+                        android:text="@{`(`+String.valueOf(userDoctorModel.user_review_count)+` reviews)`}"
                         android:textColor="@color/grayscale3"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toStartOf="@+id/textView12"
@@ -182,7 +193,7 @@
                         android:drawablePadding="2dp"
                         android:fontFamily="@font/gilroy_semibold"
                         android:gravity="center_vertical"
-                        android:text="@{String.valueOf(model.user_Rating)}"
+                        android:text="@{String.valueOf(userDoctorModel.user_Rating)}"
                         android:textColor="@color/black"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -208,7 +219,7 @@
                             style="@style/page_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Date:" />
+                            android:text="@string/Date" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -216,7 +227,7 @@
                             android:layout_marginHorizontal="20dp"
                             android:layout_marginTop="8dp"
                             android:fontFamily="@font/gilroy_regular"
-                            android:text="26 March, 2023"
+                            android:text="@{dateModel.day+` `+dateModel.month}"
                             android:textColor="@color/grayscale2" />
                     </LinearLayout>
 
@@ -232,7 +243,7 @@
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Time:" />
+                            android:text="@string/time" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -240,7 +251,7 @@
                             android:layout_marginHorizontal="20dp"
                             android:layout_marginTop="8dp"
                             android:fontFamily="@font/gilroy_regular"
-                            android:text="16:00"
+                            android:text="@{timeSlot}"
 
                             android:textColor="@color/grayscale2" />
                     </LinearLayout>
@@ -258,7 +269,7 @@
                         style="@style/page_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Location" />
+                        android:text="@string/Location" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -308,7 +319,7 @@ San Francisco 62639"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
-                        android:text="Cost:" />
+                        android:text="@string/Cost" />
 
 
                     <TextView
@@ -316,7 +327,7 @@ San Francisco 62639"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="12sp"
                         android:fontFamily="@font/gilroy_semibold"
-                        android:text=""
+                        android:text="@{`$`+doctorDetailsModel.doctor_fee}"
                         android:textColor="@color/black"
                         android:textSize="26dp"
                         tools:text="$90" />
@@ -334,7 +345,7 @@ San Francisco 62639"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/gilroy_medium"
             android:paddingVertical="10sp"
-            android:text="Cancel reservation"
+            android:text="@string/cancel_reservation"
             android:textColor="@color/grayscale2"
 
             android:textSize="12sp"
@@ -351,7 +362,7 @@ San Francisco 62639"
             android:paddingHorizontal="25dp"
 
             android:paddingVertical="10sp"
-            android:text="Go to payment"
+            android:text="@string/go_to_payment"
             android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/textView20"
             app:layout_constraintEnd_toEndOf="parent"

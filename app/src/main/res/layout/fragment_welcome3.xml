@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:fontFamily="@font/gilroy_medium"
-            android:text="A little about yourself"
+            android:text="@string/a_little_about"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/imageView3"
@@ -70,7 +70,7 @@
             android:layout_marginBottom="32dp"
             android:backgroundTint="@color/main_color"
             android:onClick="@{generalClickListener::onClick}"
-            android:text="Continue"
+            android:text="@string/Continue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
                 android:fontFamily="@font/gilroy_semibold"
-                android:text="Your gender"
+                android:text="@string/your_gender"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -123,7 +123,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:fontFamily="@font/gilroy_semibold"
-                    android:text="Male"
+                    android:text="@string/Male"
                     android:textColor="@{mViewmodel.observeGender==EnumGender.MALE? @color/main_color :@color/black}"
                     android:textSize="18sp" />
 
@@ -156,7 +156,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:fontFamily="@font/gilroy_semibold"
-                    android:text="Female"
+                    android:text="@string/Female"
                     android:textColor="@{mViewmodel.observeGender==EnumGender.FEMALE? @color/main_color :@color/black}"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -168,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
                 android:fontFamily="@font/gilroy_semibold"
-                android:text="Your birthday"
+                android:text="@string/your_birthday"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -190,7 +190,7 @@
                     style="@style/birthdayUpper"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Day"
+                    android:text="@string/Day"
                     app:layout_constraintStart_toStartOf="@+id/textView8"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -198,7 +198,7 @@
                     style="@style/birthdayUpper"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Month"
+                    android:text="@string/Month"
                     app:layout_constraintStart_toStartOf="@+id/textView9"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -206,7 +206,7 @@
                     style="@style/birthdayUpper"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Year"
+                    android:text="@string/Year"
                     app:layout_constraintStart_toStartOf="@+id/textView10"
                     app:layout_constraintTop_toTopOf="parent" />
 

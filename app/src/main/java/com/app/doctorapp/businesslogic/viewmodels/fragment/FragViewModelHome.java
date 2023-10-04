@@ -10,15 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
 
 import com.app.doctorapp.MyApplication;
+import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.viewmodels.BaseViewModel;
 import com.app.doctorapp.models.CategoryModel;
 import com.app.doctorapp.models.UserDoctorModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.AggregateField;
-import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -61,6 +63,28 @@ public class FragViewModelHome extends BaseViewModel {
                     public void onFailure(@NonNull Exception e) {
 
                         Log.w(TAG, "Error writing document", e);
+                    }
+                });
+
+        List<String> targetEmails = Arrays.asList("dixit@mechodal.com"); // Replace with the emails you want to match
+
+        db.collection("CHAT")
+                .whereArrayContainsAny("sender_email", targetEmails)
+                .whereIn("sender_email", targetEmails)
+//                .whereIn("receiver_email", targetEmails)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            Log.d("chatTesting", "  " + document.get("sender_email") + "  " + document.get("receiver_email")+ "  " );
+                            Log.d("chatTesting", "  " + document.get("sender_name")+ "  " + document.get("receiver_name") );
+                            Log.d("chatTesting", "  " + document.get("sender_image")+ "  " + document.get("receiver_image") );
+                            Log.d("chatTesting", "  " + document.get("created"));
+
+                        }
+
                     }
                 });
 

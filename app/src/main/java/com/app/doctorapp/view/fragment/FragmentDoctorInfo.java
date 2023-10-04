@@ -97,7 +97,20 @@ public class FragmentDoctorInfo extends BaseFragment implements OnMapReadyCallba
     GeneralClickListener generalClickListener = new GeneralClickListener() {
         @Override
         public void onClick(View view) {
-            mActivityMain.navigatePrePayment();
+
+            if (mViewModel.observeSelectedDate.get()==-1||mViewModel.observeSelectedTime.get()==-1){
+
+                mViewModel.observerSnackBarString.set("Please select Date and Time Slot");
+
+            }else {
+
+                mActivityMain.navigatePrePayment(
+                        mViewModel.observeMainDetail,
+                        mViewModel.observeSecondaryDetail,
+                        mViewModel.observeDateList.get(mViewModel.observeSelectedDate.get()),
+                        mViewModel.observeTimeSlot.get(mViewModel.observeSelectedTime.get()),
+                        UID);
+            }
 
         }
     };

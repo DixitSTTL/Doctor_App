@@ -4,6 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="com.app.doctorapp.utils.EnumVisibility" />
+        <import type="android.view.View" />
+
         <variable
             name="generalClickListener"
             type="com.app.doctorapp.businesslogic.interfaces.GeneralClickListener" />
@@ -19,6 +22,19 @@
         android:layout_height="match_parent"
         tools:context=".view.fragment.FragmentOTP">
 
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:elevation="5dp"
+            android:indeterminateDrawable="@drawable/rotating_icon"
+            android:max="3"
+            android:progress="100"
+            android:progressDrawable="@drawable/rotating_icon"
+            android:visibility="@{mViewmodel.observeVisibility==EnumVisibility.LOADING ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button" />
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="35dp"
@@ -38,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:fontFamily="@font/gilroy_medium"
-            android:text="Your Code"
+            android:text="@string/your_code"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/imageView3"
@@ -53,7 +69,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/gilroy_medium"
             android:gravity="center"
-            android:text="Code send to yor Email"
+            android:text="@string/code_send_to_yor_email"
             android:textColor="@color/grayscale2"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@+id/imageView3"
@@ -136,7 +152,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gilroy_medium"
-                android:text="Resend Code? "
+                android:text="@string/resend_code"
                 android:textColor="@color/grayscale2" />
 
             <TextView
@@ -158,7 +174,7 @@
             android:layout_marginBottom="32dp"
             android:backgroundTint="@color/main_color"
             android:onClick="@{generalClickListener::onClick}"
-            android:text="Verify"
+            android:text="@string/Verify"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -16,6 +16,7 @@ import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.viewmodels.BaseViewModel;
 import com.app.doctorapp.models.UserDoctorModel;
 import com.app.doctorapp.models.UserPatientModel;
+import com.app.doctorapp.utils.EnumVisibility;
 import com.app.doctorapp.view.activity.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -46,11 +47,13 @@ public class FragViewModelSignIn extends BaseViewModel {
     public void signInUser() {
 
         if (validation()) {
+            observeVisibility.set(EnumVisibility.LOADING);
             mAuth.signInWithEmailAndPassword(observeEmail.get(), observePass.get())
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
                             Log.d("TAG", "onComplete: " + "onSuccess");
+                            observeVisibility.set(EnumVisibility.VISIBLE);
 
                             saveAllUserDetails(authResult);
 
@@ -59,6 +62,7 @@ public class FragViewModelSignIn extends BaseViewModel {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Log.d("TAG", "onComplete: " + "onFailure");
+                            observeVisibility.set(EnumVisibility.VISIBLE);
 
                         }
                     })
@@ -66,6 +70,7 @@ public class FragViewModelSignIn extends BaseViewModel {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             Log.d("TAG", "onComplete: " + "onComplete");
+                            observeVisibility.set(EnumVisibility.VISIBLE);
 
                         }
                     });
@@ -73,13 +78,16 @@ public class FragViewModelSignIn extends BaseViewModel {
     }
 
     private void saveAllUserDetails(AuthResult authResult) {
+        observeVisibility.set(EnumVisibility.LOADING);
+
         db.collection(USER_DOCTOR)
                 .document((authResult.getUser().getUid()))
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                        if (value.getData() == null) {
+                        observeVisibility.set(EnumVisibility.VISIBLE);
 
+                        if (value.getData() == null) {
 
                         } else {
                             preferences.setString(R.string.user_login, USER_LOGIN);
@@ -99,6 +107,7 @@ public class FragViewModelSignIn extends BaseViewModel {
 
                             context.startActivity(new Intent(context, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 
+                            observerSnackBarString.set("Login Successfully");
                         }
 
 
@@ -113,13 +122,13 @@ public class FragViewModelSignIn extends BaseViewModel {
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        observeVisibility.set(EnumVisibility.VISIBLE);
 
                         if (value.getData() == null) {
 
 
                         } else {
 
-                            Log.d("nvjksnjvnjsv","  "+value);
                             UserPatientModel model = value.toObject(UserPatientModel.class);
 
                             preferences.setString(R.string.user_email, observeEmail.get());
@@ -141,8 +150,12 @@ public class FragViewModelSignIn extends BaseViewModel {
 
     private boolean validation() {
         if (TextUtils.isEmpty(observeEmail.get())) {
+            observerSnackBarString.set("Please enter email address");
+
             return false;
         } else if (TextUtils.isEmpty(observePass.get())) {
+            observerSnackBarString.set("Please enter password");
+
             return false;
         }
 

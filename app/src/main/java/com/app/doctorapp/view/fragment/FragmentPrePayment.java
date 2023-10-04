@@ -5,18 +5,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.viewmodels.fragment.FragViewModelPrePayment;
 import com.app.doctorapp.databinding.FragmentPrePaymentBinding;
+import com.app.doctorapp.models.DateModel;
+import com.app.doctorapp.models.DoctorDetailsModel;
+import com.app.doctorapp.models.UserDoctorModel;
 import com.app.doctorapp.view.BaseFragment;
 
 public class FragmentPrePayment extends BaseFragment {
 
     private FragmentPrePaymentBinding mBinding;
     private FragViewModelPrePayment mViewModel;
+
+    String UID;
+    UserDoctorModel userDoctorModel;
+    DoctorDetailsModel doctorDetailsModel;
+    DateModel dateModel;
+    String timeSlot;
 
     public FragmentPrePayment() {
         // Required empty public constructor
@@ -25,6 +36,13 @@ public class FragmentPrePayment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            UID = getArguments().getString("UID");
+            userDoctorModel = getArguments().getParcelable("observeMainDetail");
+            doctorDetailsModel = getArguments().getParcelable("observeSecondaryDetail");
+            dateModel = getArguments().getParcelable("observeSelectedDate");
+            timeSlot = getArguments().getString("observeSelectedTime");
+        }
 
     }
 
@@ -37,6 +55,18 @@ public class FragmentPrePayment extends BaseFragment {
 
         // Inflate the layout for this fragment
         return mBinding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mViewModel.observeMainDetail.set(userDoctorModel);
+        mViewModel.observeSecondaryDetail.set(doctorDetailsModel);
+        mBinding.setUserDoctorModel(mViewModel.observeMainDetail.get());
+        mBinding.setDoctorDetailsModel(mViewModel.observeSecondaryDetail.get());
+        mBinding.setDateModel(dateModel);
+        mBinding.setTimeSlot(timeSlot);
     }
 
     private void initToolbar() {
