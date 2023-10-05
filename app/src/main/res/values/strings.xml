@@ -50,4 +50,6 @@
     <string name="Month">Month</string>
     <string name="Year">Year</string>
     <string name="your_visit_has_been_successfully">Your visit has been successfully reserved, please pay for it to get an appointment with the selected doctor</string>
+    <string name="online">online</string>
+    <string name="write_a_message">Write a message</string>
 </resources>

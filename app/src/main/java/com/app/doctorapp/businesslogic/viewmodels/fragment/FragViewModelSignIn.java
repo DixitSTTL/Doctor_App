@@ -95,6 +95,7 @@ public class FragViewModelSignIn extends BaseViewModel {
                             UserDoctorModel model = value.toObject(UserDoctorModel.class);
                             preferences.setString(R.string.user_email, observeEmail.get());
                             preferences.setString(R.string.user_password, observePass.get());
+                            preferences.setString(R.string.user_uid, model.getUser_name());
                             preferences.setString(R.string.user_name, model.getUser_name());
                             preferences.setString(R.string.user_mobile, model.getUser_mobile());
                             preferences.setString(R.string.user_gender, model.getUser_gender());

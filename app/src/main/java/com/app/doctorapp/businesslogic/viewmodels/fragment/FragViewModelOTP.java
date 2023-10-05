@@ -107,6 +107,7 @@ public class FragViewModelOTP extends BaseViewModel {
         Object obj = null;
         if (preferences.getString(R.string.user_type).equals(USER_DOCTOR)) {
             UserDoctorModel model = new UserDoctorModel(
+                    uid,
                     preferences.getString(R.string.user_name),
                     preferences.getString(R.string.user_email),
                     preferences.getString(R.string.user_birthdate),
@@ -123,6 +124,7 @@ public class FragViewModelOTP extends BaseViewModel {
 
         } else {
             UserPatientModel model = new UserPatientModel(
+                    uid,
                     preferences.getString(R.string.user_name),
                     preferences.getString(R.string.user_email),
                     preferences.getString(R.string.user_birthdate),
@@ -141,6 +143,7 @@ public class FragViewModelOTP extends BaseViewModel {
                     @Override
                     public void onSuccess(Void aVoid) {
                         preferences.setString(R.string.user_login, USER_LOGIN);
+                        preferences.setString(R.string.user_uid, uid);
                         Toast.makeText(myApplication, "User created successfully", Toast.LENGTH_SHORT).show();
                         context.startActivity(new Intent(context, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                     }

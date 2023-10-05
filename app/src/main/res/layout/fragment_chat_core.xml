@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.app.doctorapp.utils.EnumVisibility" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="mViewmodel"
+            type="com.app.doctorapp.businesslogic.viewmodels.fragment.FragViewModelChatCore" />
+
+        <variable
+            name="generalListener"
+            type="com.app.doctorapp.businesslogic.interfaces.GeneralClickListener" />
+
+        <variable
+            name="generalItemListener"
+            type="com.app.doctorapp.businesslogic.interfaces.GeneralItemClickListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        showSnackBarString="@{mViewmodel.observerSnackBarString}"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grayscale4"
+        tools:context=".view.fragment.FragmentChatCore">
+
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:elevation="5dp"
+            android:indeterminateDrawable="@drawable/rotating_icon"
+            android:max="3"
+            android:progress="100"
+            android:progressDrawable="@drawable/rotating_icon"
+            android:visibility="@{mViewmodel.observeVisibility==EnumVisibility.LOADING ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="Back"
+            app:titleTextAppearance="@style/custom_toolbar_sub_title" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_20"
+            android:padding="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <ImageView
+                android:id="@+id/imageView5"
+                setGlideImage="@{mViewmodel.observeUserImage}"
+
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:fontFamily="@font/gilroy_medium"
+                android:text="@{mViewmodel.observeUsername}"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintTop_toTopOf="@+id/imageView5"
+                tools:text="name" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="3dp"
+                android:drawableLeft="@drawable/ic_dot2"
+                android:drawablePadding="4dp"
+                android:drawableTint="@color/main_color"
+                android:fontFamily="@font/gilroy_medium"
+                android:gravity="center"
+                android:text="@string/online"
+                android:textColor="@color/grayscale2"
+                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintTop_toBottomOf="@+id/textView13"
+                tools:text="online" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/edit_bg_8"
+                android:backgroundTint="@color/main_blue"
+                android:padding="4dp"
+                android:src="@drawable/ic_call"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            setAdapterChatCore="@{mViewmodel.observeChatList}"
+            setOnItemClickListener="@{generalItemListener}"
+            setSenderUId="@{mViewmodel.doctor_uid}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|bottom"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="16dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/main_10"
+                android:backgroundTint="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:fontFamily="@font/gilroy_regular"
+                    android:hint="@string/write_a_message"
+                    android:maxLines="4"
+                    android:padding="10dp"
+                    android:text="@={mViewmodel.observeChatText}" />
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="bottom"
+                    android:onClick="@{generalListener::onClick}"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_voice" />
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="bottom"
+                    android:onClick="@{generalListener::onClick}"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_paper_clip" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/sendBtn"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/edit_bg_8"
+                android:backgroundTint="@color/main_color"
+                android:onClick="@{generalListener::onClick}"
+                android:padding="12dp"
+                android:src="@drawable/ic_send" />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

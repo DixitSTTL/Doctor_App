@@ -3,6 +3,7 @@
 
     <string name="user_login">user_login</string>
 
+    <string name="user_uid">user_uid</string>
     <string name="user_name">user_name</string>
     <string name="user_email">user_email</string>
     <string name="user_mobile">user_mobile</string>

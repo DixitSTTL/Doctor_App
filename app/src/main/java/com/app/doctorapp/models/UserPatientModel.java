@@ -3,6 +3,7 @@ package com.app.doctorapp.models;
 import java.util.Date;
 
 public class UserPatientModel {
+    String user_uid;
 
     String user_name;
     String user_email;
@@ -15,7 +16,16 @@ public class UserPatientModel {
     public UserPatientModel() {
     }
 
-    public UserPatientModel(String user_name, String user_email, String user_birthdate, String user_gender, String user_type, String user_mobile, Date user_join_date) {
+    public String getUser_uid() {
+        return user_uid;
+    }
+
+    public void setUser_uid(String user_uid) {
+        this.user_uid = user_uid;
+    }
+
+    public UserPatientModel(String user_uid, String user_name, String user_email, String user_birthdate, String user_gender, String user_type, String user_mobile, Date user_join_date) {
+        this.user_uid = user_uid;
         this.user_name = user_name;
         this.user_email = user_email;
         this.user_birthdate = user_birthdate;

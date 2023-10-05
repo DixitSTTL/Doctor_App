@@ -15,6 +15,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.app.doctorapp.R;
 import com.app.doctorapp.databinding.ActivityMainBinding;
+import com.app.doctorapp.models.ChatOuter;
 import com.app.doctorapp.models.DateModel;
 import com.app.doctorapp.models.DoctorDetailsModel;
 import com.app.doctorapp.models.UserDoctorModel;
@@ -49,6 +50,12 @@ public class MainActivity extends BaseActivity implements NavController.OnDestin
 
     public void navigateChat() {
         navController.navigate(R.id.fragmentChat);
+    }
+
+    public void navigateChatCore(String doctor_uid) {
+        Bundle bundle = new Bundle();
+        bundle.putString("doctor_uid", doctor_uid);
+        navController.navigate(R.id.action_fragmentChat_to_fragmentChatCore, bundle);
     }
 
     public void navigateProfile() {

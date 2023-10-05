@@ -1,14 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.fragment.FragmentChat">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+        <import type="com.app.doctorapp.utils.EnumVisibility" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="mViewmodel"
+            type="com.app.doctorapp.businesslogic.viewmodels.fragment.FragViewModelChat" />
+
+        <variable
+            name="generalListener"
+            type="com.app.doctorapp.businesslogic.interfaces.GeneralClickListener" />
+
+        <variable
+            name="generalItemListener"
+            type="com.app.doctorapp.businesslogic.interfaces.GeneralItemClickListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/grayscale5"
+        android:orientation="vertical"
+        tools:context=".view.fragment.FragmentChat">
 
-</FrameLayout>
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:elevation="5dp"
+            android:indeterminateDrawable="@drawable/rotating_icon"
+            android:max="3"
+            android:progress="100"
+            android:progressDrawable="@drawable/rotating_icon"
+            android:visibility="@{mViewmodel.observeVisibility==EnumVisibility.LOADING ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="Chat"
+            app:titleTextAppearance="@style/custom_toolbar_title"
+            app:titleTextColor="@color/black" />
+<!--
+ -->
+        <androidx.recyclerview.widget.RecyclerView
+            setAdapterChat="@{mViewmodel.observeChatList}"
+            setOnItemClickListener="@{generalItemListener}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -23,7 +23,11 @@
         android:id="@+id/fragmentChat"
         android:name="com.app.doctorapp.view.fragment.FragmentChat"
         android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" />
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_fragmentChat_to_fragmentChatCore"
+            app:destination="@id/fragmentChatCore" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentProfile"
         android:name="com.app.doctorapp.view.fragment.FragmentProfile"
@@ -36,10 +40,17 @@
         <action
             android:id="@+id/action_fragmentDoctorInfo_to_fragmentPrePayment"
             app:destination="@id/fragmentPrePayment" />
+        <action
+            android:id="@+id/action_fragmentDoctorInfo_to_fragmentChatCore"
+            app:destination="@id/fragmentChatCore" />
     </fragment>
     <fragment
         android:id="@+id/fragmentPrePayment"
         android:name="com.app.doctorapp.view.fragment.FragmentPrePayment"
         android:label="FragmentPrePayment" />
+    <fragment
+        android:id="@+id/fragmentChatCore"
+        android:name="com.app.doctorapp.view.fragment.FragmentChatCore"
+        android:label="FragmentChatCore" />
 
 </navigation>

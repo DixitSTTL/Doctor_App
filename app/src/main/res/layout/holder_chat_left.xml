@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.Date" />
+
+        <variable
+            name="currentPosition"
+            type="int" />
+
+        <variable
+            name="model"
+            type="com.app.doctorapp.models.ChatInSide" />
+
+        <variable
+            name="generalItemListener"
+            type="com.app.doctorapp.businesslogic.interfaces.GeneralItemClickListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{(v)->generalItemListener.onItemClick(v,currentPosition,model)}"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageView5"
+            setGlideImage="@{`https://firebasestorage.googleapis.com/v0/b/doctor-app-1e65e.appspot.com/o/doctors_image%2Fimage%20Dr.%20Floyd%20Miles.png?alt=media&amp;token=ee7d27bd-aa32-4a36-87ae-27c8e8b713a4`}"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            app:shapeAppearance="@style/CornerCut"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+
+            android:background="@drawable/bg_chat_left"
+            android:fontFamily="@font/gilroy_medium"
+            android:maxWidth="300dp"
+            android:padding="12sp"
+            android:text="@{model.message}"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            tools:text="text" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

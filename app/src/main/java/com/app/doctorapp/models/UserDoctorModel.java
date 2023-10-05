@@ -9,6 +9,7 @@ import java.util.Date;
 
 public class UserDoctorModel implements Parcelable {
 
+    String user_uid;
     String user_name;
     String user_email;
     String user_birthdate;
@@ -24,7 +25,11 @@ public class UserDoctorModel implements Parcelable {
     public UserDoctorModel() {
     }
 
-    public UserDoctorModel(String user_name, String user_email, String user_birthdate, String user_gender, String user_type, String user_mobile, String user_image, float user_Rating, int user_review_count, String user_category, Date user_join_date) {
+    public UserDoctorModel(String user_uid) {
+    }
+
+    public UserDoctorModel(String user_uid, String user_name, String user_email, String user_birthdate, String user_gender, String user_type, String user_mobile, String user_image, float user_Rating, int user_review_count, String user_category, Date user_join_date) {
+        this.user_uid = user_uid;
         this.user_name = user_name;
         this.user_email = user_email;
         this.user_birthdate = user_birthdate;
@@ -39,6 +44,7 @@ public class UserDoctorModel implements Parcelable {
     }
 
     protected UserDoctorModel(Parcel in) {
+        user_uid = in.readString();
         user_name = in.readString();
         user_email = in.readString();
         user_birthdate = in.readString();
@@ -151,6 +157,14 @@ public class UserDoctorModel implements Parcelable {
         this.user_join_date = user_join_date;
     }
 
+    public String getUser_uid() {
+        return user_uid;
+    }
+
+    public void setUser_uid(String user_uid) {
+        this.user_uid = user_uid;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -158,6 +172,7 @@ public class UserDoctorModel implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(user_uid);
         dest.writeString(user_name);
         dest.writeString(user_email);
         dest.writeString(user_birthdate);
