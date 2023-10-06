@@ -2,6 +2,7 @@ package com.app.doctorapp.businesslogic.viewmodels.fragment;
 
 import static com.app.doctorapp.utils.ConstantData.COLLECTION_CHAT;
 
+import android.app.Activity;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -13,15 +14,22 @@ import com.app.doctorapp.MyApplication;
 import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.viewmodels.BaseViewModel;
 import com.app.doctorapp.models.ChatInSide;
+import com.app.doctorapp.utils.EnumVisibility;
+import com.app.doctorapp.view.adapter.AdapterChatsCore;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -33,11 +41,12 @@ public class FragViewModelChatCore extends BaseViewModel {
     MyApplication myApplication;
 
     public ObservableArrayList<ChatInSide> observeChatList = new ObservableArrayList<ChatInSide>();
+    public List<ChatInSide> chatList = new ArrayList<>();
     public ObservableField<String> observeChatText = new ObservableField<String>();
     public ObservableField<String> observeUsername = new ObservableField<String>();
     public ObservableField<String> observeUserImage = new ObservableField<String>();
-
     public String doctor_uid;
+    Activity activity;
     String chatList_uid;
 
     @Inject
@@ -51,7 +60,9 @@ public class FragViewModelChatCore extends BaseViewModel {
         if (TextUtils.isEmpty(observeChatText.get())) {
             observerSnackBarString.set("Please enter message");
         } else {
+
             ChatInSide chat = new ChatInSide(new Date(), preferences.getString(R.string.user_uid), observeChatText.get());
+
             db.collection(COLLECTION_CHAT)
                     .document(chatList_uid)
                     .collection("messages")
@@ -59,6 +70,7 @@ public class FragViewModelChatCore extends BaseViewModel {
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
+                            updateLatestDetails(observeChatText.get());
                             observeChatText.set("");
 
 
@@ -68,9 +80,28 @@ public class FragViewModelChatCore extends BaseViewModel {
 
     }
 
+    private void updateLatestDetails(String message) {
 
-    public void loadChatOuter(String doctor_uid) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("last_message",message);
+        map.put("time",new Date());
+
+        db.collection(COLLECTION_CHAT)
+                .document(chatList_uid)
+                .update(map)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+
+                    }
+                });
+
+    }
+
+
+    public void loadChatOuter(String doctor_uid,Activity activity) {
         this.doctor_uid = doctor_uid;
+        this.activity = activity;
 
       /*  Query query1 = db.collection("CHAT").whereEqualTo("sender_email", "dixit@mechodal.com");
         Query query2 = db.collection("CHAT").whereEqualTo("receiver_email", "dixit@mechodal.com");
@@ -104,7 +135,7 @@ public class FragViewModelChatCore extends BaseViewModel {
             }
         });*/
 
-        db.collection(COLLECTION_CHAT)
+          db.collection(COLLECTION_CHAT)
                 .whereEqualTo("patient_uid", preferences.getString(R.string.user_uid))
                 .whereEqualTo("doctor_uid", doctor_uid)
                 .get()
@@ -117,15 +148,6 @@ public class FragViewModelChatCore extends BaseViewModel {
                         observeUserImage.set((String) queryDocumentSnapshots.getDocuments().get(0).get("doctor_image"));
                         loadChatInSide();
 
-                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-
-                            Log.d("chatTesting", "  " + document.get("sender_email") + "  " + document.get("receiver_email") + "  ");
-                            Log.d("chatTesting", "  " + document.get("sender_name") + "  " + document.get("receiver_name"));
-                            Log.d("chatTesting", "  " + document.get("sender_image") + "  " + document.get("receiver_image"));
-                            Log.d("chatTesting", "  " + document.get("created"));
-
-                        }
-
 
                     }
                 });
@@ -134,23 +156,23 @@ public class FragViewModelChatCore extends BaseViewModel {
     }
 
     private void loadChatInSide() {
-
+        observeVisibility.set(EnumVisibility.LOADING);
         db.collection(COLLECTION_CHAT)
                 .document(chatList_uid)
                 .collection("messages")
                 .orderBy("time", Query.Direction.ASCENDING)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                .addSnapshotListener(activity,new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        Log.d("loadChatInSide", " onSuccess ");
+                        observeVisibility.set(EnumVisibility.VISIBLE);
 
+                        chatList.clear();
                         observeChatList.clear();
                         for (QueryDocumentSnapshot documentSnapshot : value) {
                             ChatInSide model = documentSnapshot.toObject(ChatInSide.class);
-                            Log.d("loadChatInSide", " onSuccess " + model.getMessage());
-
-                            observeChatList.add(model);
+                            chatList.add(model);
                         }
+                        observeChatList.addAll(chatList);
                     }
                 });
     }

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class ChatOuter {
 
-    Date created;
+    Date time;
     String patient_uid;
     String patient_name;
     String patient_image;
@@ -19,8 +19,8 @@ public class ChatOuter {
     public ChatOuter() {
     }
 
-    public ChatOuter(Date created, String patient_uid, String patient_name, String patient_image, String doctor_uid, String doctor_name, String doctor_category, String doctor_image, String last_message) {
-        this.created = created;
+    public ChatOuter(Date time, String patient_uid, String patient_name, String patient_image, String doctor_uid, String doctor_name, String doctor_category, String doctor_image, String last_message) {
+        this.time = time;
         this.patient_uid = patient_uid;
         this.patient_name = patient_name;
         this.patient_image = patient_image;
@@ -31,12 +31,12 @@ public class ChatOuter {
         this.last_message = last_message;
     }
 
-    public Date getCreated() {
-        return created;
+    public Date getTime() {
+        return time;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setTime(Date time) {
+        this.time = time;
     }
 
     public String getPatient_uid() {

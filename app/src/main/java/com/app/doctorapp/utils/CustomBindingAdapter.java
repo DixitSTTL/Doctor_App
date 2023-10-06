@@ -3,6 +3,7 @@ package com.app.doctorapp.utils;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.ObservableArrayList;
@@ -12,15 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.doctorapp.businesslogic.interfaces.GeneralItemClickListener;
 import com.app.doctorapp.models.CategoryModel;
-import com.app.doctorapp.models.ChatInSide;
 import com.app.doctorapp.models.ChatOuter;
 import com.app.doctorapp.view.adapter.AdapterCategory;
-import com.app.doctorapp.view.adapter.AdapterChatsCore;
 import com.app.doctorapp.view.adapter.AdapterChatsHome;
 import com.app.doctorapp.view.adapter.AdapterDoctors;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.Date;
 
 
 public class CustomBindingAdapter {
@@ -31,6 +32,21 @@ public class CustomBindingAdapter {
             Glide.with(imageView.getContext()).load(url)
                     .transition(new DrawableTransitionOptions().crossFade())
                     .into(imageView);
+
+        }
+    }
+
+    @BindingAdapter(value = {"setFormattedDate"})
+    public static void setGlideImage(TextView textView, Date date) {
+        if (textView != null) {
+
+            String s = "";
+            int hour = date.getHours();
+            int minuit = date.getMinutes();
+            if (minuit < 10) {
+                s = "0";
+            }
+            textView.setText("" + hour + ":" + s + minuit);
 
         }
     }
@@ -50,21 +66,23 @@ public class CustomBindingAdapter {
 
     }
 
-    @BindingAdapter(value = {"setAdapterChat", "setOnItemClickListener"})
-    public static void setAdapterChat(RecyclerView recyclerView, ObservableArrayList<ChatOuter> list, GeneralItemClickListener generalItemClickListener) {
-        AdapterChatsHome adapterHome = new AdapterChatsHome(list, generalItemClickListener);
-        recyclerView.setAdapter(adapterHome);
-        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL, false));
+//    @BindingAdapter(value = {"setAdapterChat", "setOnItemClickListener"})
+//    public static void setAdapterChat(RecyclerView recyclerView, ObservableArrayList<ChatOuter> list, GeneralItemClickListener generalItemClickListener) {
+//        AdapterChatsHome adapterHome = new AdapterChatsHome(list, generalItemClickListener);
+//        recyclerView.setAdapter(adapterHome);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL, false));
+//
+//    }
 
-    }
-
-    @BindingAdapter(value = {"setAdapterChatCore", "setSenderUId","setOnItemClickListener"})
-    public static void setAdapterChatCore(RecyclerView recyclerView, ObservableArrayList<ChatInSide> list, String sender_id, GeneralItemClickListener generalItemClickListener) {
-        AdapterChatsCore adapterChatsCore = new AdapterChatsCore(list, generalItemClickListener,sender_id);
-        recyclerView.setAdapter(adapterChatsCore);
-        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL, false));
-
-    }
+//    @BindingAdapter(value = {"setAdapterChatCore", "setSenderUId", "setOnItemClickListener"})
+//    public static void setAdapterChatCore(RecyclerView recyclerView, ObservableArrayList<ChatInSide> list, String sender_id, GeneralItemClickListener generalItemClickListener) {
+//        LinearLayoutManager manager = new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL, false);
+//        manager.setStackFromEnd(true);
+//        AdapterChatsCore adapterChatsCore = new AdapterChatsCore(list, generalItemClickListener, sender_id);
+//        recyclerView.setAdapter(adapterChatsCore);
+//        recyclerView.setLayoutManager(manager);
+//
+//    }
 
 
     @BindingAdapter(value = {"showSnackBarString"}, requireAll = false)

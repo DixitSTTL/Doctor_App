@@ -1,6 +1,7 @@
 package com.app.doctorapp.view.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -15,7 +16,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.app.doctorapp.R;
 import com.app.doctorapp.databinding.ActivityMainBinding;
-import com.app.doctorapp.models.ChatOuter;
 import com.app.doctorapp.models.DateModel;
 import com.app.doctorapp.models.DoctorDetailsModel;
 import com.app.doctorapp.models.UserDoctorModel;
@@ -85,6 +85,15 @@ public class MainActivity extends BaseActivity implements NavController.OnDestin
 
     @Override
     public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
+        Log.d("onDestinationChanged", "  " + navDestination.getId() + "  " + navDestination.getLabel());
+
+        if (navDestination.getLabel().equals("FragmentChatCore")) {
+            mBinding.bottomNavigationView.setVisibility(View.GONE);
+        } else {
+            mBinding.bottomNavigationView.setVisibility(View.VISIBLE);
+
+        }
+
 
     }
 

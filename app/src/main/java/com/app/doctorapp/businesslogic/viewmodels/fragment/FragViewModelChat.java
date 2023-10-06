@@ -2,19 +2,25 @@ package com.app.doctorapp.businesslogic.viewmodels.fragment;
 
 import static com.app.doctorapp.utils.ConstantData.COLLECTION_CHAT;
 
+import android.app.Activity;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.ObservableArrayList;
 
 import com.app.doctorapp.MyApplication;
 import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.viewmodels.BaseViewModel;
 import com.app.doctorapp.models.ChatOuter;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.app.doctorapp.utils.EnumVisibility;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -26,7 +32,9 @@ public class FragViewModelChat extends BaseViewModel {
     MyApplication myApplication;
 
     public ObservableArrayList<ChatOuter> observeChatList = new ObservableArrayList<ChatOuter>();
+    public List<ChatOuter> chatList = new ArrayList<>();
 
+    public ListenerRegistration registration;
 
     @Inject
     public FragViewModelChat(MyApplication myApplication) {
@@ -34,30 +42,30 @@ public class FragViewModelChat extends BaseViewModel {
 
     }
 
-    public void loadMyChat() {
+    public void loadMyChat(Activity activity) {
+        observeVisibility.set(EnumVisibility.LOADING);
+        registration = db.collection(COLLECTION_CHAT)
 
-        db.collection(COLLECTION_CHAT)
                 .whereEqualTo("patient_uid", preferences.getString(R.string.user_uid))
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                .addSnapshotListener(activity, new EventListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        observeVisibility.set(EnumVisibility.VISIBLE);
 
                         observeChatList.clear();
-                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                        chatList.clear();
+                        for (QueryDocumentSnapshot document : value) {
                             ChatOuter data = document.toObject(ChatOuter.class);
-                            observeChatList.add(data);
+                            Log.d("loadChatOutSide", " onSuccess " + data.getTime());
+
+                            chatList.add(data);
                         }
 
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
+                        observeChatList.addAll(chatList);
 
                     }
                 });
+
 
     }
 

@@ -95,7 +95,7 @@ public class FragViewModelSignIn extends BaseViewModel {
                             UserDoctorModel model = value.toObject(UserDoctorModel.class);
                             preferences.setString(R.string.user_email, observeEmail.get());
                             preferences.setString(R.string.user_password, observePass.get());
-                            preferences.setString(R.string.user_uid, model.getUser_name());
+                            preferences.setString(R.string.user_uid, model.getUser_uid());
                             preferences.setString(R.string.user_name, model.getUser_name());
                             preferences.setString(R.string.user_mobile, model.getUser_mobile());
                             preferences.setString(R.string.user_gender, model.getUser_gender());
@@ -129,9 +129,10 @@ public class FragViewModelSignIn extends BaseViewModel {
 
 
                         } else {
+                            preferences.setString(R.string.user_login, USER_LOGIN);
 
                             UserPatientModel model = value.toObject(UserPatientModel.class);
-
+                            preferences.setString(R.string.user_uid, model.getUser_uid());
                             preferences.setString(R.string.user_email, observeEmail.get());
                             preferences.setString(R.string.user_password, observePass.get());
                             preferences.setString(R.string.user_mobile, model.getUser_mobile());
@@ -140,6 +141,7 @@ public class FragViewModelSignIn extends BaseViewModel {
                             preferences.setString(R.string.user_birthdate, model.getUser_birthdate());
 
                             context.startActivity(new Intent(context, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                            observerSnackBarString.set("Login Successfully");
 
                         }
                     }

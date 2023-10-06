@@ -1,6 +1,7 @@
 package com.app.doctorapp.view.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,20 +9,26 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ObservableList;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.interfaces.GeneralClickListener;
 import com.app.doctorapp.businesslogic.interfaces.GeneralItemClickListener;
 import com.app.doctorapp.businesslogic.viewmodels.fragment.FragViewModelChatCore;
 import com.app.doctorapp.databinding.FragmentChatCoreBinding;
+import com.app.doctorapp.models.ChatInSide;
 import com.app.doctorapp.view.BaseFragment;
+import com.app.doctorapp.view.adapter.AdapterChatsCore;
 
 public class FragmentChatCore extends BaseFragment {
 
     FragViewModelChatCore mViewModel;
     FragmentChatCoreBinding mBinding;
+    AdapterChatsCore adapterChatsCore;
     String doctor_uid;
+    private ObservableList.OnListChangedCallback<ObservableList<ChatInSide>> onListChangedCallback;
 
     public FragmentChatCore() {
         // Required empty public constructor
@@ -52,7 +59,51 @@ public class FragmentChatCore extends BaseFragment {
         mBinding.setMViewmodel(mViewModel);
         mBinding.setGeneralItemListener(generalItemClickListener);
         mBinding.setGeneralListener(generalClickListener);
-        mViewModel.loadChatOuter(doctor_uid);
+        setObserver();
+        mViewModel.loadChatOuter(doctor_uid, getActivity());
+
+    }
+
+    private void setObserver() {
+        LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
+        manager.setSmoothScrollbarEnabled(true);
+        manager.setStackFromEnd(true);
+        adapterChatsCore = new AdapterChatsCore(mViewModel.observeChatList, generalItemClickListener, mViewModel.doctor_uid);
+        mBinding.recChats.setAdapter(adapterChatsCore);
+        mBinding.recChats.setLayoutManager(manager);
+
+        onListChangedCallback = new ObservableList.OnListChangedCallback<ObservableList<ChatInSide>>() {
+            @Override
+            public void onChanged(ObservableList<ChatInSide> sender) {
+
+            }
+
+            @Override
+            public void onItemRangeChanged(ObservableList<ChatInSide> sender, int positionStart, int itemCount) {
+
+            }
+
+            @Override
+            public void onItemRangeInserted(ObservableList<ChatInSide> sender, int positionStart, int itemCount) {
+                Log.d("observeChatList", "onItemRangeInserted  " + itemCount);
+                adapterChatsCore.notifyDataSetChanged();
+                manager.smoothScrollToPosition(mBinding.recChats, null, itemCount);
+                manager.scrollToPosition(itemCount);
+            }
+
+            @Override
+            public void onItemRangeMoved(ObservableList<ChatInSide> sender, int fromPosition, int toPosition, int itemCount) {
+
+            }
+
+            @Override
+            public void onItemRangeRemoved(ObservableList<ChatInSide> sender, int positionStart, int itemCount) {
+
+            }
+        };
+
+        mViewModel.observeChatList.addOnListChangedCallback(onListChangedCallback);
+
     }
 
     GeneralItemClickListener generalItemClickListener = new GeneralItemClickListener() {
@@ -73,4 +124,14 @@ public class FragmentChatCore extends BaseFragment {
 
         }
     };
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mViewModel != null) {
+            Log.d("vmsjvbdjkfvb","fbvdfbd");
+            mViewModel.observeChatList.removeOnListChangedCallback(onListChangedCallback);
+        }
+    }
 }

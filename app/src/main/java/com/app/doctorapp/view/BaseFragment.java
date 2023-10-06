@@ -11,6 +11,7 @@ import com.app.doctorapp.businesslogic.rx.SchedulerProvider;
 import com.app.doctorapp.utils.preference.UtilsSharedPreferences;
 import com.app.doctorapp.view.activity.MainActivity;
 import com.app.doctorapp.view.activity.WelcomeActivity;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import javax.inject.Inject;
 
@@ -24,6 +25,8 @@ public class BaseFragment extends Fragment {
     protected UtilsSharedPreferences preferences;
     @Inject
     protected SchedulerProvider mSchedulers;
+    @Inject
+    protected FirebaseFirestore db;
     protected BaseActivity mActivity;
     protected MainActivity mActivityMain;
     protected WelcomeActivity mActivityWelcome;
