@@ -1,5 +1,6 @@
 package com.app.doctorapp.view.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -56,6 +57,7 @@ public class AdapterChatsCore extends RecyclerView.Adapter<RecyclerView.ViewHold
     public int getItemViewType(int position) {
 
         //sender_id === opposite id
+
         if (itemList.get(position).getSender_uid().equalsIgnoreCase(sender_id)) {
             return 1;
         }

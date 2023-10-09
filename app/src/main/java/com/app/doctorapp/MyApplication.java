@@ -10,7 +10,6 @@ import dagger.hilt.android.HiltAndroidApp;
 public class MyApplication extends Application {
 
 
-    @SuppressLint("ScheduleExactAlarm")
     @Override
     public void onCreate() {
         super.onCreate();

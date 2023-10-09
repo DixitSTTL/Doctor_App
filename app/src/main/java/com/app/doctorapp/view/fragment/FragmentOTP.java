@@ -27,9 +27,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthProvider;
 
 public class FragmentOTP extends BaseFragment {
-    FragmentOTPBinding mBinding;
-    FragViewModelOTP mViewmodel;
-    String smsCode;
+    private FragmentOTPBinding mBinding;
+    private FragViewModelOTP mViewmodel;
+    private  String smsCode;
 
     public FragmentOTP() {
         // Required empty public constructor
@@ -54,7 +54,7 @@ public class FragmentOTP extends BaseFragment {
         return mBinding.getRoot();
     }
 
-    GeneralClickListener generalClickListener = new GeneralClickListener() {
+    private   GeneralClickListener generalClickListener = new GeneralClickListener() {
         @Override
         public void onClick(View view) {
             if (view == mBinding.button) {

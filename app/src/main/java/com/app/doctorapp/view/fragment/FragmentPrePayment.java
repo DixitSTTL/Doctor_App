@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.app.doctorapp.R;
+import com.app.doctorapp.businesslogic.interfaces.GeneralClickListener;
 import com.app.doctorapp.businesslogic.viewmodels.fragment.FragViewModelPrePayment;
 import com.app.doctorapp.databinding.FragmentPrePaymentBinding;
 import com.app.doctorapp.models.DateModel;
@@ -67,7 +68,17 @@ public class FragmentPrePayment extends BaseFragment {
         mBinding.setDoctorDetailsModel(mViewModel.observeSecondaryDetail.get());
         mBinding.setDateModel(dateModel);
         mBinding.setTimeSlot(timeSlot);
+        mBinding.setGeneralListener(generalClickListener);
     }
+    GeneralClickListener generalClickListener = new GeneralClickListener() {
+        @Override
+        public void onClick(View view) {
+
+
+            mViewModel.generateAppointment(timeSlot,dateModel);
+
+        }
+    };
 
     private void initToolbar() {
 

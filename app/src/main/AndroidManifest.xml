@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -15,6 +16,10 @@
         android:theme="@style/Theme.DoctorApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".view.activity.DoctorActivity"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBCePt75pMc6f84FXXxTUtwklglb9JUksQ" />
@@ -32,7 +37,7 @@
         <activity
             android:name=".view.activity.MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activity.WelcomeActivity"
             android:exported="true"

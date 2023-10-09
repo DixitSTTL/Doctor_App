@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import com.app.doctorapp.MyApplication;
 import com.app.doctorapp.businesslogic.rx.SchedulerProvider;
 import com.app.doctorapp.utils.preference.UtilsSharedPreferences;
+import com.app.doctorapp.view.activity.DoctorActivity;
 import com.app.doctorapp.view.activity.MainActivity;
 import com.app.doctorapp.view.activity.WelcomeActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -29,6 +30,7 @@ public class BaseFragment extends Fragment {
     protected FirebaseFirestore db;
     protected BaseActivity mActivity;
     protected MainActivity mActivityMain;
+    protected DoctorActivity mActivityDoc;
     protected WelcomeActivity mActivityWelcome;
     protected Context mContext;
     protected boolean reLoaded = false;
@@ -41,6 +43,12 @@ public class BaseFragment extends Fragment {
         mActivity = (BaseActivity) getActivity();
         try {
             mActivityMain = (MainActivity) getActivity();
+
+        } catch (Exception e) {
+
+        }
+        try {
+            mActivityDoc = (DoctorActivity) getActivity();
 
         } catch (Exception e) {
 

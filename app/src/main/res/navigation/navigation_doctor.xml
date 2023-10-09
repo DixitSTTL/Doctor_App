@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/fragmentReceipt">
+
+
+    <fragment
+        android:id="@+id/fragmentReceipt"
+        android:name="com.app.doctorapp.view.fragment.doctor.FragmentReceipt"
+        android:label="fragment_receipt"
+        tools:layout="@layout/fragment_receipt" />
+    <fragment
+        android:id="@+id/fragmentChat"
+        android:name="com.app.doctorapp.view.fragment.doctor.FragmentChat"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat">
+        <action
+            android:id="@+id/action_fragmentChat_to_fragmentChatCore"
+            app:destination="@id/fragmentChatCore" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentChatCore"
+        android:name="com.app.doctorapp.view.fragment.doctor.FragmentChatCore"
+        android:label="FragmentChatCore" />
+
+</navigation>

@@ -1,6 +1,10 @@
 package com.app.doctorapp.utils;
 
+import android.app.Activity;
+import android.content.Context;
+import android.os.IBinder;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.core.content.ContextCompat;
 
@@ -24,5 +28,19 @@ public class Utils {
 
 
 
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        try {
+            InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (activity.getCurrentFocus() != null) {
+                IBinder iBinder = activity.getCurrentFocus().getWindowToken();
+                if (iBinder != null && inputMethodManager != null) {
+                    inputMethodManager.hideSoftInputFromWindow(iBinder, 0);
+                }
+            }
+        } catch (Exception exception) {
+//            Logger.log(exception.toString());
+        }
     }
 }

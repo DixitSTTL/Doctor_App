@@ -39,18 +39,12 @@ public class BaseViewModel extends ViewModel {
 
     public ObservableField<String> observerSnackBarString = new ObservableField<>("");
     public ObservableField<EnumUser> observeUser = new ObservableField<>(EnumUser.PATIENT);
-    public ObservableField<EnumGender> observeGender = new ObservableField<>();
 
-    public ObservableField<String> observeName = new ObservableField<>();
-    public ObservableField<String> observeEmail = new ObservableField<>();
-    public ObservableField<String> observeMobile = new ObservableField<>();
-    public ObservableField<String> observePass = new ObservableField<>();
     public ObservableField<EnumVisibility> observeVisibility = new ObservableField<EnumVisibility>();
 
     @Inject
     public BaseViewModel() {
     }
-
 
     private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 

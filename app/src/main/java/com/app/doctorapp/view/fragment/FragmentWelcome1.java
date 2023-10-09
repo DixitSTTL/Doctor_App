@@ -16,8 +16,8 @@ import com.app.doctorapp.view.BaseFragment;
 
 public class FragmentWelcome1 extends BaseFragment {
 
-    FragViewModelWel1 mViewmodel;
-    FragmentWelcome1Binding mBinding;
+    private FragViewModelWel1 mViewmodel;
+    private  FragmentWelcome1Binding mBinding;
 
 
     public FragmentWelcome1() {
@@ -43,7 +43,7 @@ public class FragmentWelcome1 extends BaseFragment {
         return mBinding.getRoot();
     }
 
-    GeneralClickListener generalClickListener = view -> {
+    private  GeneralClickListener generalClickListener = view -> {
 
         mActivityWelcome.navigateWel2();
 

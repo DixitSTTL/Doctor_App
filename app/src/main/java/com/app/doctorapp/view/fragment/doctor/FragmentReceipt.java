@@ -1,20 +1,16 @@
-package com.app.doctorapp.view.fragment;
+package com.app.doctorapp.view.fragment.doctor;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.databinding.DataBindingUtil;
-
 import com.app.doctorapp.R;
-import com.app.doctorapp.databinding.FragmentPayOptionBinding;
 import com.app.doctorapp.view.BaseFragment;
 
-public class FragmentPayOption extends BaseFragment {
-    private FragmentPayOptionBinding mBinding;
+public class FragmentReceipt extends BaseFragment {
 
-    public FragmentPayOption() {
+    public FragmentReceipt() {
         // Required empty public constructor
     }
 
@@ -30,9 +26,7 @@ public class FragmentPayOption extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_pay_option, container, false);
         // Inflate the layout for this fragment
-        return mBinding.getRoot();
+        return inflater.inflate(R.layout.fragment_receipt, container, false);
     }
 }

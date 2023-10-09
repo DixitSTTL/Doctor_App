@@ -35,7 +35,7 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageView5"
-            setGlideImage="@{model.doctor_image}"
+            setGlideImage="@{model.patient_image}"
             android:layout_width="45dp"
             android:layout_height="45dp"
             app:shapeAppearance="@style/rounded_normal"
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
             android:fontFamily="@font/gilroy_medium"
-            android:text="@{model.doctor_name}"
+            android:text="@{model.patient_name}"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/textView12"
@@ -57,20 +57,7 @@
             app:layout_constraintTop_toTopOf="@+id/imageView5"
             tools:text="name" />
 
-        <TextView
-            android:id="@+id/textView21"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
-            android:layout_marginTop="3dp"
-            android:fontFamily="@font/gilroy_medium"
-            android:text="@{model.doctor_category}"
 
-            android:textColor="@color/grayscale2"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toBottomOf="@+id/textView13"
-            tools:text="cat" />
 
         <TextView
             android:layout_width="0dp"
@@ -85,7 +72,7 @@
             android:textColor="@color/grayscale2"
             app:layout_constraintEnd_toStartOf="@+id/textView12"
             app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toBottomOf="@+id/textView21"
+            app:layout_constraintTop_toBottomOf="@+id/textView13"
             tools:text="chat" />
 
 

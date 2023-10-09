@@ -1,4 +1,4 @@
-package com.app.doctorapp.view.fragment;
+package com.app.doctorapp.view.fragment.doctor;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -20,13 +20,13 @@ import com.app.doctorapp.businesslogic.viewmodels.fragment.FragViewModelChat;
 import com.app.doctorapp.databinding.FragmentChatBinding;
 import com.app.doctorapp.models.ChatOuter;
 import com.app.doctorapp.view.BaseFragment;
-import com.app.doctorapp.view.adapter.AdapterChatsHome;
+import com.app.doctorapp.view.adapter.AdapterChatsDoctor;
 
 public class FragmentChat extends BaseFragment {
 
-   private FragViewModelChat mViewModel;
-    private FragmentChatBinding mBinding;
-    private AdapterChatsHome adapterChatsHome;
+    FragViewModelChat mViewModel;
+    FragmentChatBinding mBinding;
+    AdapterChatsDoctor adapterChatsDoctor;
 
     public FragmentChat() {
         // Required empty public constructor
@@ -49,7 +49,7 @@ public class FragmentChat extends BaseFragment {
         }
 
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_chat, container, false);
-        mViewModel = new ViewModelProvider(mActivityMain).get(FragViewModelChat.class);
+        mViewModel = new ViewModelProvider(mActivityDoc).get(FragViewModelChat.class);
         // Inflate the layout for this fragment
         return mBinding.getRoot();
     }
@@ -70,8 +70,8 @@ public class FragmentChat extends BaseFragment {
     private void setObserver() {
         LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         manager.setSmoothScrollbarEnabled(true);
-        adapterChatsHome = new AdapterChatsHome(mViewModel.observeChatList, generalItemClickListener);
-        mBinding.recChats.setAdapter(adapterChatsHome);
+        adapterChatsDoctor = new AdapterChatsDoctor(mViewModel.observeChatList, generalItemClickListener);
+        mBinding.recChats.setAdapter(adapterChatsDoctor);
         mBinding.recChats.setLayoutManager(manager);
 
         mViewModel.observeChatList.addOnListChangedCallback(new ObservableList.OnListChangedCallback() {
@@ -87,7 +87,7 @@ public class FragmentChat extends BaseFragment {
 
             @Override
             public void onItemRangeInserted(ObservableList sender, int positionStart, int itemCount) {
-                adapterChatsHome.notifyDataSetChanged();
+                adapterChatsDoctor.notifyDataSetChanged();
 //                manager.scrollToPosition(0);
 //                manager.smoothScrollToPosition(mBinding.recChats, null, 0);
             }
@@ -104,18 +104,18 @@ public class FragmentChat extends BaseFragment {
         });
     }
 
-    private final GeneralClickListener generalClickListener = new GeneralClickListener() {
+    GeneralClickListener generalClickListener = new GeneralClickListener() {
         @Override
         public void onClick(View view) {
 
         }
     };
 
-    private final GeneralItemClickListener generalItemClickListener = new GeneralItemClickListener() {
+    GeneralItemClickListener generalItemClickListener = new GeneralItemClickListener() {
         @Override
         public void onItemClick(View view, int position, Object item) {
 
-            mActivityMain.navigateChatCore(((ChatOuter) item).getDoctor_uid());
+            mActivityDoc.navigateChatCore(((ChatOuter) item).getPatient_uid());
 
         }
     };

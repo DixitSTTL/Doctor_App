@@ -24,8 +24,8 @@ import com.app.doctorapp.view.BaseFragment;
 
 public class FragmentHome extends BaseFragment {
 
-    FragmentHomeBinding mBinding;
-    FragViewModelHome mViewModel;
+    private FragmentHomeBinding mBinding;
+    private FragViewModelHome mViewModel;
 
     public FragmentHome() {
         // Required empty public constructor
@@ -68,7 +68,7 @@ public class FragmentHome extends BaseFragment {
         mViewModel.loadDoctors();
     }
 
-    GeneralClickListener generalClickListener = new GeneralClickListener() {
+    private  GeneralClickListener generalClickListener = new GeneralClickListener() {
         @Override
         public void onClick(View view) {
 
@@ -76,7 +76,7 @@ public class FragmentHome extends BaseFragment {
         }
     };
 
-    GeneralItemClickListener generalItemClickListener = new GeneralItemClickListener() {
+    private GeneralItemClickListener generalItemClickListener = new GeneralItemClickListener() {
         @Override
         public void onItemClick(View view, int position, Object item) {
             mActivityMain.navigateDoctorDetails(mViewModel.observeDoctorList.get(position).getId());

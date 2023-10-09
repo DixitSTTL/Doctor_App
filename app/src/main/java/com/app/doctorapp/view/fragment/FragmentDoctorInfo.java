@@ -78,7 +78,7 @@ public class FragmentDoctorInfo extends BaseFragment implements OnMapReadyCallba
     }
 
 
-    GeneralItemClickListener generalItemClickListener = new GeneralItemClickListener() {
+    private   GeneralItemClickListener generalItemClickListener = new GeneralItemClickListener() {
         @Override
         public void onItemClick(View view, int position, Object item) {
             if (view.getId()==R.id.dateCC){
@@ -94,7 +94,7 @@ public class FragmentDoctorInfo extends BaseFragment implements OnMapReadyCallba
         }
     };
 
-    GeneralClickListener generalClickListener = new GeneralClickListener() {
+    private  GeneralClickListener generalClickListener = new GeneralClickListener() {
         @Override
         public void onClick(View view) {
 

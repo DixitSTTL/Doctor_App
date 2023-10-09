@@ -22,8 +22,8 @@ import com.app.doctorapp.view.BaseFragment;
 
 public class FragmentWelcome2 extends BaseFragment {
 
-    FragViewModelWel2 mViewmodel;
-    FragmentWelcome2Binding mBinding;
+    private FragViewModelWel2 mViewmodel;
+    private FragmentWelcome2Binding mBinding;
 
 
     public FragmentWelcome2() {
@@ -58,7 +58,7 @@ public class FragmentWelcome2 extends BaseFragment {
 
     }
 
-    GeneralClickListener generalClickListener = new GeneralClickListener() {
+    private  GeneralClickListener generalClickListener = new GeneralClickListener() {
         @Override
         public void onClick(View view) {
 

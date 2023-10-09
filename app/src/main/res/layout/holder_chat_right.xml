@@ -23,17 +23,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="@{(v)->generalItemListener.onItemClick(v,currentPosition,model)}"
-        android:paddingHorizontal="16dp"
+        android:paddingHorizontal="4dp"
         android:paddingVertical="8dp">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imageView5"
-            setGlideImage="@{`https://firebasestorage.googleapis.com/v0/b/doctor-app-1e65e.appspot.com/o/doctors_image%2Fimage%20Dr.%20Floyd%20Miles.png?alt=media&amp;token=ee7d27bd-aa32-4a36-87ae-27c8e8b713a4`}"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            app:shapeAppearance="@style/CornerCut"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/textView13"
@@ -47,12 +39,28 @@
             android:text="@{model.message}"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView5"
+            android:minWidth="60dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.99"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="text" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_double_tick"
+            android:fontFamily="@font/gilroy_semibold"
+            setFormattedDate="@{model.time}"
+            android:textColor="@color/grayscale2"
+            android:textSize="12sp"
+            android:drawablePadding="4dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/textView13"
+            tools:text="text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

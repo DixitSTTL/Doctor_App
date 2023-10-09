@@ -23,9 +23,8 @@ import com.app.doctorapp.view.BaseActivity;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class MainActivity extends BaseActivity implements NavController.OnDestinationChangedListener {
-    ActivityMainBinding mBinding;
+    private ActivityMainBinding mBinding;
     private NavController navController;
-
     private ActionBarDrawerToggle mDrawerToggle;
 
 
@@ -85,15 +84,6 @@ public class MainActivity extends BaseActivity implements NavController.OnDestin
 
     @Override
     public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
-        Log.d("onDestinationChanged", "  " + navDestination.getId() + "  " + navDestination.getLabel());
-
-        if (navDestination.getLabel().equals("FragmentChatCore")) {
-            mBinding.bottomNavigationView.setVisibility(View.GONE);
-        } else {
-            mBinding.bottomNavigationView.setVisibility(View.VISIBLE);
-
-        }
-
 
     }
 

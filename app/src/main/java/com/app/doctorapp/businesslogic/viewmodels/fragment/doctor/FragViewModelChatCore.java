@@ -1,10 +1,11 @@
-package com.app.doctorapp.businesslogic.viewmodels.fragment;
+package com.app.doctorapp.businesslogic.viewmodels.fragment.doctor;
 
 import static com.app.doctorapp.utils.ConstantData.COLLECTION_CHAT;
 import static com.app.doctorapp.utils.Utils.hideKeyboard;
 
 import android.app.Activity;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.ObservableArrayList;
@@ -23,6 +24,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.nio.file.LinkOption;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -43,7 +45,7 @@ public class FragViewModelChatCore extends BaseViewModel {
     public ObservableField<String> observeChatText = new ObservableField<String>();
     public ObservableField<String> observeUsername = new ObservableField<String>();
     public ObservableField<String> observeUserImage = new ObservableField<String>();
-    public String doctor_uid;
+    public String patient_uid;
     Activity activity;
     String chatList_uid;
 
@@ -59,7 +61,6 @@ public class FragViewModelChatCore extends BaseViewModel {
             observerSnackBarString.set("Please enter message");
         } else {
             hideKeyboard(activity);
-
             ChatInSide chat = new ChatInSide(new Date(), preferences.getString(R.string.user_uid), observeChatText.get());
 
             db.collection(COLLECTION_CHAT)
@@ -98,8 +99,8 @@ public class FragViewModelChatCore extends BaseViewModel {
     }
 
 
-    public void loadChatOuter(String doctor_uid, Activity activity) {
-        this.doctor_uid = doctor_uid;
+    public void loadChatOuter(String patient_uid, Activity activity) {
+        this.patient_uid = patient_uid;
         this.activity = activity;
 
       /*  Query query1 = db.collection("CHAT").whereEqualTo("sender_email", "dixit@mechodal.com");
@@ -135,16 +136,18 @@ public class FragViewModelChatCore extends BaseViewModel {
         });*/
 
         db.collection(COLLECTION_CHAT)
-                .whereEqualTo("patient_uid", preferences.getString(R.string.user_uid))
-                .whereEqualTo("doctor_uid", this.doctor_uid)
+                .whereEqualTo("doctor_uid", preferences.getString(R.string.user_uid))
+                .whereEqualTo("patient_uid", patient_uid)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
+
+
                         chatList_uid = queryDocumentSnapshots.getDocuments().get(0).getId();
-                        observeUsername.set((String) queryDocumentSnapshots.getDocuments().get(0).get("doctor_name"));
-                        observeUserImage.set((String) queryDocumentSnapshots.getDocuments().get(0).get("doctor_image"));
+                        observeUsername.set((String) queryDocumentSnapshots.getDocuments().get(0).get("patient_name"));
+                        observeUserImage.set((String) queryDocumentSnapshots.getDocuments().get(0).get("patient_image"));
                         loadChatInSide();
 
 

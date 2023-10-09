@@ -5,21 +5,18 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 
 import com.app.doctorapp.R;
-import com.app.doctorapp.businesslogic.viewmodels.BaseViewModel;
-import com.app.doctorapp.businesslogic.viewmodels.activity.ViewModelWelcome;
 import com.app.doctorapp.databinding.ActivityWelcomeBinding;
 import com.app.doctorapp.view.BaseActivity;
 
 public class WelcomeActivity extends BaseActivity implements NavController.OnDestinationChangedListener {
 
     private NavController navController;
-    ActivityWelcomeBinding mBinding;
+    private ActivityWelcomeBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -24,9 +24,9 @@ import java.util.Calendar;
 
 public class FragmentWelcome3 extends BaseFragment {
 
-    FragViewModelWel3 mViewmodel;
-    FragmentWelcome3Binding mBinding;
-    GeneralClickListener generalClickListener = new GeneralClickListener() {
+    private FragViewModelWel3 mViewmodel;
+    private  FragmentWelcome3Binding mBinding;
+    private GeneralClickListener generalClickListener = new GeneralClickListener() {
         @Override
         public void onClick(View view) {
             if (view == mBinding.llmale) {

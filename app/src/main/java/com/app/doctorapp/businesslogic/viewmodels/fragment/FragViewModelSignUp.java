@@ -29,7 +29,10 @@ public class FragViewModelSignUp extends BaseViewModel {
     MyApplication myApplication;
 
     public ObservableBoolean observeCheck = new ObservableBoolean(false);
-
+    public ObservableField<String> observeName = new ObservableField<>();
+    public ObservableField<String> observeEmail = new ObservableField<>();
+    public ObservableField<String> observeMobile = new ObservableField<>();
+    public ObservableField<String> observePass = new ObservableField<>();
     @Inject
     public FragViewModelSignUp(MyApplication myApplication) {
         this.myApplication = myApplication;

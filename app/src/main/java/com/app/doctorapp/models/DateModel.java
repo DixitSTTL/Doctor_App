@@ -16,6 +16,24 @@ public class DateModel implements Parcelable {
         this.year = year;
     }
 
+    protected DateModel(Parcel in) {
+        day = in.readString();
+        month = in.readString();
+        year = in.readString();
+    }
+
+    public static final Creator<DateModel> CREATOR = new Creator<DateModel>() {
+        @Override
+        public DateModel createFromParcel(Parcel in) {
+            return new DateModel(in);
+        }
+
+        @Override
+        public DateModel[] newArray(int size) {
+            return new DateModel[size];
+        }
+    };
+
     public String getDay() {
         return day;
     }
@@ -47,6 +65,8 @@ public class DateModel implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-
+        dest.writeString(day);
+        dest.writeString(month);
+        dest.writeString(year);
     }
 }

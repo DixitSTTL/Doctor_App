@@ -15,6 +15,9 @@
         <variable
             name="dateModel"
             type="com.app.doctorapp.models.DateModel" />
+        <variable
+            name="generalListener"
+            type="com.app.doctorapp.businesslogic.interfaces.GeneralClickListener" />
 
         <variable
             name="timeSlot"
@@ -24,6 +27,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/grayscale4"
         tools:context=".view.fragment.FragmentPrePayment">
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -360,7 +364,7 @@ San Francisco 62639"
             android:background="@drawable/main_bg_12"
             android:fontFamily="@font/gilroy_semibold"
             android:paddingHorizontal="25dp"
-
+            android:onClick="@{generalListener::onClick}"
             android:paddingVertical="10sp"
             android:text="@string/go_to_payment"
             android:textColor="@color/white"

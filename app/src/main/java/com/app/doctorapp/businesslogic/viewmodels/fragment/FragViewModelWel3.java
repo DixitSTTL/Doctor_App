@@ -5,6 +5,7 @@ import androidx.databinding.ObservableField;
 import com.app.doctorapp.MyApplication;
 import com.app.doctorapp.businesslogic.viewmodels.BaseViewModel;
 import com.app.doctorapp.models.DateModel;
+import com.app.doctorapp.utils.EnumGender;
 
 import java.util.Calendar;
 
@@ -18,6 +19,7 @@ public class FragViewModelWel3 extends BaseViewModel {
     MyApplication myApplication;
 
     public ObservableField<DateModel> observeDate = new ObservableField<>();
+    public ObservableField<EnumGender> observeGender = new ObservableField<>();
 
     @Inject
     public FragViewModelWel3(MyApplication myApplication) {

@@ -53,7 +53,6 @@ public class FragViewModelHome extends BaseViewModel {
                         for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                             CategoryModel data = document.toObject(CategoryModel.class);
                             observeCategoryList.add(data);
-                            Log.d("vdfbdnbdb", "  " + data.getName() + "  " + data.getImage());
 
                         }
 

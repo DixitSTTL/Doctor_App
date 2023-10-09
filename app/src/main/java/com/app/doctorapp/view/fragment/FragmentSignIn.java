@@ -18,8 +18,8 @@ import com.app.doctorapp.view.BaseFragment;
 
 public class FragmentSignIn extends BaseFragment {
 
-    FragmentSignInBinding mBinding;
-    FragViewModelSignIn mViewmodel;
+    private  FragmentSignInBinding mBinding;
+    private FragViewModelSignIn mViewmodel;
 
     public FragmentSignIn() {
         // Required empty public constructor
@@ -44,7 +44,7 @@ public class FragmentSignIn extends BaseFragment {
         return mBinding.getRoot();
     }
 
-    GeneralClickListener generalClickListener = new GeneralClickListener() {
+    private  GeneralClickListener generalClickListener = new GeneralClickListener() {
         @Override
         public void onClick(View view) {
 

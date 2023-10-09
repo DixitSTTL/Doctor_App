@@ -10,6 +10,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.ObservableField;
 
 import com.app.doctorapp.MyApplication;
 import com.app.doctorapp.R;
@@ -17,6 +18,7 @@ import com.app.doctorapp.businesslogic.viewmodels.BaseViewModel;
 import com.app.doctorapp.models.UserDoctorModel;
 import com.app.doctorapp.models.UserPatientModel;
 import com.app.doctorapp.utils.EnumVisibility;
+import com.app.doctorapp.view.activity.DoctorActivity;
 import com.app.doctorapp.view.activity.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -35,7 +37,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class FragViewModelSignIn extends BaseViewModel {
     @Inject
     MyApplication myApplication;
-
+    public ObservableField<String> observeEmail = new ObservableField<>();
+    public ObservableField<String> observePass = new ObservableField<>();
 
     @Inject
     public FragViewModelSignIn(MyApplication myApplication) {
@@ -52,7 +55,6 @@ public class FragViewModelSignIn extends BaseViewModel {
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-                            Log.d("TAG", "onComplete: " + "onSuccess");
                             observeVisibility.set(EnumVisibility.VISIBLE);
 
                             saveAllUserDetails(authResult);
@@ -61,7 +63,6 @@ public class FragViewModelSignIn extends BaseViewModel {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.d("TAG", "onComplete: " + "onFailure");
                             observeVisibility.set(EnumVisibility.VISIBLE);
 
                         }
@@ -69,7 +70,6 @@ public class FragViewModelSignIn extends BaseViewModel {
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            Log.d("TAG", "onComplete: " + "onComplete");
                             observeVisibility.set(EnumVisibility.VISIBLE);
 
                         }
@@ -106,7 +106,7 @@ public class FragViewModelSignIn extends BaseViewModel {
                             preferences.setString(R.string.user_Rating, String.valueOf(model.getUser_Rating()));
                             preferences.setString(R.string.user_review_count, (String.valueOf(model.getUser_review_count())));
 
-                            context.startActivity(new Intent(context, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                            context.startActivity(new Intent(context, DoctorActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 
                             observerSnackBarString.set("Login Successfully");
                         }

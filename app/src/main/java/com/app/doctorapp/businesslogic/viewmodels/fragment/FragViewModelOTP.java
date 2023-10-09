@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 import static com.app.doctorapp.utils.ConstantData.DOCTOR_DETAILS;
 import static com.app.doctorapp.utils.ConstantData.USER_DOCTOR;
 import static com.app.doctorapp.utils.ConstantData.USER_LOGIN;
+import static com.app.doctorapp.utils.ConstantData.USER_PATIENT;
 
 import android.content.Intent;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.app.doctorapp.models.DoctorDetailsModel;
 import com.app.doctorapp.models.UserDoctorModel;
 import com.app.doctorapp.models.UserPatientModel;
 import com.app.doctorapp.utils.EnumVisibility;
+import com.app.doctorapp.view.activity.DoctorActivity;
 import com.app.doctorapp.view.activity.MainActivity;
 import com.app.doctorapp.view.activity.WelcomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,7 +28,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Date;
 import java.util.Random;
@@ -145,7 +146,15 @@ public class FragViewModelOTP extends BaseViewModel {
                         preferences.setString(R.string.user_login, USER_LOGIN);
                         preferences.setString(R.string.user_uid, uid);
                         Toast.makeText(myApplication, "User created successfully", Toast.LENGTH_SHORT).show();
-                        context.startActivity(new Intent(context, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+
+
+                        if (preferences.getString(R.string.user_type).equals(USER_PATIENT)) {
+                            context.startActivity(new Intent(context, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+
+                        } else {
+                            context.startActivity(new Intent(context, DoctorActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -155,18 +164,6 @@ public class FragViewModelOTP extends BaseViewModel {
                         Log.w(TAG, "Error writing document", e);
                     }
                 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     }

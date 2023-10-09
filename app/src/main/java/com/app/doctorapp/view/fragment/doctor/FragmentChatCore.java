@@ -1,4 +1,4 @@
-package com.app.doctorapp.view.fragment;
+package com.app.doctorapp.view.fragment.doctor;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -16,18 +16,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.interfaces.GeneralClickListener;
 import com.app.doctorapp.businesslogic.interfaces.GeneralItemClickListener;
-import com.app.doctorapp.businesslogic.viewmodels.fragment.FragViewModelChatCore;
+import com.app.doctorapp.businesslogic.viewmodels.fragment.doctor.FragViewModelChatCore;
 import com.app.doctorapp.databinding.FragmentChatCoreBinding;
+import com.app.doctorapp.databinding.FragmentChatCoreDoctorBinding;
 import com.app.doctorapp.models.ChatInSide;
 import com.app.doctorapp.view.BaseFragment;
 import com.app.doctorapp.view.adapter.AdapterChatsCore;
 
 public class FragmentChatCore extends BaseFragment {
 
-    private FragViewModelChatCore mViewModel;
-    private FragmentChatCoreBinding mBinding;
-    private AdapterChatsCore adapterChatsCore;
-    private String doctor_uid;
+    FragViewModelChatCore mViewModel;
+    FragmentChatCoreDoctorBinding mBinding;
+    AdapterChatsCore adapterChatsCore;
+    String patient_uid;
     private ObservableList.OnListChangedCallback<ObservableList<ChatInSide>> onListChangedCallback;
 
     public FragmentChatCore() {
@@ -40,17 +41,18 @@ public class FragmentChatCore extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
 
-            doctor_uid = getArguments().getString("doctor_uid");
+            patient_uid = getArguments().getString("patient_uid");
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_chat_core, container, false);
-        mViewModel = new ViewModelProvider(mActivityMain).get(FragViewModelChatCore.class);
+        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_chat_core_doctor, container, false);
+        mViewModel = new ViewModelProvider(mActivityDoc).get(FragViewModelChatCore.class);
         // Inflate the layout for this fragment
         initToolbar();
+
         return mBinding.getRoot();
     }
 
@@ -61,27 +63,15 @@ public class FragmentChatCore extends BaseFragment {
         mBinding.setGeneralItemListener(generalItemClickListener);
         mBinding.setGeneralListener(generalClickListener);
         setObserver();
-        mViewModel.loadChatOuter(doctor_uid, getActivity());
+        mViewModel.loadChatOuter(patient_uid, getActivity());
 
     }
-    private void initToolbar() {
 
-        mActivityMain.setSupportActionBar(mBinding.toolbar);
-
-        mActivityMain.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
-        mActivityMain.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mActivityMain.onBackPressed();
-            }
-        });
-    }
     private void setObserver() {
         LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         manager.setSmoothScrollbarEnabled(true);
         manager.setStackFromEnd(true);
-        adapterChatsCore = new AdapterChatsCore(mViewModel.observeChatList, generalItemClickListener, doctor_uid);
+        adapterChatsCore = new AdapterChatsCore(mViewModel.observeChatList, generalItemClickListener, patient_uid);
         mBinding.recChats.setAdapter(adapterChatsCore);
         mBinding.recChats.setLayoutManager(manager);
 
@@ -125,21 +115,30 @@ public class FragmentChatCore extends BaseFragment {
         }
     };
 
-    private GeneralClickListener generalClickListener = new GeneralClickListener() {
+    GeneralClickListener generalClickListener = new GeneralClickListener() {
         @Override
         public void onClick(View view) {
 
             if (view == mBinding.sendBtn) {
                 mViewModel.sendMessage();
-            }
-            else {
-
 
             }
 
         }
     };
+    private void initToolbar() {
 
+        mActivityDoc.setSupportActionBar(mBinding.toolbar);
+
+        mActivityDoc.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
+        mActivityDoc.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivityDoc.onBackPressed();
+            }
+        });
+    }
 
     @Override
     public void onDestroy() {

@@ -1,6 +1,7 @@
 package com.app.doctorapp.view.activity;
 
 import static com.app.doctorapp.utils.ConstantData.USER_LOGIN;
+import static com.app.doctorapp.utils.ConstantData.USER_PATIENT;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +24,13 @@ public class SplashActivity extends BaseActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_splash);
 
         if (preferences.getString(R.string.user_login).equals(USER_LOGIN)) {
-            startActivity(new Intent(this, MainActivity.class));
+
+            if (preferences.getString(R.string.user_type).equals(USER_PATIENT)) {
+                startActivity(new Intent(this, MainActivity.class));
+            } else {
+                startActivity(new Intent(this, DoctorActivity.class));
+            }
+
         } else {
             startActivity(new Intent(this, WelcomeActivity.class));
         }

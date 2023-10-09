@@ -1,8 +1,8 @@
 package com.app.doctorapp.businesslogic.viewmodels.fragment;
 
 import static com.app.doctorapp.utils.ConstantData.COLLECTION_CHAT;
+import static com.app.doctorapp.utils.ConstantData.USER_PATIENT;
 
-import android.app.Activity;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -42,12 +42,12 @@ public class FragViewModelChat extends BaseViewModel {
 
     }
 
-    public void loadMyChat(Activity activity) {
+    public void loadMyChat() {
         observeVisibility.set(EnumVisibility.LOADING);
         registration = db.collection(COLLECTION_CHAT)
 
-                .whereEqualTo("patient_uid", preferences.getString(R.string.user_uid))
-                .addSnapshotListener(activity, new EventListener<QuerySnapshot>() {
+                .whereEqualTo(preferences.getString(R.string.user_type).equals(USER_PATIENT) ? "patient_uid" : "doctor_uid", preferences.getString(R.string.user_uid))
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         observeVisibility.set(EnumVisibility.VISIBLE);
@@ -56,7 +56,6 @@ public class FragViewModelChat extends BaseViewModel {
                         chatList.clear();
                         for (QueryDocumentSnapshot document : value) {
                             ChatOuter data = document.toObject(ChatOuter.class);
-                            Log.d("loadChatOutSide", " onSuccess " + data.getTime());
 
                             chatList.add(data);
                         }
