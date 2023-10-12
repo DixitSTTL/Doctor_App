@@ -1,7 +1,7 @@
 package com.app.doctorapp.view.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +21,7 @@ import com.app.doctorapp.databinding.FragmentChatCoreBinding;
 import com.app.doctorapp.models.ChatInSide;
 import com.app.doctorapp.view.BaseFragment;
 import com.app.doctorapp.view.adapter.AdapterChatsCore;
+import com.google.android.material.transition.MaterialElevationScale;
 
 public class FragmentChatCore extends BaseFragment {
 
@@ -30,6 +31,7 @@ public class FragmentChatCore extends BaseFragment {
     private String doctor_uid;
     private ObservableList.OnListChangedCallback<ObservableList<ChatInSide>> onListChangedCallback;
 
+
     public FragmentChatCore() {
         // Required empty public constructor
     }
@@ -38,8 +40,10 @@ public class FragmentChatCore extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
 
+        setSharedElementEnterTransition(TransitionInflater.from(mContext)
+                .inflateTransition(R.transition.shared_element_transition));
+        if (getArguments() != null) {
             doctor_uid = getArguments().getString("doctor_uid");
         }
     }
@@ -57,13 +61,16 @@ public class FragmentChatCore extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mBinding.imageView5.setTransitionName("Day");
         mBinding.setMViewmodel(mViewModel);
         mBinding.setGeneralItemListener(generalItemClickListener);
         mBinding.setGeneralListener(generalClickListener);
         setObserver();
         mViewModel.loadChatOuter(doctor_uid, getActivity());
+        startPostponedEnterTransition();
 
     }
+
     private void initToolbar() {
 
         mActivityMain.setSupportActionBar(mBinding.toolbar);
@@ -77,6 +84,7 @@ public class FragmentChatCore extends BaseFragment {
             }
         });
     }
+
     private void setObserver() {
         LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         manager.setSmoothScrollbarEnabled(true);
@@ -98,9 +106,8 @@ public class FragmentChatCore extends BaseFragment {
 
             @Override
             public void onItemRangeInserted(ObservableList<ChatInSide> sender, int positionStart, int itemCount) {
-                adapterChatsCore.notifyDataSetChanged();
+                adapterChatsCore.notifyItemInserted(itemCount);
                 manager.smoothScrollToPosition(mBinding.recChats, null, itemCount);
-                manager.scrollToPosition(itemCount);
             }
 
             @Override
@@ -131,8 +138,7 @@ public class FragmentChatCore extends BaseFragment {
 
             if (view == mBinding.sendBtn) {
                 mViewModel.sendMessage();
-            }
-            else {
+            } else {
 
 
             }

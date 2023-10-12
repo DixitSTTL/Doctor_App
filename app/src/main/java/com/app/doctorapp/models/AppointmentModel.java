@@ -7,24 +7,54 @@ public class AppointmentModel {
     Date created;
     String doctor_name;
     String doctor_uid;
+    String doctor_image;
     String patient_name;
     String patient_uid;
-    String cTime;
+    String patient_image;
+    String c_time;
+
+
     DateModel cDate;
 
-//    public AppointmentModel() {
-//    }
+    public AppointmentModel() {
+    }
 
-    public AppointmentModel(Date created, String doctor_name, String doctor_uid, String patient_name, String patient_uid, String cTime, DateModel cDate) {
+    public AppointmentModel(Date created, String doctor_name, String doctor_uid, String doctor_image, String patient_name, String patient_uid, String patient_image, String c_time, DateModel cDate) {
         this.created = created;
         this.doctor_name = doctor_name;
         this.doctor_uid = doctor_uid;
+        this.doctor_image = doctor_image;
         this.patient_name = patient_name;
         this.patient_uid = patient_uid;
-        this.cTime = cTime;
+        this.patient_image = patient_image;
+        this.c_time = c_time;
         this.cDate = cDate;
     }
 
+
+    public String getCtime() {
+        return c_time;
+    }
+
+    public void setCtime(String ctime) {
+        this.c_time = ctime;
+    }
+
+    public String getDoctor_image() {
+        return doctor_image;
+    }
+
+    public void setDoctor_image(String doctor_image) {
+        this.doctor_image = doctor_image;
+    }
+
+    public String getPatient_image() {
+        return patient_image;
+    }
+
+    public void setPatient_image(String patient_image) {
+        this.patient_image = patient_image;
+    }
 
     public Date getCreated() {
         return created;
@@ -66,13 +96,6 @@ public class AppointmentModel {
         this.patient_uid = patient_uid;
     }
 
-    public String getcTime() {
-        return cTime;
-    }
-
-    public void setcTime(String cTime) {
-        this.cTime = cTime;
-    }
 
     public DateModel getcDate() {
         return cDate;
@@ -81,4 +104,5 @@ public class AppointmentModel {
     public void setcDate(DateModel cDate) {
         this.cDate = cDate;
     }
+
 }

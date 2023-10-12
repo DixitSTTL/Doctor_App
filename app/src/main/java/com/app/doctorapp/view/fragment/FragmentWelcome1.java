@@ -17,13 +17,17 @@ import com.app.doctorapp.view.BaseFragment;
 public class FragmentWelcome1 extends BaseFragment {
 
     private FragViewModelWel1 mViewmodel;
-    private  FragmentWelcome1Binding mBinding;
+    private FragmentWelcome1Binding mBinding;
+    private GeneralClickListener generalClickListener = view -> {
+
+        mActivityWelcome.navigateWel2();
+
+    };
 
 
     public FragmentWelcome1() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,10 +46,4 @@ public class FragmentWelcome1 extends BaseFragment {
         // Inflate the layout for this fragment
         return mBinding.getRoot();
     }
-
-    private  GeneralClickListener generalClickListener = view -> {
-
-        mActivityWelcome.navigateWel2();
-
-    };
 }

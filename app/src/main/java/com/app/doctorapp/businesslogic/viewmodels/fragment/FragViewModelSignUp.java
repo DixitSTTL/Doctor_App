@@ -118,6 +118,7 @@ public class FragViewModelSignUp extends BaseViewModel {
         preferences.setString(R.string.user_email, observeEmail.get());
         preferences.setString(R.string.user_name, observeName.get());
         preferences.setString(R.string.user_password, observePass.get());
+        preferences.setString(R.string.user_image, "https://firebasestorage.googleapis.com/v0/b/doctor-app-1e65e.appspot.com/o/doctors_image%2Fimage%20Dr.%20Floyd%20Miles.png?alt=media&token=ee7d27bd-aa32-4a36-87ae-27c8e8b713a4");
     }
 
 

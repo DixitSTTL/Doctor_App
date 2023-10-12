@@ -2,8 +2,8 @@ package com.app.doctorapp.businesslogic.viewmodels.fragment;
 
 import static com.app.doctorapp.utils.ConstantData.COLLECTION_APPOINTMENTS;
 import static com.app.doctorapp.utils.ConstantData.COLLECTION_CHAT;
+import static com.app.doctorapp.utils.Utils.generateAppointmentUID;
 
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -43,27 +43,30 @@ public class FragViewModelPrePayment extends BaseViewModel {
 
     }
 
-
     public void generateAppointment(String timeSlot, DateModel dateModel) {
         AppointmentModel appointmentModel = new AppointmentModel(
                 new Date(),
                 observeMainDetail.get().getUser_name(),
                 observeMainDetail.get().getUser_uid(),
+                observeMainDetail.get().getUser_image(),
                 preferences.getString(R.string.user_name),
                 preferences.getString(R.string.user_uid),
+                preferences.getString(R.string.user_image),
                 timeSlot,
                 dateModel);
 
         db.collection(COLLECTION_APPOINTMENTS)
-                .add(appointmentModel).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                .document(generateAppointmentUID(preferences.getString(R.string.user_uid), observeMainDetail.get().getUser_uid()))
+                .set(appointmentModel)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
+                    public void onSuccess(Void unused) {
                         Toast.makeText(myApplication, "Appointment Generated", Toast.LENGTH_SHORT).show();
 
                         checkChatCollection();
-
                     }
                 });
+
 
     }
 

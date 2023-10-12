@@ -15,19 +15,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.interfaces.GeneralClickListener;
 import com.app.doctorapp.businesslogic.interfaces.GeneralItemClickListener;
-import com.app.doctorapp.businesslogic.viewmodels.fragment.FragViewModelChat;
-import com.app.doctorapp.databinding.FragmentChatBinding;
-import com.app.doctorapp.models.ChatOuter;
+import com.app.doctorapp.businesslogic.viewmodels.fragment.doctor.FragViewModelAppointments;
+import com.app.doctorapp.databinding.FragmentAppointmentsBinding;
 import com.app.doctorapp.view.BaseFragment;
-import com.app.doctorapp.view.adapter.AdapterChatsDoctor;
+import com.app.doctorapp.view.adapter.AdapterAppointments;
 
-public class FragmentChat extends BaseFragment {
+public class FragmentAppointments extends BaseFragment {
 
-    private FragViewModelChat mViewModel;
-    private FragmentChatBinding mBinding;
-    private AdapterChatsDoctor adapterChatsDoctor;
+    private FragViewModelAppointments mViewModel;
+    private FragmentAppointmentsBinding mBinding;
+    private AdapterAppointments adapterAppointments;
 
-    public FragmentChat() {
+    public FragmentAppointments() {
         // Required empty public constructor
     }
 
@@ -46,8 +45,8 @@ public class FragmentChat extends BaseFragment {
             return mBinding.getRoot();
         }
 
-        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_chat, container, false);
-        mViewModel = new ViewModelProvider(mActivityDoc).get(FragViewModelChat.class);
+        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_appointments, container, false);
+        mViewModel = new ViewModelProvider(mActivityDoc).get(FragViewModelAppointments.class);
         // Inflate the layout for this fragment
         return mBinding.getRoot();
     }
@@ -61,18 +60,18 @@ public class FragmentChat extends BaseFragment {
         mBinding.setMViewmodel(mViewModel);
         mBinding.setGeneralListener(generalClickListener);
         mBinding.setGeneralItemListener(generalItemClickListener);
-        mViewModel.loadMyChat();
+        mViewModel.loadMyAppointments();
         setObserver();
     }
 
     private void setObserver() {
         LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         manager.setSmoothScrollbarEnabled(true);
-        adapterChatsDoctor = new AdapterChatsDoctor(mViewModel.observeChatList, generalItemClickListener);
-        mBinding.recChats.setAdapter(adapterChatsDoctor);
-        mBinding.recChats.setLayoutManager(manager);
+        adapterAppointments = new AdapterAppointments(mViewModel.observeAppoList, generalItemClickListener);
+        mBinding.recAppo.setAdapter(adapterAppointments);
+        mBinding.recAppo.setLayoutManager(manager);
 
-        mViewModel.observeChatList.addOnListChangedCallback(new ObservableList.OnListChangedCallback() {
+        mViewModel.observeAppoList.addOnListChangedCallback(new ObservableList.OnListChangedCallback() {
             @Override
             public void onChanged(ObservableList sender) {
 
@@ -85,7 +84,7 @@ public class FragmentChat extends BaseFragment {
 
             @Override
             public void onItemRangeInserted(ObservableList sender, int positionStart, int itemCount) {
-                adapterChatsDoctor.notifyDataSetChanged();
+                adapterAppointments.notifyDataSetChanged();
 //                manager.scrollToPosition(0);
 //                manager.smoothScrollToPosition(mBinding.recChats, null, 0);
             }
@@ -113,7 +112,7 @@ public class FragmentChat extends BaseFragment {
         @Override
         public void onItemClick(View view, int position, Object item) {
 
-            mActivityDoc.navigateChatCore(((ChatOuter) item).getPatient_uid());
+//            mActivityDoc.navigatePrescription(((AppointmentModel) item).getPatient_uid());
 
         }
     };

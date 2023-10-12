@@ -13,10 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.doctorapp.businesslogic.interfaces.GeneralItemClickListener;
 import com.app.doctorapp.models.CategoryModel;
-import com.app.doctorapp.models.ChatOuter;
 import com.app.doctorapp.view.adapter.AdapterCategory;
-import com.app.doctorapp.view.adapter.AdapterChatsHome;
 import com.app.doctorapp.view.adapter.AdapterDoctors;
+import com.app.doctorapp.view.adapter.AdapterRecipes;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -65,6 +64,16 @@ public class CustomBindingAdapter {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL, false));
 
     }
+
+    @BindingAdapter(value = {"setAdapterRecipes", "setOnItemClickListener"})
+    public static void setAdapterRecipes(RecyclerView recyclerView, ObservableArrayList<QueryDocumentSnapshot> list, GeneralItemClickListener generalItemClickListener) {
+//        AdapterRecipes adapterRecipes = new AdapterRecipes(list, generalItemClickListener);
+//        recyclerView.setAdapter(adapterRecipes);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL, false));
+
+    }
+
+
 
 //    @BindingAdapter(value = {"setAdapterChat", "setOnItemClickListener"})
 //    public static void setAdapterChat(RecyclerView recyclerView, ObservableArrayList<ChatOuter> list, GeneralItemClickListener generalItemClickListener) {

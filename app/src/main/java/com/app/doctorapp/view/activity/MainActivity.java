@@ -1,7 +1,6 @@
 package com.app.doctorapp.view.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;

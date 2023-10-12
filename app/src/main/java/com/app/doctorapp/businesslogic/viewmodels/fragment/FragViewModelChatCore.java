@@ -165,6 +165,7 @@ public class FragViewModelChatCore extends BaseViewModel {
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         observeVisibility.set(EnumVisibility.VISIBLE);
 
+
                         chatList.clear();
                         observeChatList.clear();
                         for (QueryDocumentSnapshot documentSnapshot : value) {

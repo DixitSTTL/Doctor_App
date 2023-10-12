@@ -1,6 +1,5 @@
 package com.app.doctorapp.view.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -17,14 +16,14 @@ import com.app.doctorapp.models.ChatInSide;
 
 import java.util.List;
 
-public class AdapterChatsCore extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdapterPreDoctor extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     List<ChatInSide> itemList;
     GeneralItemClickListener listener;
 
     String sender_id;
 
-    public AdapterChatsCore(List<ChatInSide> itemList, GeneralItemClickListener listener, String sender_id) {
+    public AdapterPreDoctor(List<ChatInSide> itemList, GeneralItemClickListener listener, String sender_id) {
         this.itemList = itemList;
         this.listener = listener;
         this.sender_id = sender_id;

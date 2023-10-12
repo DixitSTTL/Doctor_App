@@ -24,11 +24,11 @@ public class FragmentPrePayment extends BaseFragment {
     private FragmentPrePaymentBinding mBinding;
     private FragViewModelPrePayment mViewModel;
 
-    String UID;
-    UserDoctorModel userDoctorModel;
-    DoctorDetailsModel doctorDetailsModel;
-    DateModel dateModel;
-    String timeSlot;
+    private String UID;
+    private UserDoctorModel userDoctorModel;
+    private DoctorDetailsModel doctorDetailsModel;
+    private DateModel dateModel;
+    private String timeSlot;
 
     public FragmentPrePayment() {
         // Required empty public constructor

@@ -4,6 +4,7 @@ import static com.app.doctorapp.utils.ConstantData.USER_LOGIN;
 import static com.app.doctorapp.utils.ConstantData.USER_PATIENT;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.core.splashscreen.SplashScreen;

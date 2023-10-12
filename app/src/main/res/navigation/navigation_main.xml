@@ -7,6 +7,11 @@
 
 
     <fragment
+        android:id="@+id/fragmentReceipt"
+        android:name="com.app.doctorapp.view.fragment.FragmentReceipt"
+        android:label="fragment_receipt"
+        tools:layout="@layout/fragment_receipt" />
+    <fragment
         android:id="@+id/fragmentHome"
         android:name="com.app.doctorapp.view.fragment.FragmentHome"
         android:label="FragmentHome" >
@@ -15,18 +20,23 @@
             app:destination="@id/fragmentDoctorInfo" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentReceipt"
-        android:name="com.app.doctorapp.view.fragment.FragmentReceipt"
-        android:label="fragment_receipt"
-        tools:layout="@layout/fragment_receipt" />
-    <fragment
         android:id="@+id/fragmentChat"
         android:name="com.app.doctorapp.view.fragment.FragmentChat"
         android:label="fragment_chat"
         tools:layout="@layout/fragment_chat" >
         <action
             android:id="@+id/action_fragmentChat_to_fragmentChatCore"
-            app:destination="@id/fragmentChatCore" />
+            app:destination="@id/fragmentChatCore"
+            app:enterAnim="@anim/slide_right_in"
+            app:exitAnim="@anim/slide_left_out"
+            app:popEnterAnim="@anim/slide_left_in"
+            app:popExitAnim="@anim/slide_right_out"
+            >
+
+            <argument android:name="chatCore"
+                app:argType="string"/>
+        </action>
+
     </fragment>
     <fragment
         android:id="@+id/fragmentProfile"
@@ -36,7 +46,11 @@
     <fragment
         android:id="@+id/fragmentDoctorInfo"
         android:name="com.app.doctorapp.view.fragment.FragmentDoctorInfo"
-        android:label="FragmentDoctorInfo" >
+        android:label="FragmentDoctorInfo"
+        app:enterAnim="@anim/slide_right_in"
+        app:exitAnim="@anim/slide_left_out"
+        app:popEnterAnim="@anim/slide_left_in"
+        app:popExitAnim="@anim/slide_right_out">
         <action
             android:id="@+id/action_fragmentDoctorInfo_to_fragmentPrePayment"
             app:destination="@id/fragmentPrePayment" />
@@ -47,7 +61,11 @@
     <fragment
         android:id="@+id/fragmentPrePayment"
         android:name="com.app.doctorapp.view.fragment.FragmentPrePayment"
-        android:label="FragmentPrePayment" />
+        android:label="FragmentPrePayment"
+        app:enterAnim="@anim/slide_right_in"
+        app:exitAnim="@anim/slide_left_out"
+        app:popEnterAnim="@anim/slide_left_in"
+        app:popExitAnim="@anim/slide_right_out"/>
     <fragment
         android:id="@+id/fragmentChatCore"
         android:name="com.app.doctorapp.view.fragment.FragmentChatCore"

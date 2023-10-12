@@ -38,13 +38,18 @@ public class DoctorActivity extends BaseActivity  implements NavController.OnDes
     }
 
     public void navigateHome() {
-        navController.navigate(R.id.fragmentHome);
+        navController.navigate(R.id.fragmentAppointments);
     }
     public void navigateChat() {
         navController.navigate(R.id.fragmentChat);
     }
 
     public void navigateChatCore(String doctor_uid) {
+        Bundle bundle = new Bundle();
+        bundle.putString("patient_uid", doctor_uid);
+        navController.navigate(R.id.action_fragmentChat_to_fragmentChatCore, bundle);
+    }
+    public void navigatePrescription(String doctor_uid) {
         Bundle bundle = new Bundle();
         bundle.putString("patient_uid", doctor_uid);
         navController.navigate(R.id.action_fragmentChat_to_fragmentChatCore, bundle);

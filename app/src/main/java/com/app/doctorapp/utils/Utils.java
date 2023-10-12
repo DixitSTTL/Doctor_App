@@ -8,8 +8,8 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.core.content.ContextCompat;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.app.doctorapp.R;
+import com.google.android.material.snackbar.Snackbar;
 
 public class Utils {
     public static void showSnackBar(View viewLayout, String toastMessage) {
@@ -26,8 +26,12 @@ public class Utils {
         }
 
 
+    }
 
 
+    public static String generateAppointmentUID(String patient_uid, String doctor_uid) {
+
+        return patient_uid + "_" + doctor_uid;
     }
 
     public static void hideKeyboard(Activity activity) {

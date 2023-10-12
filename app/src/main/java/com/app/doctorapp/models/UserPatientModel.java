@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class UserPatientModel {
     String user_uid;
-
     String user_name;
     String user_email;
+    String user_image;
     String user_birthdate;
     String user_gender;
     String user_type;
@@ -24,15 +24,24 @@ public class UserPatientModel {
         this.user_uid = user_uid;
     }
 
-    public UserPatientModel(String user_uid, String user_name, String user_email, String user_birthdate, String user_gender, String user_type, String user_mobile, Date user_join_date) {
+    public UserPatientModel(String user_uid, String user_name, String user_email, String user_image, String user_birthdate, String user_gender, String user_type, String user_mobile, Date user_join_date) {
         this.user_uid = user_uid;
         this.user_name = user_name;
         this.user_email = user_email;
+        this.user_image = user_image;
         this.user_birthdate = user_birthdate;
         this.user_gender = user_gender;
         this.user_type = user_type;
         this.user_mobile = user_mobile;
         this.user_join_date = user_join_date;
+    }
+
+    public String getUser_image() {
+        return user_image;
+    }
+
+    public void setUser_image(String user_image) {
+        this.user_image = user_image;
     }
 
     public String getUser_name() {

@@ -10,6 +10,9 @@ public class DateModel implements Parcelable {
     String month;
     String year;
 
+    public DateModel() {
+    }
+
     public DateModel(String day, String month, String year) {
         this.day = day;
         this.month = month;

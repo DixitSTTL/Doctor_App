@@ -107,10 +107,10 @@
 
     <style name="splashTheme" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/white</item>
-        <item name="android:windowSplashScreenBackground" tools:ignore="NewApi">@color/white</item>
-        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_logo_main_round</item>
-        <item name="android:windowSplashScreenAnimatedIcon" tools:ignore="NewApi">@mipmap/ic_logo_main_round</item>
-<!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+<!--        <item name="android:windowSplashScreenBackground" tools:ignore="NewApi">@color/white</item>-->
+<!--        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_logo_main_round</item>-->
+        <item name="android:windowSplashScreenAnimatedIcon">@mipmap/ic_logo_main_round</item>
+<!--    <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
 <!--        <item name="android:windowTranslucentStatus">true</item> &lt;!&ndash;Transparent StatusBar&ndash;&gt;-->
 <!--        <item name="android:windowTranslucentNavigation">true</item> &lt;!&ndash;Transparent Navigation&ndash;&gt;-->
         <item name="windowSplashScreenAnimationDuration">1000</item> <!--Transparent Navigation-->
