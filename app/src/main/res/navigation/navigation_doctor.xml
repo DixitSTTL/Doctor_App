@@ -34,6 +34,14 @@
     <fragment
         android:id="@+id/fragmentPrescription"
         android:name="com.app.doctorapp.view.fragment.doctor.FragmentPrescription"
-        android:label="FragmentPrescription" />
+        android:label="FragmentPrescription" >
+        <action
+            android:id="@+id/action_fragmentPrescription_to_fragmentBottomSheet"
+            app:destination="@id/fragmentBottomSheet" />
+    </fragment>
+    <dialog
+        android:id="@+id/fragmentBottomSheet"
+        android:name="com.app.doctorapp.view.fragment.doctor.FragmentBottomSheet"
+        android:label="FragmentBottomSheet" />
 
 </navigation>

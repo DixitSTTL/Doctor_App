@@ -17,6 +17,7 @@ import com.app.doctorapp.businesslogic.interfaces.GeneralClickListener;
 import com.app.doctorapp.businesslogic.interfaces.GeneralItemClickListener;
 import com.app.doctorapp.businesslogic.viewmodels.fragment.doctor.FragViewModelAppointments;
 import com.app.doctorapp.databinding.FragmentAppointmentsBinding;
+import com.app.doctorapp.models.AppointmentModel;
 import com.app.doctorapp.view.BaseFragment;
 import com.app.doctorapp.view.adapter.AdapterAppointments;
 
@@ -112,7 +113,7 @@ public class FragmentAppointments extends BaseFragment {
         @Override
         public void onItemClick(View view, int position, Object item) {
 
-//            mActivityDoc.navigatePrescription(((AppointmentModel) item).getPatient_uid());
+            mActivityDoc.navigatePrescription(((AppointmentModel) item).getPatient_uid());
 
         }
     };

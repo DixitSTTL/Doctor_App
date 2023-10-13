@@ -1,7 +1,6 @@
 package com.app.doctorapp.businesslogic.viewmodels.fragment;
 
-import static com.app.doctorapp.utils.ConstantData.COLLECTION_CHAT;
-import static com.app.doctorapp.utils.ConstantData.USER_PATIENT;
+import static com.app.doctorapp.utils.ConstantData.COLLECTION_APPOINTMENTS;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.ObservableArrayList;
@@ -9,8 +8,12 @@ import androidx.databinding.ObservableArrayList;
 import com.app.doctorapp.MyApplication;
 import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.viewmodels.BaseViewModel;
-import com.app.doctorapp.models.ChatOuter;
+import com.app.doctorapp.models.AppointmentModel;
+import com.app.doctorapp.models.PrescripeModel;
 import com.app.doctorapp.utils.EnumVisibility;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -23,14 +26,15 @@ import java.util.List;
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import io.reactivex.Observable;
 
 @HiltViewModel
 public class FragViewModelRecipes extends BaseViewModel {
     @Inject
     MyApplication myApplication;
 
-    public ObservableArrayList<ChatOuter> observeChatList = new ObservableArrayList<ChatOuter>();
-    public List<ChatOuter> chatList = new ArrayList<>();
+    public ObservableArrayList<AppointmentModel> observeAppoList = new ObservableArrayList<AppointmentModel>();
+    public List<AppointmentModel> appoList = new ArrayList<>();
 
     public ListenerRegistration registration;
 
@@ -40,30 +44,52 @@ public class FragViewModelRecipes extends BaseViewModel {
 
     }
 
-    public void loadMyChat() {
+    public void loadAllAppointments() {
         observeVisibility.set(EnumVisibility.LOADING);
-        registration = db.collection(COLLECTION_CHAT)
-
-                .whereEqualTo(preferences.getString(R.string.user_type).equals(USER_PATIENT) ? "patient_uid" : "doctor_uid", preferences.getString(R.string.user_uid))
+        db.collection(COLLECTION_APPOINTMENTS)
+                .whereEqualTo("patient_uid", preferences.getString(R.string.user_uid))
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         observeVisibility.set(EnumVisibility.VISIBLE);
 
-                        observeChatList.clear();
-                        chatList.clear();
-                        for (QueryDocumentSnapshot document : value) {
-                            ChatOuter data = document.toObject(ChatOuter.class);
+                        observeAppoList.clear();
+                        appoList.clear();
 
-                            chatList.add(data);
+                        for (int i = 0; i < value.size(); i++) {
+                            DocumentSnapshot document = value.getDocuments().get(i);
+                            AppointmentModel data = document.toObject(AppointmentModel.class);
+                            data.setPrescribed(new ArrayList<>());
+
+                            callSubList(i, document.getReference());
+                            appoList.add(data);
                         }
+                        observeAppoList.addAll(appoList);
 
-                        observeChatList.addAll(chatList);
 
                     }
                 });
 
 
+
+    }
+
+    private void callSubList(int i, DocumentReference reference) {
+        reference.collection("prescribed")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        List<PrescripeModel> list = new ArrayList<>();
+
+                        for (QueryDocumentSnapshot document : value) {
+                            PrescripeModel subData = document.toObject(PrescripeModel.class);
+                            list.add(subData);
+
+                        }
+                        observeAppoList.get(i).setPrescribed(list);
+
+                    }
+                });
     }
 
 

@@ -1,6 +1,7 @@
 package com.app.doctorapp.utils;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,19 +12,27 @@ import androidx.databinding.ObservableField;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.interfaces.GeneralItemClickListener;
+import com.app.doctorapp.models.AppointmentModel;
 import com.app.doctorapp.models.CategoryModel;
+import com.app.doctorapp.models.PrescripeModel;
 import com.app.doctorapp.view.adapter.AdapterCategory;
 import com.app.doctorapp.view.adapter.AdapterDoctors;
+import com.app.doctorapp.view.adapter.AdapterPreDoctor;
 import com.app.doctorapp.view.adapter.AdapterRecipes;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.Date;
+import java.util.List;
 
 
 public class CustomBindingAdapter {
+
+    public static int[] array_colors = new int[]{R.color.sec_color, R.color.sec_pink, R.color.sec_blue, R.color.sec_orange};
 
     @BindingAdapter(value = {"setGlideImage"})
     public static void setGlideImage(ImageView imageView, String url) {
@@ -65,14 +74,45 @@ public class CustomBindingAdapter {
 
     }
 
-    @BindingAdapter(value = {"setAdapterRecipes", "setOnItemClickListener"})
-    public static void setAdapterRecipes(RecyclerView recyclerView, ObservableArrayList<QueryDocumentSnapshot> list, GeneralItemClickListener generalItemClickListener) {
-//        AdapterRecipes adapterRecipes = new AdapterRecipes(list, generalItemClickListener);
-//        recyclerView.setAdapter(adapterRecipes);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL, false));
+    @BindingAdapter(value = {"setAdapterPrescription", "setOnItemClickListener"})
+    public static void setAdapterPrescription(RecyclerView recyclerView, ObservableArrayList<PrescripeModel> list, GeneralItemClickListener generalItemClickListener) {
+        RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
+        AdapterPreDoctor adapterPreDoctor = new AdapterPreDoctor(list, generalItemClickListener);
+        recyclerView.setAdapter(adapterPreDoctor);
+        recyclerView.setRecycledViewPool(viewPool);
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL, false));
 
     }
 
+    @BindingAdapter(value = {"setAdapterPresPatient", "setOnItemClickListener"})
+    public static void setAdapterPresPatient(RecyclerView recyclerView, List<PrescripeModel> list, GeneralItemClickListener generalItemClickListener) {
+        Log.d("setAdapterPresPatient", "  " + list);
+        if (list == null) {
+            return;
+        }
+        RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
+        AdapterPreDoctor adapterPreDoctor = new AdapterPreDoctor(list, generalItemClickListener);
+        recyclerView.setAdapter(adapterPreDoctor);
+        recyclerView.setRecycledViewPool(viewPool);
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL, false));
+
+    }
+
+    @BindingAdapter(value = {"setBackgroundColor"})
+    public static void setBackgroundColor(ShapeableImageView imageView, int currentPos) {
+        if (imageView != null) {
+            imageView.setBackgroundResource(array_colors[currentPos % 4]);
+        }
+
+    }
+
+    @BindingAdapter(value = {"setAdapterRecipes", "setOnItemClickListener"})
+    public static void setAdapterRecipes(RecyclerView recyclerView, ObservableArrayList<AppointmentModel> list, GeneralItemClickListener generalItemClickListener) {
+        AdapterRecipes adapterRecipes = new AdapterRecipes(list, generalItemClickListener);
+        recyclerView.setAdapter(adapterRecipes);
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL, false));
+
+    }
 
 
 //    @BindingAdapter(value = {"setAdapterChat", "setOnItemClickListener"})

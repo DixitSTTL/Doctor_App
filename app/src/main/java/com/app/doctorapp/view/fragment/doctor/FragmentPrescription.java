@@ -12,17 +12,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.interfaces.GeneralClickListener;
+import com.app.doctorapp.businesslogic.interfaces.GeneralItemClickListener;
 import com.app.doctorapp.businesslogic.viewmodels.fragment.doctor.FragViewModelPrescription;
 import com.app.doctorapp.databinding.FragmentPrescriptionBinding;
 import com.app.doctorapp.view.BaseFragment;
-import com.app.doctorapp.view.adapter.AdapterPreDoctor;
 
 
 public class FragmentPrescription extends BaseFragment {
 
     private FragmentPrescriptionBinding mBinding;
     FragViewModelPrescription mViewModel;
-    AdapterPreDoctor adapterPreDoctor;
+    String patient_uid;
 
     public FragmentPrescription() {
         // Required empty public constructor
@@ -34,6 +34,7 @@ public class FragmentPrescription extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
 
+            patient_uid = getArguments().getString("patient_uid");
         }
     }
 
@@ -41,7 +42,7 @@ public class FragmentPrescription extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_prescription, container, false);
-        mViewModel = new ViewModelProvider(mActivityMain).get(FragViewModelPrescription.class);
+        mViewModel = new ViewModelProvider(mActivityDoc).get(FragViewModelPrescription.class);
 
 
         // Inflate the layout for this fragment
@@ -52,13 +53,28 @@ public class FragmentPrescription extends BaseFragment {
         @Override
         public void onClick(View view) {
 
+            if (view == mBinding.addBtn) {
+
+                mActivityDoc.navigateBottomSheet();
+            } else {
+
+            }
+
+        }
+    };
+    GeneralItemClickListener generalItemClickListener = new GeneralItemClickListener() {
+        @Override
+        public void onItemClick(View view, int position, Object item) {
+
         }
     };
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mViewModel.loadMyAppointments(patient_uid);
         mBinding.setGeneralClickListener(generalClickListener);
+        mBinding.setGeneralItemClickListener(generalItemClickListener);
         mBinding.setMViewmodel(mViewModel);
 
     }

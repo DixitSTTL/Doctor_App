@@ -1,6 +1,7 @@
 package com.app.doctorapp.models;
 
 import java.util.Date;
+import java.util.List;
 
 public class AppointmentModel {
 
@@ -13,11 +14,15 @@ public class AppointmentModel {
     String patient_image;
     String c_time;
 
+    List<PrescripeModel> prescribed;
+
 
     DateModel cDate;
 
     public AppointmentModel() {
     }
+
+
 
     public AppointmentModel(Date created, String doctor_name, String doctor_uid, String doctor_image, String patient_name, String patient_uid, String patient_image, String c_time, DateModel cDate) {
         this.created = created;
@@ -31,6 +36,26 @@ public class AppointmentModel {
         this.cDate = cDate;
     }
 
+    public AppointmentModel(Date created, String doctor_name, String doctor_uid, String doctor_image, String patient_name, String patient_uid, String patient_image, String c_time, List<PrescripeModel> prescribed, DateModel cDate) {
+        this.created = created;
+        this.doctor_name = doctor_name;
+        this.doctor_uid = doctor_uid;
+        this.doctor_image = doctor_image;
+        this.patient_name = patient_name;
+        this.patient_uid = patient_uid;
+        this.patient_image = patient_image;
+        this.c_time = c_time;
+        this.prescribed = prescribed;
+        this.cDate = cDate;
+    }
+
+    public List<PrescripeModel> getPrescribed() {
+        return prescribed;
+    }
+
+    public void setPrescribed(List<PrescripeModel> prescribed) {
+        this.prescribed = prescribed;
+    }
 
     public String getCtime() {
         return c_time;

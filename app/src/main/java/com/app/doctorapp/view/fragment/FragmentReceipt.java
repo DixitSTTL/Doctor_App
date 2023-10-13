@@ -62,10 +62,10 @@ public class FragmentReceipt extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mViewModel.loadAllAppointments();
         mBinding.setGeneralItemListener(generalItemClickListener);
         mBinding.setMViewmodel(mViewModel);
         mBinding.setGeneralListener(generalClickListener);
-
 
     }
 }

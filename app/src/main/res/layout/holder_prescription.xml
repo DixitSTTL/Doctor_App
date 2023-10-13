@@ -13,7 +13,7 @@
 
         <variable
             name="model"
-            type="com.app.doctorapp.models.ChatOuter" />
+            type="com.app.doctorapp.models.PrescripeModel" />
 
         <variable
             name="generalItemListener"
@@ -35,10 +35,12 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageView5"
-            setGlideImage="@{model.patient_image}"
             android:layout_width="45dp"
             android:layout_height="45dp"
+            setBackgroundColor="@{currentPosition}"
+            android:src="@drawable/ic_capsule"
             app:layout_constraintStart_toStartOf="parent"
+            tools:background="@color/sec_color"
 
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearance="@style/rounded_normal" />
@@ -49,16 +51,54 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
             android:fontFamily="@font/gilroy_medium"
-            android:text="@{model.patient_name}"
+            android:text="@{model.name}"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/textView12"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayoutCompat"
             app:layout_constraintStart_toEndOf="@+id/imageView5"
             app:layout_constraintTop_toTopOf="@+id/imageView5"
             tools:text="name" />
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gilroy_medium"
+                android:gravity="center"
+                android:text="Qty"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toStartOf="@+id/textView12"
+                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintTop_toTopOf="@+id/imageView5" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="2dp"
+                android:fontFamily="@font/gilroy_semibold"
+                android:gravity="center_vertical"
+                android:maxLength="6"
+                android:text="@{String.valueOf(model.qty)}"
+                android:textColor="@color/main_blue"
+                android:textSize="12sp"
+                android:layout_marginTop="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView5"
+                tools:text="10" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
 
         <TextView
+            android:id="@+id/textView22"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
@@ -67,28 +107,14 @@
             android:fontFamily="@font/gilroy_medium"
             android:marqueeRepeatLimit="marquee_forever"
             android:maxLines="1"
-            android:text="@{model.last_message}"
+            android:text="@{model.description}"
             android:textColor="@color/grayscale2"
-            app:layout_constraintEnd_toStartOf="@+id/textView12"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayoutCompat"
             app:layout_constraintStart_toEndOf="@+id/imageView5"
             app:layout_constraintTop_toBottomOf="@+id/textView13"
             tools:text="chat" />
 
 
-        <TextView
-            android:id="@+id/textView12"
-            setFormattedDate="@{model.time}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="2dp"
-            android:fontFamily="@font/gilroy_medium"
-            android:gravity="center_vertical"
-            android:maxLength="6"
-            android:textColor="@color/grayscale2"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView5"
-            tools:text="8:01" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

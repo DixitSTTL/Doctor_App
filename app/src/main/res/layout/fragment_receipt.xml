@@ -26,6 +26,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/grayscale4"
+
         tools:context=".view.fragment.FragmentReceipt">
 
 
@@ -53,14 +55,14 @@
             app:titleTextAppearance="@style/custom_toolbar_title"
             app:titleTextColor="@color/black" />
         <!--
-        setAdapterRecipes="@{mViewmodel.}"
-            setOnItemClickListener="@{generalItemListener}"
+
          -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recRecipes"
+            setAdapterRecipes="@{mViewmodel.observeAppoList}"
+            setOnItemClickListener="@{generalItemListener}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

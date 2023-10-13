@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="mViewmodel"
             type="com.app.doctorapp.businesslogic.viewmodels.fragment.doctor.FragViewModelPrescription" />
@@ -12,17 +13,25 @@
             name="generalClickListener"
             type="com.app.doctorapp.businesslogic.interfaces.GeneralClickListener" />
 
+        <variable
+            name="generalItemClickListener"
+            type="com.app.doctorapp.businesslogic.interfaces.GeneralItemClickListener" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        showSnackBarString="@{mViewmodel.observerSnackBarString}"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/grayscale4"
+
         tools:context=".view.fragment.doctor.FragmentPrescription">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="@{generalClickListener::onClick}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:title="Appointments"
@@ -31,7 +40,7 @@
 
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/submitBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|end"
@@ -45,20 +54,23 @@
         </com.google.android.material.appbar.MaterialToolbar>
 
         <androidx.recyclerview.widget.RecyclerView
+            setAdapterPrescription="@{mViewmodel.observePreList}"
+            setOnItemClickListener="@{generalItemClickListener}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/addBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:backgroundTint="@color/main_blue"
-            android:text="Add"
+            android:onClick="@{generalClickListener::onClick}"
+            android:text="@string/add"
             android:textAppearance="@style/page_title"
             android:textColor="@color/white"
             app:cornerRadius="50dp"

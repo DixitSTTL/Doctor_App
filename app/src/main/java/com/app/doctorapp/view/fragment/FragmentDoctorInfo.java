@@ -1,6 +1,8 @@
 package com.app.doctorapp.view.fragment;
 
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class FragmentDoctorInfo extends BaseFragment implements OnMapReadyCallback {
@@ -144,7 +147,17 @@ public class FragmentDoctorInfo extends BaseFragment implements OnMapReadyCallba
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mGoogleMap = googleMap;
-        mGoogleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+//        mGoogleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        try {
+            boolean success = mGoogleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            mContext, R.raw.map));
+
+            Log.e("TAG", "Style parsing "+success);
+
+        } catch (Resources.NotFoundException e) {
+            Log.e("TAG", "Can't find style. Error: ", e);
+        }
 
         updater(new LatLng(23.021447, 72.554816));
     }

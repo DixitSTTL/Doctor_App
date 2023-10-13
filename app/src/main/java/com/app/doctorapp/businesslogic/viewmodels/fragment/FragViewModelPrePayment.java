@@ -105,7 +105,7 @@ public class FragViewModelPrePayment extends BaseViewModel {
                 new Date(),
                 preferences.getString(R.string.user_uid),
                 preferences.getString(R.string.user_name),
-                "https://firebasestorage.googleapis.com/v0/b/doctor-app-1e65e.appspot.com/o/doctors_image%2Fimage%20Dr.%20Floyd%20Miles.png?alt=media&token=ee7d27bd-aa32-4a36-87ae-27c8e8b713a4",
+                preferences.getString(R.string.user_image),
                 observeMainDetail.get().getUser_uid(),
                 observeMainDetail.get().getUser_name(),
                 observeMainDetail.get().getUser_category(),

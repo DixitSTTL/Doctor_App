@@ -1,24 +1,23 @@
 package com.app.doctorapp.view.activity;
 
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import android.os.Bundle;
-import android.view.View;
-
 import com.app.doctorapp.R;
 import com.app.doctorapp.databinding.ActivityDoctorBinding;
 import com.app.doctorapp.view.BaseActivity;
 import com.google.android.material.appbar.MaterialToolbar;
 
-public class DoctorActivity extends BaseActivity  implements NavController.OnDestinationChangedListener{
+public class DoctorActivity extends BaseActivity implements NavController.OnDestinationChangedListener {
 
     private ActivityDoctorBinding mBinding;
     private NavController navController;
@@ -29,7 +28,7 @@ public class DoctorActivity extends BaseActivity  implements NavController.OnDes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this,R.layout.activity_doctor);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_doctor);
         setContentView(mBinding.getRoot());
         navController = Navigation.findNavController(this, R.id.frame);
         navController.addOnDestinationChangedListener(this);
@@ -40,6 +39,7 @@ public class DoctorActivity extends BaseActivity  implements NavController.OnDes
     public void navigateHome() {
         navController.navigate(R.id.fragmentAppointments);
     }
+
     public void navigateChat() {
         navController.navigate(R.id.fragmentChat);
     }
@@ -49,10 +49,14 @@ public class DoctorActivity extends BaseActivity  implements NavController.OnDes
         bundle.putString("patient_uid", doctor_uid);
         navController.navigate(R.id.action_fragmentChat_to_fragmentChatCore, bundle);
     }
+
     public void navigatePrescription(String doctor_uid) {
         Bundle bundle = new Bundle();
         bundle.putString("patient_uid", doctor_uid);
-        navController.navigate(R.id.action_fragmentChat_to_fragmentChatCore, bundle);
+        navController.navigate(R.id.action_fragmentAppointments_to_fragmentPrescription, bundle);
+    }
+    public void navigateBottomSheet() {
+        navController.navigate(R.id.action_fragmentPrescription_to_fragmentBottomSheet);
     }
 
 

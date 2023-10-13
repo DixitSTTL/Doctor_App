@@ -1,18 +1,25 @@
 package com.app.doctorapp.businesslogic.viewmodels.fragment.doctor;
 
 import static com.app.doctorapp.utils.ConstantData.COLLECTION_APPOINTMENTS;
+import static com.app.doctorapp.utils.Utils.generateAppointmentUID;
+
+import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableField;
+import androidx.fragment.app.FragmentActivity;
 
 import com.app.doctorapp.MyApplication;
 import com.app.doctorapp.R;
+import com.app.doctorapp.businesslogic.interfaces.GeneralClickListener;
 import com.app.doctorapp.businesslogic.viewmodels.BaseViewModel;
-import com.app.doctorapp.models.AppointmentModel;
+import com.app.doctorapp.models.PrescripeModel;
 import com.app.doctorapp.utils.EnumVisibility;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -28,10 +35,13 @@ public class FragViewModelPrescription extends BaseViewModel {
     @Inject
     MyApplication myApplication;
 
-    public ObservableArrayList<AppointmentModel> observeAppoList = new ObservableArrayList<AppointmentModel>();
-    public List<AppointmentModel> appoList = new ArrayList<>();
+    public ObservableArrayList<PrescripeModel> observePreList = new ObservableArrayList<PrescripeModel>();
+    public ObservableField<String> observeMName = new ObservableField<String>();
+    public ObservableField<String> observeMDesc = new ObservableField<String>();
+    public ObservableField<String> observeMQty = new ObservableField<String>();
+    public List<PrescripeModel> preList = new ArrayList<>();
 
-    public ListenerRegistration registration;
+    String patient_uid;
 
     @Inject
     public FragViewModelPrescription(MyApplication myApplication) {
@@ -39,24 +49,24 @@ public class FragViewModelPrescription extends BaseViewModel {
 
     }
 
-    public void loadMyAppointments() {
+    public void loadMyAppointments(String patient_uid) {
+        this.patient_uid = patient_uid;
         observeVisibility.set(EnumVisibility.LOADING);
-        registration = db.collection(COLLECTION_APPOINTMENTS)
-                .whereEqualTo("doctor_uid", preferences.getString(R.string.user_uid))
+        db.collection(COLLECTION_APPOINTMENTS).document(generateAppointmentUID(patient_uid, preferences.getString(R.string.user_uid))).collection("prescribed")
+
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         observeVisibility.set(EnumVisibility.VISIBLE);
-                        observeAppoList.clear();
-                        appoList.clear();
+                        observePreList.clear();
+                        preList.clear();
                         for (QueryDocumentSnapshot document : value) {
-                            AppointmentModel data = document.toObject(AppointmentModel.class);
+                            PrescripeModel data = document.toObject(PrescripeModel.class);
 
-                            appoList.add(data);
+                            preList.add(data);
                         }
 
-                        observeAppoList.addAll(appoList);
-
+                        observePreList.addAll(preList);
                     }
                 });
 
@@ -64,4 +74,38 @@ public class FragViewModelPrescription extends BaseViewModel {
     }
 
 
+    public void addItem(GeneralClickListener generalClickListener) {
+
+        if (validation()) {
+
+            PrescripeModel prescripeModel = new PrescripeModel(observeMName.get(), observeMDesc.get(), Integer.parseInt(observeMQty.get()));
+            db.collection(COLLECTION_APPOINTMENTS).document(generateAppointmentUID(patient_uid, preferences.getString(R.string.user_uid))).collection("prescribed").add(prescripeModel).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                @Override
+                public void onSuccess(DocumentReference documentReference) {
+
+                    observerSnackBarString.set("Added Successfully");
+                    generalClickListener.onClick(null);
+
+                }
+            });
+        }
+
+
+    }
+
+    private boolean validation() {
+
+        if (TextUtils.isEmpty(observeMName.get())) {
+            observerSnackBarString.set("Please enter medicine name");
+            return false;
+        } else if (TextUtils.isEmpty(observeMDesc.get())) {
+            observerSnackBarString.set("Please enter description");
+            return false;
+        } else if (TextUtils.isEmpty(observeMQty.get())) {
+            observerSnackBarString.set("Please enter quantity");
+            return false;
+        }
+
+        return true;
+    }
 }

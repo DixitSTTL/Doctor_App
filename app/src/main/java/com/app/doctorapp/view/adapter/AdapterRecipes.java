@@ -5,21 +5,22 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.interfaces.GeneralItemClickListener;
-import com.app.doctorapp.databinding.HolderChatCardDoctorBinding;
-import com.app.doctorapp.models.ChatOuter;
+import com.app.doctorapp.databinding.HolderRecipesBinding;
+import com.app.doctorapp.models.AppointmentModel;
 
 import java.util.List;
 
 public class AdapterRecipes extends RecyclerView.Adapter<AdapterRecipes.ViewHolder> {
 
-    List<ChatOuter> itemList;
+    List<AppointmentModel> itemList;
     GeneralItemClickListener listener;
 
-    public AdapterRecipes(List<ChatOuter> itemList, GeneralItemClickListener listener) {
+    public AdapterRecipes(List<AppointmentModel> itemList, GeneralItemClickListener listener) {
         this.itemList = itemList;
         this.listener = listener;
     }
@@ -27,13 +28,13 @@ public class AdapterRecipes extends RecyclerView.Adapter<AdapterRecipes.ViewHold
     @NonNull
     @Override
     public AdapterRecipes.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        HolderChatCardDoctorBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.holder_chat_card_doctor, parent, false);
+
+        HolderRecipesBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.holder_recipes, parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AdapterRecipes.ViewHolder holder, int position) {
-
         holder.onBind();
     }
 
@@ -43,9 +44,9 @@ public class AdapterRecipes extends RecyclerView.Adapter<AdapterRecipes.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        HolderChatCardDoctorBinding binding;
+        HolderRecipesBinding binding;
 
-        public ViewHolder(@NonNull HolderChatCardDoctorBinding itemView) {
+        public ViewHolder(@NonNull HolderRecipesBinding itemView) {
             super(itemView.getRoot());
             binding = itemView;
         }
@@ -54,6 +55,7 @@ public class AdapterRecipes extends RecyclerView.Adapter<AdapterRecipes.ViewHold
             binding.setModel(itemList.get(getAdapterPosition()));
             binding.setGeneralItemListener(listener);
             binding.setCurrentPosition(getAdapterPosition());
+
         }
     }
 }
