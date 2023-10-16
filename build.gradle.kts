@@ -5,6 +5,7 @@ plugins {
     id("com.google.gms.google-services") version "4.3.15" apply false
     id("androidx.navigation.safeargs")version "2.5.0" apply false
 
+
 }
 buildscript {
     repositories {
