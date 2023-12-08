@@ -9,12 +9,16 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.navigation.Navigator;
+import androidx.navigation.fragment.FragmentNavigator;
 import androidx.navigation.ui.NavigationUI;
 
 import com.app.doctorapp.R;
 import com.app.doctorapp.databinding.ActivityDoctorBinding;
 import com.app.doctorapp.view.BaseActivity;
+import com.app.doctorapp.view.fragment.doctor.FragmentAppointmentsDirections;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class DoctorActivity extends BaseActivity implements NavController.OnDestinationChangedListener {
@@ -44,16 +48,14 @@ public class DoctorActivity extends BaseActivity implements NavController.OnDest
         navController.navigate(R.id.fragmentChat);
     }
 
-    public void navigateChatCore(String doctor_uid) {
-        Bundle bundle = new Bundle();
-        bundle.putString("patient_uid", doctor_uid);
-        navController.navigate(R.id.action_fragmentChat_to_fragmentChatCore, bundle);
+    public void navigateChatCore(NavDirections action, Navigator.Extras extras) {
+
+        navController.navigate(action,extras);
     }
 
-    public void navigatePrescription(String doctor_uid) {
-        Bundle bundle = new Bundle();
-        bundle.putString("patient_uid", doctor_uid);
-        navController.navigate(R.id.action_fragmentAppointments_to_fragmentPrescription, bundle);
+    public void navigatePrescription(NavDirections action, Navigator.Extras extras) {
+
+        navController.navigate(action,extras);
     }
     public void navigateBottomSheet() {
         navController.navigate(R.id.action_fragmentPrescription_to_fragmentBottomSheet);

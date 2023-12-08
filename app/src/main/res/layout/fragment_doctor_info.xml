@@ -20,8 +20,11 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cc"
+        android:background="@color/grayscale4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:transitionName="container"
         showSnackBarString="@{mViewmodel.observerSnackBarString}"
         tools:context=".view.fragment.FragmentDoctorInfo">
 

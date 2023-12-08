@@ -7,18 +7,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ObservableField;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.navigation.Navigator;
+import androidx.navigation.fragment.FragmentNavigator;
 import androidx.navigation.ui.NavigationUI;
 
 import com.app.doctorapp.R;
 import com.app.doctorapp.databinding.ActivityMainBinding;
-import com.app.doctorapp.models.DateModel;
-import com.app.doctorapp.models.DoctorDetailsModel;
-import com.app.doctorapp.models.UserDoctorModel;
 import com.app.doctorapp.view.BaseActivity;
+import com.app.doctorapp.view.fragment.FragmentChatDirections;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class MainActivity extends BaseActivity implements NavController.OnDestinationChangedListener {
@@ -50,36 +50,30 @@ public class MainActivity extends BaseActivity implements NavController.OnDestin
         navController.navigate(R.id.fragmentChat);
     }
 
-    public void navigateChatCore(String doctor_uid) {
-        Bundle bundle = new Bundle();
-        bundle.putString("doctor_uid", doctor_uid);
-        navController.navigate(R.id.action_fragmentChat_to_fragmentChatCore, bundle);
-    }
-
     public void navigateProfile() {
         navController.navigate(R.id.fragmentProfile);
     }
 
-    public void navigateDoctorDetails(String UID) {
-        Bundle bundle = new Bundle();
-        bundle.putString("UID", UID);
-        navController.navigate(R.id.action_fragmentHome_to_fragmentDoctorInfo, bundle);
+    public void navigateChatCore(NavDirections action, Navigator.Extras extras) {
+
+        navController.navigate(action,extras);
     }
-
-    public void navigatePrePayment(ObservableField<UserDoctorModel> observeMainDetail, ObservableField<DoctorDetailsModel> observeSecondaryDetail, DateModel observeSelectedDate, String observeSelectedTime, String UID) {
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("observeMainDetail", observeMainDetail.get());
-        bundle.putParcelable("observeSecondaryDetail", observeSecondaryDetail.get());
-        bundle.putParcelable("observeSelectedDate", observeSelectedDate);
-        bundle.putString("observeSelectedTime", observeSelectedTime);
-        bundle.putString("UID", UID);
-        navController.navigate(R.id.action_fragmentDoctorInfo_to_fragmentPrePayment, bundle);
-    }
-
-
     public void navigateToNotification() {
 //        navController.navigate(R.id.action_fragmentWelcome1_to_fragmentWelcome2);
     }
+
+    public void navigateDoctorDetails(NavDirections action, Navigator.Extras extras) {
+
+        navController.navigate(action,extras);
+    }
+
+    public void navigatePrePayment(NavDirections action) {
+
+        navController.navigate(action);
+    }
+
+
+
 
     @Override
     public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {

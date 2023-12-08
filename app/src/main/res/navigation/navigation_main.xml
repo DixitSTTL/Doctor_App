@@ -33,8 +33,7 @@
             app:popExitAnim="@anim/slide_right_out"
             >
 
-            <argument android:name="chatCore"
-                app:argType="string"/>
+
         </action>
 
     </fragment>
@@ -57,6 +56,10 @@
         <action
             android:id="@+id/action_fragmentDoctorInfo_to_fragmentChatCore"
             app:destination="@id/fragmentChatCore" />
+
+        <argument
+            android:name="UID"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/fragmentPrePayment"
@@ -65,10 +68,30 @@
         app:enterAnim="@anim/slide_right_in"
         app:exitAnim="@anim/slide_left_out"
         app:popEnterAnim="@anim/slide_left_in"
-        app:popExitAnim="@anim/slide_right_out"/>
+        app:popExitAnim="@anim/slide_right_out">
+        <argument
+            android:name="userDoctorModel"
+            app:argType="com.app.doctorapp.models.UserDoctorModel" />
+        <argument
+            android:name="doctorDetailsModel"
+            app:argType="com.app.doctorapp.models.DoctorDetailsModel" />
+        <argument
+            android:name="dateModel"
+            app:argType="com.app.doctorapp.models.DateModel" />
+        <argument
+            android:name="time"
+            app:argType="string" />
+        <argument
+            android:name="UID"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentChatCore"
         android:name="com.app.doctorapp.view.fragment.FragmentChatCore"
-        android:label="FragmentChatCore" />
+        android:label="FragmentChatCore" >
+        <argument
+            android:name="UID"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

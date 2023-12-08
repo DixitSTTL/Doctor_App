@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.FragmentNavigator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.app.doctorapp.R;
@@ -18,6 +19,7 @@ import com.app.doctorapp.businesslogic.interfaces.GeneralItemClickListener;
 import com.app.doctorapp.businesslogic.viewmodels.fragment.doctor.FragViewModelAppointments;
 import com.app.doctorapp.databinding.FragmentAppointmentsBinding;
 import com.app.doctorapp.models.AppointmentModel;
+import com.app.doctorapp.utils.Logger;
 import com.app.doctorapp.view.BaseFragment;
 import com.app.doctorapp.view.adapter.AdapterAppointments;
 
@@ -35,19 +37,17 @@ public class FragmentAppointments extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
+        mViewModel = new ViewModelProvider(mActivityDoc).get(FragViewModelAppointments.class);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (mViewModel != null) {
-            reLoaded = true;
+        if (mViewModel.isPageLoaded.get()) {
             return mBinding.getRoot();
         }
 
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_appointments, container, false);
-        mViewModel = new ViewModelProvider(mActivityDoc).get(FragViewModelAppointments.class);
         // Inflate the layout for this fragment
         return mBinding.getRoot();
     }
@@ -55,14 +55,16 @@ public class FragmentAppointments extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (reLoaded) {
-            return;
-        }
         mBinding.setMViewmodel(mViewModel);
         mBinding.setGeneralListener(generalClickListener);
         mBinding.setGeneralItemListener(generalItemClickListener);
-        mViewModel.loadMyAppointments();
-        setObserver();
+        if (!mViewModel.isPageLoaded.get()) {
+            mViewModel.loadMyAppointments();
+            Logger.e("load", "loading appointments");
+            setObserver();
+        }
+
+
     }
 
     private void setObserver() {
@@ -113,7 +115,15 @@ public class FragmentAppointments extends BaseFragment {
         @Override
         public void onItemClick(View view, int position, Object item) {
 
-            mActivityDoc.navigatePrescription(((AppointmentModel) item).getPatient_uid());
+            FragmentAppointmentsDirections.ActionFragmentAppointmentsToFragmentPrescription action =
+                    FragmentAppointmentsDirections.actionFragmentAppointmentsToFragmentPrescription(
+                            ((AppointmentModel) item).getPatient_uid()
+                    );
+
+            FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
+                    .addSharedElement(view,view.getTransitionName()).build();
+
+            mActivityDoc.navigatePrescription(action,extras);
 
         }
     };

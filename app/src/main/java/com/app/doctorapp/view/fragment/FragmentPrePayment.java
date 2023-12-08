@@ -38,11 +38,13 @@ public class FragmentPrePayment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            UID = getArguments().getString("UID");
-            userDoctorModel = getArguments().getParcelable("observeMainDetail");
-            doctorDetailsModel = getArguments().getParcelable("observeSecondaryDetail");
-            dateModel = getArguments().getParcelable("observeSelectedDate");
-            timeSlot = getArguments().getString("observeSelectedTime");
+
+            FragmentPrePaymentArgs bundle = FragmentPrePaymentArgs.fromBundle(getArguments());
+            UID = bundle.getUID();
+            userDoctorModel = bundle.getUserDoctorModel();
+            doctorDetailsModel = bundle.getDoctorDetailsModel();
+            dateModel = bundle.getDateModel();
+            timeSlot = bundle.getTime();
         }
 
     }
@@ -70,12 +72,13 @@ public class FragmentPrePayment extends BaseFragment {
         mBinding.setTimeSlot(timeSlot);
         mBinding.setGeneralListener(generalClickListener);
     }
+
     GeneralClickListener generalClickListener = new GeneralClickListener() {
         @Override
         public void onClick(View view) {
 
 
-            mViewModel.generateAppointment(timeSlot,dateModel);
+            mViewModel.generateAppointment(timeSlot, dateModel);
 
         }
     };

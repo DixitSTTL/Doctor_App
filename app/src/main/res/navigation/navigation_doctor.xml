@@ -22,7 +22,11 @@
     <fragment
         android:id="@+id/fragmentChatCore"
         android:name="com.app.doctorapp.view.fragment.doctor.FragmentChatCore"
-        android:label="FragmentChatCore" />
+        android:label="FragmentChatCore" >
+        <argument
+            android:name="UID"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentAppointments"
         android:name="com.app.doctorapp.view.fragment.doctor.FragmentAppointments"
@@ -38,10 +42,13 @@
         <action
             android:id="@+id/action_fragmentPrescription_to_fragmentBottomSheet"
             app:destination="@id/fragmentBottomSheet" />
+        <argument
+            android:name="UID"
+            app:argType="string" />
     </fragment>
+
     <dialog
         android:id="@+id/fragmentBottomSheet"
         android:name="com.app.doctorapp.view.fragment.doctor.FragmentBottomSheet"
         android:label="FragmentBottomSheet" />
-
 </navigation>

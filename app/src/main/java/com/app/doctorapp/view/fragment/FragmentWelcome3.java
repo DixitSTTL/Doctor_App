@@ -9,6 +9,7 @@ import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -19,8 +20,11 @@ import com.app.doctorapp.databinding.FragmentWelcome3Binding;
 import com.app.doctorapp.models.DateModel;
 import com.app.doctorapp.utils.EnumGender;
 import com.app.doctorapp.view.BaseFragment;
+import com.google.android.material.transition.MaterialContainerTransform;
+import com.google.android.material.transition.MaterialSharedAxis;
 
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class FragmentWelcome3 extends BaseFragment {
 
@@ -66,6 +70,7 @@ public class FragmentWelcome3 extends BaseFragment {
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_welcome3, container, false);
         mViewmodel = new ViewModelProvider(getActivity()).get(FragViewModelWel3.class);
         // Inflate the layout for this fragment
+        postponeEnterTransition(400, TimeUnit.MILLISECONDS);
         return mBinding.getRoot();
     }
 
@@ -75,6 +80,16 @@ public class FragmentWelcome3 extends BaseFragment {
         mBinding.setMViewmodel(mViewmodel);
         mBinding.setGeneralClickListener(generalClickListener);
         preferences.setString(R.string.user_birthdate, mViewmodel.observeDate.get().getYear()+""+mViewmodel.observeDate.get().getMonth()+""+mViewmodel.observeDate.get().getDay());
+
+        ViewCompat.setTransitionName(
+                mBinding.cc, "container"
+        );
+
+//        MaterialContainerTransform mt = new MaterialContainerTransform(mContext,true);
+//        setSharedElementEnterTransition(mt);
+
+        setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X,true));
+        setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X,false));
 
     }
 

@@ -57,6 +57,7 @@ public class AdapterDoctors extends RecyclerView.Adapter<AdapterDoctors.ViewHold
             binding.setModel(userDoctorModel);
             binding.setGeneralItemListener(listener);
             binding.setCurrentPosition(getAdapterPosition());
+            binding.cc.setTransitionName("container"+userDoctorModel.getUser_uid());
         }
     }
 }

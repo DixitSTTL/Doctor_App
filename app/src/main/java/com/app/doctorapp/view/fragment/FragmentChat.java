@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.FragmentNavigator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.app.doctorapp.R;
@@ -21,6 +22,7 @@ import com.app.doctorapp.databinding.FragmentChatBinding;
 import com.app.doctorapp.models.ChatOuter;
 import com.app.doctorapp.view.BaseFragment;
 import com.app.doctorapp.view.adapter.AdapterChatsHome;
+import com.app.doctorapp.view.fragment.FragmentChatDirections;
 
 public class FragmentChat extends BaseFragment {
 
@@ -114,8 +116,14 @@ public class FragmentChat extends BaseFragment {
     private final GeneralItemClickListener generalItemClickListener = new GeneralItemClickListener() {
         @Override
         public void onItemClick(View view, int position, Object item) {
+            FragmentChatDirections.ActionFragmentChatToFragmentChatCore action =
+                    FragmentChatDirections.actionFragmentChatToFragmentChatCore(((ChatOuter) item).getDoctor_uid());
+            FragmentNavigator.Extras extras =
+                    new FragmentNavigator.Extras.Builder()
+                            .addSharedElement(view, view.getTransitionName())
+                            .build();
 
-            mActivityMain.navigateChatCore(((ChatOuter) item).getDoctor_uid());
+            mActivityMain.navigateChatCore(action,extras);
 
         }
     };

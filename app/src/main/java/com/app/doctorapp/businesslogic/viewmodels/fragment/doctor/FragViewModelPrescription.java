@@ -24,6 +24,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -79,7 +80,11 @@ public class FragViewModelPrescription extends BaseViewModel {
         if (validation()) {
 
             PrescripeModel prescripeModel = new PrescripeModel(observeMName.get(), observeMDesc.get(), Integer.parseInt(observeMQty.get()));
-            db.collection(COLLECTION_APPOINTMENTS).document(generateAppointmentUID(patient_uid, preferences.getString(R.string.user_uid))).collection("prescribed").add(prescripeModel).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            db.collection(COLLECTION_APPOINTMENTS)
+                    .document(generateAppointmentUID(patient_uid, preferences.getString(R.string.user_uid)))
+                    .collection("prescribed")
+                    .add(prescripeModel)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
 

@@ -15,10 +15,11 @@ import com.app.doctorapp.businesslogic.interfaces.GeneralClickListener;
 import com.app.doctorapp.businesslogic.viewmodels.fragment.FragViewModelSignIn;
 import com.app.doctorapp.databinding.FragmentSignInBinding;
 import com.app.doctorapp.view.BaseFragment;
+import com.google.android.material.transition.MaterialSharedAxis;
 
 public class FragmentSignIn extends BaseFragment {
 
-    private  FragmentSignInBinding mBinding;
+    private FragmentSignInBinding mBinding;
     private FragViewModelSignIn mViewmodel;
 
     public FragmentSignIn() {
@@ -44,7 +45,7 @@ public class FragmentSignIn extends BaseFragment {
         return mBinding.getRoot();
     }
 
-    private  GeneralClickListener generalClickListener = new GeneralClickListener() {
+    private GeneralClickListener generalClickListener = new GeneralClickListener() {
         @Override
         public void onClick(View view) {
 
@@ -62,5 +63,8 @@ public class FragmentSignIn extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         mBinding.setMViewmodel(mViewmodel);
         mBinding.setGeneralClickListener(generalClickListener);
+
+        setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X,true));
+        setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X,false));
     }
 }

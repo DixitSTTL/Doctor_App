@@ -1,7 +1,6 @@
 package com.app.doctorapp.view.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,13 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.FragmentNavigator;
 
 import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.interfaces.GeneralClickListener;
 import com.app.doctorapp.businesslogic.interfaces.GeneralItemClickListener;
 import com.app.doctorapp.businesslogic.viewmodels.fragment.FragViewModelHome;
 import com.app.doctorapp.databinding.FragmentHomeBinding;
-import com.app.doctorapp.models.UserDoctorModel;
 import com.app.doctorapp.view.BaseFragment;
 
 public class FragmentHome extends BaseFragment {
@@ -44,7 +44,7 @@ public class FragmentHome extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if (mViewModel!= null){
+        if (mViewModel != null) {
             reLoaded = true;
             return mBinding.getRoot();
         }
@@ -57,7 +57,7 @@ public class FragmentHome extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (reLoaded){
+        if (reLoaded) {
             return;
         }
         initToolbar();
@@ -68,7 +68,7 @@ public class FragmentHome extends BaseFragment {
         mViewModel.loadDoctors();
     }
 
-    private  GeneralClickListener generalClickListener = new GeneralClickListener() {
+    private GeneralClickListener generalClickListener = new GeneralClickListener() {
         @Override
         public void onClick(View view) {
 
@@ -79,14 +79,17 @@ public class FragmentHome extends BaseFragment {
     private GeneralItemClickListener generalItemClickListener = new GeneralItemClickListener() {
         @Override
         public void onItemClick(View view, int position, Object item) {
-            mActivityMain.navigateDoctorDetails(mViewModel.observeDoctorList.get(position).getId());
+            FragmentHomeDirections.ActionFragmentHomeToFragmentDoctorInfo action = FragmentHomeDirections.actionFragmentHomeToFragmentDoctorInfo(mViewModel.observeDoctorList.get(position).getId());
+            FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
+                    .addSharedElement(view, view.getTransitionName()).build();
+            mActivityMain.navigateDoctorDetails(action, extras);
 
         }
     };
 
     private void initToolbar() {
         mActivityMain.setSupportActionBar(mBinding.toolbar);
-        mBinding.toolbar.setTitle("Welcome Back, "+preferences.getString(R.string.user_name)+"!");
+        mBinding.toolbar.setTitle("Welcome Back, " + preferences.getString(R.string.user_name) + "!");
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

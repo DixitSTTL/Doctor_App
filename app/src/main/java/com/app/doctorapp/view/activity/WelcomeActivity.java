@@ -8,6 +8,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
+import androidx.navigation.Navigator;
+import androidx.navigation.fragment.FragmentNavigator;
 
 import com.app.doctorapp.R;
 import com.app.doctorapp.databinding.ActivityWelcomeBinding;

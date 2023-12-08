@@ -3,6 +3,7 @@ package com.app.doctorapp.view.fragment;
 import static com.app.doctorapp.utils.ConstantData.USER_DOCTOR;
 import static com.app.doctorapp.utils.ConstantData.USER_PATIENT;
 
+import android.graphics.Path;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.FragmentNavigator;
 
 import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.interfaces.GeneralClickListener;
@@ -19,6 +21,8 @@ import com.app.doctorapp.businesslogic.viewmodels.fragment.FragViewModelWel2;
 import com.app.doctorapp.databinding.FragmentWelcome2Binding;
 import com.app.doctorapp.utils.EnumUser;
 import com.app.doctorapp.view.BaseFragment;
+import com.google.android.material.transition.MaterialContainerTransform;
+import com.google.android.material.transition.MaterialSharedAxis;
 
 public class FragmentWelcome2 extends BaseFragment {
 
@@ -56,9 +60,11 @@ public class FragmentWelcome2 extends BaseFragment {
         mBinding.setGeneralClickListener(generalClickListener);
         preferences.setString(R.string.user_type, USER_PATIENT);
 
+        setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X,true));
+        setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X,false));
     }
 
-    private  GeneralClickListener generalClickListener = new GeneralClickListener() {
+    private GeneralClickListener generalClickListener = new GeneralClickListener() {
         @Override
         public void onClick(View view) {
 

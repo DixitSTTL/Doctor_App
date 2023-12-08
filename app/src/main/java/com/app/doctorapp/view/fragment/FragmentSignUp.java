@@ -15,6 +15,7 @@ import com.app.doctorapp.businesslogic.interfaces.GeneralClickListener;
 import com.app.doctorapp.businesslogic.viewmodels.fragment.FragViewModelSignUp;
 import com.app.doctorapp.databinding.FragmentSignUpBinding;
 import com.app.doctorapp.view.BaseFragment;
+import com.google.android.material.transition.MaterialSharedAxis;
 
 public class FragmentSignUp extends BaseFragment {
 
@@ -60,6 +61,7 @@ public class FragmentSignUp extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         mBinding.setGeneralClickListener(generalClickListener);
         mBinding.setMViewmodel(mViewmodel);
-
+        setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X,true));
+        setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X,false));
     }
 }

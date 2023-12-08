@@ -1,6 +1,7 @@
 package com.app.doctorapp.view.fragment;
 
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,8 +10,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.FragmentNavigator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -30,6 +33,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.transition.MaterialContainerTransform;
 
 public class FragmentDoctorInfo extends BaseFragment implements OnMapReadyCallback {
 
@@ -40,6 +44,7 @@ public class FragmentDoctorInfo extends BaseFragment implements OnMapReadyCallba
     private String UID;
     private AdapterDate adapterDate;
     private AdapterTimeSlot adapterTimeSlot;
+
     public FragmentDoctorInfo() {
         // Required empty public constructor
     }
@@ -49,13 +54,12 @@ public class FragmentDoctorInfo extends BaseFragment implements OnMapReadyCallba
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            UID = getArguments().getString("UID");
+            UID = FragmentDoctorInfoArgs.fromBundle(getArguments()).getUID();
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_doctor_info, container, false);
         mViewModel = new ViewModelProvider(mActivityMain).get(FragViewModelDoctorDetails.class);
         mapFrag = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
@@ -81,14 +85,14 @@ public class FragmentDoctorInfo extends BaseFragment implements OnMapReadyCallba
     }
 
 
-    private   GeneralItemClickListener generalItemClickListener = new GeneralItemClickListener() {
+    private GeneralItemClickListener generalItemClickListener = new GeneralItemClickListener() {
         @Override
         public void onItemClick(View view, int position, Object item) {
-            if (view.getId()==R.id.dateCC){
+            if (view.getId() == R.id.dateCC) {
                 mViewModel.observeSelectedDate.set(position);
                 adapterDate.setPoistion(position);
                 adapterDate.notifyDataSetChanged();
-            } else if (view.getId()==R.id.timeCC) {
+            } else if (view.getId() == R.id.timeCC) {
                 mViewModel.observeSelectedTime.set(position);
                 adapterTimeSlot.setPoistion(position);
                 adapterTimeSlot.notifyDataSetChanged();
@@ -97,22 +101,27 @@ public class FragmentDoctorInfo extends BaseFragment implements OnMapReadyCallba
         }
     };
 
-    private  GeneralClickListener generalClickListener = new GeneralClickListener() {
+    private GeneralClickListener generalClickListener = new GeneralClickListener() {
         @Override
         public void onClick(View view) {
 
-            if (mViewModel.observeSelectedDate.get()==-1||mViewModel.observeSelectedTime.get()==-1){
+            if (mViewModel.observeSelectedDate.get() == -1 || mViewModel.observeSelectedTime.get() == -1) {
 
                 mViewModel.observerSnackBarString.set("Please select Date and Time Slot");
 
-            }else {
+            } else {
+                FragmentDoctorInfoDirections.ActionFragmentDoctorInfoToFragmentPrePayment action =
+                        FragmentDoctorInfoDirections.actionFragmentDoctorInfoToFragmentPrePayment(
+                                mViewModel.observeMainDetail.get(),
+                                mViewModel.observeSecondaryDetail.get(),
+                                mViewModel.observeDateList.get(mViewModel.observeSelectedDate.get()),
+                                mViewModel.observeTimeSlot.get(mViewModel.observeSelectedTime.get()),
+                                UID
+                        );
+//                FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder().addSharedElement(view, view.getTransitionName()).build();
 
-                mActivityMain.navigatePrePayment(
-                        mViewModel.observeMainDetail,
-                        mViewModel.observeSecondaryDetail,
-                        mViewModel.observeDateList.get(mViewModel.observeSelectedDate.get()),
-                        mViewModel.observeTimeSlot.get(mViewModel.observeSelectedTime.get()),
-                        UID);
+
+                mActivityMain.navigatePrePayment(action);
             }
 
         }
@@ -121,6 +130,16 @@ public class FragmentDoctorInfo extends BaseFragment implements OnMapReadyCallba
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        MaterialContainerTransform mt = new MaterialContainerTransform(mContext, true);
+        mt.setContainerColor(Color.WHITE);
+        mt.setScrimColor(Color.WHITE);
+        mt.setStartContainerColor(Color.WHITE);
+        mt.setAllContainerColors(Color.WHITE);
+        setSharedElementEnterTransition(mt);
+        ViewCompat.setTransitionName(mBinding.cc, "container" + UID);
+
+
         mBinding.setGeneralItemListener(generalItemClickListener);
         mBinding.setMViewmodel(mViewModel);
         mBinding.setGeneralListener(generalClickListener);
@@ -132,14 +151,14 @@ public class FragmentDoctorInfo extends BaseFragment implements OnMapReadyCallba
 
     private void setDateAdapter() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
-        adapterDate = new AdapterDate(mViewModel.observeDateList,generalItemClickListener,mViewModel.observeSelectedDate.get());
+        adapterDate = new AdapterDate(mViewModel.observeDateList, generalItemClickListener, mViewModel.observeSelectedDate.get());
         mBinding.recDate.setAdapter(adapterDate);
         mBinding.recDate.setLayoutManager(linearLayoutManager);
     }
 
     private void setTimeAdapter() {
-        GridLayoutManager layoutManager =new GridLayoutManager(mContext, 4);
-        adapterTimeSlot = new AdapterTimeSlot(mViewModel.observeTimeSlot,generalItemClickListener,mViewModel.observeSelectedTime.get());
+        GridLayoutManager layoutManager = new GridLayoutManager(mContext, 4);
+        adapterTimeSlot = new AdapterTimeSlot(mViewModel.observeTimeSlot, generalItemClickListener, mViewModel.observeSelectedTime.get());
         mBinding.recTimeSlot.setAdapter(adapterTimeSlot);
         mBinding.recTimeSlot.setLayoutManager(layoutManager);
     }
@@ -149,11 +168,9 @@ public class FragmentDoctorInfo extends BaseFragment implements OnMapReadyCallba
         mGoogleMap = googleMap;
 //        mGoogleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         try {
-            boolean success = mGoogleMap.setMapStyle(
-                    MapStyleOptions.loadRawResourceStyle(
-                            mContext, R.raw.map));
+            boolean success = mGoogleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(mContext, R.raw.map));
 
-            Log.e("TAG", "Style parsing "+success);
+            Log.e("TAG", "Style parsing " + success);
 
         } catch (Resources.NotFoundException e) {
             Log.e("TAG", "Can't find style. Error: ", e);

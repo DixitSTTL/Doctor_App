@@ -1,13 +1,14 @@
 package com.app.doctorapp.view.fragment.doctor;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -15,13 +16,14 @@ import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.interfaces.GeneralClickListener;
 import com.app.doctorapp.businesslogic.viewmodels.fragment.doctor.FragViewModelPrescription;
 import com.app.doctorapp.databinding.FragmentBottomSheetBinding;
+import com.app.doctorapp.view.BaseFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.transition.MaterialContainerTransform;
 
 public class FragmentBottomSheet extends BottomSheetDialogFragment {
 
 
     private FragmentBottomSheetBinding mBinding;
-
     private FragViewModelPrescription mViewModel;
 
     public FragmentBottomSheet() {
@@ -71,6 +73,7 @@ public class FragmentBottomSheet extends BottomSheetDialogFragment {
 
         mBinding.setMViewmodel(mViewModel);
         mBinding.setGeneralClickListener(generalClickListener);
+
     }
 
 }

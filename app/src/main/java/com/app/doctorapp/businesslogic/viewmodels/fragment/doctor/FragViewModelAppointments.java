@@ -9,8 +9,8 @@ import com.app.doctorapp.MyApplication;
 import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.viewmodels.BaseViewModel;
 import com.app.doctorapp.models.AppointmentModel;
-import com.app.doctorapp.models.ChatOuter;
 import com.app.doctorapp.utils.EnumVisibility;
+import com.app.doctorapp.utils.Logger;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -41,6 +41,7 @@ public class FragViewModelAppointments extends BaseViewModel {
     }
 
     public void loadMyAppointments() {
+
         observeVisibility.set(EnumVisibility.LOADING);
         registration = db.collection(COLLECTION_APPOINTMENTS)
                 .whereEqualTo("doctor_uid", preferences.getString(R.string.user_uid))
@@ -48,6 +49,7 @@ public class FragViewModelAppointments extends BaseViewModel {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         observeVisibility.set(EnumVisibility.VISIBLE);
+                        isPageLoaded.set(true);
                         observeAppoList.clear();
                         appoList.clear();
                         for (QueryDocumentSnapshot document : value) {

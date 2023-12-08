@@ -54,6 +54,7 @@ public class AdapterChatsHome extends RecyclerView.Adapter<AdapterChatsHome.View
             binding.setModel(itemList.get(getAdapterPosition()));
             binding.setGeneralItemListener(listener);
             binding.setCurrentPosition(getAdapterPosition());
+            binding.cc.setTransitionName("container" + itemList.get(getAdapterPosition()).getDoctor_uid());
         }
     }
 }

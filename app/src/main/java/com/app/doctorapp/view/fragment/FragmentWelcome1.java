@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -13,6 +15,7 @@ import com.app.doctorapp.businesslogic.interfaces.GeneralClickListener;
 import com.app.doctorapp.businesslogic.viewmodels.fragment.FragViewModelWel1;
 import com.app.doctorapp.databinding.FragmentWelcome1Binding;
 import com.app.doctorapp.view.BaseFragment;
+import com.google.android.material.transition.MaterialSharedAxis;
 
 public class FragmentWelcome1 extends BaseFragment {
 
@@ -45,5 +48,12 @@ public class FragmentWelcome1 extends BaseFragment {
         mBinding.setGeneralClickListener(generalClickListener);
         // Inflate the layout for this fragment
         return mBinding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setExitTransition(new MaterialSharedAxis(MaterialSharedAxis.X,true));
+        setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X,false));
     }
 }

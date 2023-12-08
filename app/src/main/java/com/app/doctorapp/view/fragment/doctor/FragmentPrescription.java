@@ -1,5 +1,6 @@
 package com.app.doctorapp.view.fragment.doctor;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,15 +8,21 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.FragmentNavigator;
+import androidx.transition.ArcMotion;
 
 import com.app.doctorapp.R;
 import com.app.doctorapp.businesslogic.interfaces.GeneralClickListener;
 import com.app.doctorapp.businesslogic.interfaces.GeneralItemClickListener;
 import com.app.doctorapp.businesslogic.viewmodels.fragment.doctor.FragViewModelPrescription;
 import com.app.doctorapp.databinding.FragmentPrescriptionBinding;
+import com.app.doctorapp.models.ChatOuter;
 import com.app.doctorapp.view.BaseFragment;
+import com.app.doctorapp.view.fragment.FragmentChatDirections;
+import com.google.android.material.transition.MaterialContainerTransform;
 
 
 public class FragmentPrescription extends BaseFragment {
@@ -34,7 +41,7 @@ public class FragmentPrescription extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
 
-            patient_uid = getArguments().getString("patient_uid");
+            patient_uid = FragmentPrescriptionArgs.fromBundle(getArguments()).getUID();
         }
     }
 
@@ -77,5 +84,11 @@ public class FragmentPrescription extends BaseFragment {
         mBinding.setGeneralItemClickListener(generalItemClickListener);
         mBinding.setMViewmodel(mViewModel);
 
+        MaterialContainerTransform mt = new MaterialContainerTransform(mContext, true);
+        mt.setScrimColor(Color.TRANSPARENT);
+        mt.setDuration(600);
+        mt.setPathMotion(new ArcMotion());
+        setSharedElementEnterTransition(mt);
+        ViewCompat.setTransitionName(mBinding.cc, "container" + patient_uid);
     }
 }

@@ -56,6 +56,7 @@ public class AdapterAppointments extends RecyclerView.Adapter<AdapterAppointment
             binding.setModel(itemList.get(getAdapterPosition()));
             binding.setGeneralItemListener(listener);
             binding.setCurrentPosition(getAdapterPosition());
+            binding.cc.setTransitionName("container"+itemList.get(getAdapterPosition()).getPatient_uid());
         }
     }
 }

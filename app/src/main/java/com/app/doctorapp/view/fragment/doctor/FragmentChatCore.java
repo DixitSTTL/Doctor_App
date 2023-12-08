@@ -1,5 +1,6 @@
 package com.app.doctorapp.view.fragment.doctor;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.ViewModelProvider;
@@ -20,6 +22,7 @@ import com.app.doctorapp.databinding.FragmentChatCoreDoctorBinding;
 import com.app.doctorapp.models.ChatInSide;
 import com.app.doctorapp.view.BaseFragment;
 import com.app.doctorapp.view.adapter.AdapterChatsCore;
+import com.google.android.material.transition.MaterialContainerTransform;
 
 public class FragmentChatCore extends BaseFragment {
 
@@ -39,7 +42,7 @@ public class FragmentChatCore extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
 
-            patient_uid = getArguments().getString("patient_uid");
+            patient_uid = FragmentChatCoreArgs.fromBundle(getArguments()).getUID();
         }
     }
 
@@ -63,6 +66,11 @@ public class FragmentChatCore extends BaseFragment {
         setObserver();
         mViewModel.loadChatOuter(patient_uid, getActivity());
 
+        MaterialContainerTransform mt = new MaterialContainerTransform(mContext, true);
+        mt.setScrimColor(Color.TRANSPARENT);
+        mt.setDuration(600);
+        setSharedElementEnterTransition(mt);
+        ViewCompat.setTransitionName(mBinding.cc, "container" + patient_uid);
     }
 
     private void setObserver() {
@@ -73,7 +81,7 @@ public class FragmentChatCore extends BaseFragment {
         mBinding.recChats.setAdapter(adapterChatsCore);
         mBinding.recChats.setLayoutManager(manager);
 
-        onListChangedCallback = new ObservableList.OnListChangedCallback<ObservableList<ChatInSide>>() {
+        ObservableList.OnListChangedCallback<ObservableList<ChatInSide>> onListChangedCallback = new ObservableList.OnListChangedCallback<ObservableList<ChatInSide>>() {
             @Override
             public void onChanged(ObservableList<ChatInSide> sender) {
 

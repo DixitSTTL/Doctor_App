@@ -2,12 +2,12 @@ package com.app.doctorapp.businesslogic.viewmodels;
 
 import android.content.Context;
 
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.ViewModel;
 
 import com.app.doctorapp.MyApplication;
 import com.app.doctorapp.businesslogic.rx.SchedulerProvider;
-import com.app.doctorapp.utils.EnumGender;
 import com.app.doctorapp.utils.EnumUser;
 import com.app.doctorapp.utils.EnumVisibility;
 import com.app.doctorapp.utils.preference.UtilsSharedPreferences;
@@ -41,6 +41,7 @@ public class BaseViewModel extends ViewModel {
     public ObservableField<EnumUser> observeUser = new ObservableField<>(EnumUser.PATIENT);
 
     public ObservableField<EnumVisibility> observeVisibility = new ObservableField<EnumVisibility>();
+    public ObservableBoolean isPageLoaded = new ObservableBoolean(false);
 
     @Inject
     public BaseViewModel() {

@@ -55,6 +55,7 @@ public class AdapterChatsDoctor extends RecyclerView.Adapter<AdapterChatsDoctor.
             binding.setModel(itemList.get(getAdapterPosition()));
             binding.setGeneralItemListener(listener);
             binding.setCurrentPosition(getAdapterPosition());
+            binding.cc.setTransitionName("container"+itemList.get(getAdapterPosition()).getPatient_uid());
         }
     }
 }

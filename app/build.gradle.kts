@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("com.google.dagger.hilt.android")
     id("com.google.gms.google-services")
+    id("androidx.navigation.safeargs")
 
 }
 
@@ -82,23 +83,22 @@ dependencies {
     implementation("io.reactivex.rxjava2:rxjava:2.2.10")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
 
-    //glide
-    implementation ("com.github.bumptech.glide:glide:4.15.1")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
 
     //navigation
     implementation("androidx.navigation:navigation-ui:2.7.4")
     implementation("androidx.navigation:navigation-fragment:2.7.4")
 
     //auth
-    implementation ("com.google.firebase:firebase-auth:22.1.2")
+    implementation("com.google.firebase:firebase-auth:22.1.2")
 
-    //fire store
-    implementation ("com.google.firebase:firebase-firestore:24.8.1")
+    //firebase
+    implementation("com.google.firebase:firebase-firestore:24.8.1")
+    implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
+    implementation("com.google.firebase:firebase-analytics")
 
     //glide
-    implementation ("com.github.bumptech.glide:glide:4.15.1")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
 
 
 }
